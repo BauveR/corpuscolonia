@@ -1,6 +1,7 @@
 import { RefObject } from "react";
 import { AnimatedSection } from "../common/AnimatedSection";
 import { PortafolioGrid } from "../portafolio/PortafolioGrid";
+import { ResearchGallery } from "../portafolio/ResearchGallery";
 
 type Props = {
   sectionRef: RefObject<HTMLElement | null>;
@@ -27,8 +28,16 @@ export function PortfolioSection({ sectionRef, showPortfolio, onViewportEnter }:
       onViewportEnter={onViewportEnter}
       minHeight="auto"
     >
-      <div className="w-full">
-        {showPortfolio ? <PortafolioGrid /> : <PortfolioSkeleton />}
+      <div className="w-full flex flex-col lg:flex-row gap-8 px-16 lg:px-32 py-8">
+        {/* Columna izquierda: Galería del portafolio */}
+        <div className="w-full lg:w-[57%]">
+          {showPortfolio ? <PortafolioGrid /> : <PortfolioSkeleton />}
+        </div>
+
+        {/* Columna derecha: Logo ResearchGate + Galería */}
+        <div className="w-full lg:w-[43%]">
+          <ResearchGallery />
+        </div>
       </div>
     </AnimatedSection>
   );
