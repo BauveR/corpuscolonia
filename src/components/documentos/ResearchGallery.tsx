@@ -47,6 +47,126 @@ const publicationItems = [
     title: "Repensando el pasado: Mujeres, infancia y vida cotidiana indígena en la exposición permanente del Museo Arqueológico de Tenerife",
     url: "https://www.researchgate.net/publication/398987610_Repensando_el_pasado_Mujeres_infancia_y_vida_cotidiana_indigena_en_la_exposicion_permanente_del_Museo_Arqueologico_de_Tenerife",
   },
+  {
+    id: "10",
+    title: "Shaping wood in the Canary Islands: First experimental dataset focused on tool marks of Prehispanic wooden artifacts",
+    url: "https://www.researchgate.net/publication/382051984_Shaping_wood_in_the_Canary_Islands_First_experimental_dataset_focused_on_tool_marks_of_Prehispanic_wooden_artifacts",
+  },
+  {
+    id: "11",
+    title: "Excavación y análisis multidisciplinar de un recipiente cerámico aborigen de la Cueva de Los Cabezazos (Tegueste, Tenerife)",
+    url: "https://www.researchgate.net/publication/379652397_Excavacion_y_analisis_multidisciplinar_de_un_recipiente_ceramico_aborigen_de_la_Cueva_de_Los_Cabezazos_Tegueste_Tenerife",
+  },
+  {
+    id: "12",
+    title: "Òrbites, colònies i ultraperifèries: reflexions al voltant d'investigar en espais no-metropolitans",
+    url: "https://www.researchgate.net/publication/370766088_Orbites_colonies_i_ultraperiferies_reflexions_al_voltant_d'investigar_en_espais_no-metropolitans",
+  },
+  {
+    id: "13",
+    title: "Prehispanic woodcrafts in the Canary Islands: technical processes and experimental program",
+    url: "https://www.researchgate.net/publication/370419159_Prehispanic_woodcrafts_in_the_Canary_Islands_technical_processes_and_experimental_program",
+  },
+  {
+    id: "14",
+    title: "La Impronta de la Vida Cotidiana: La caracterización biomecánica de poblaciones norteafricanas antiguas a partir del análisis de actividad física",
+    url: "https://www.researchgate.net/publication/371641393_La_Impronta_de_la_Vida_Cotidiana_La_caracterizacion_biomecanica_de_poblaciones_norteafricanas_antiguas_a_partir_del_analisis_de_actividad_fisica",
+  },
+  {
+    id: "15",
+    title: "A Prehispanic infant from Tenerife with diffuse microporotic lesions",
+    url: "https://www.researchgate.net/publication/365977840_A_Prehispanic_infant_from_Tenerife_with_diffuse_microporotic_lesions",
+  },
+  {
+    id: "16",
+    title: "Un espejo en el que mirarnos: relatos biográficos de las pioneras del Departamento de Prehistoria de la Universidad de La Laguna (Tenerife)",
+    url: "https://www.researchgate.net/publication/364388455_Un_espejo_en_el_que_mirarnos_relatos_biograficos_de_las_pioneras_del_Departamento_de_Prehistoria_de_la_Universidad_de_La_Laguna_Tenerife",
+  },
+  {
+    id: "17",
+    title: "Woodworking activities among the aboriginal groups of the Canary Islands: preliminary results of the experimental programme",
+    url: "https://www.researchgate.net/publication/364916182_Woodworking_activities_among_the_aboriginal_groups_of_the_Canary_Islands_preliminary_results_of_the_experimental_programme",
+  },
+  {
+    id: "18",
+    title: "Special Issue: Adaptive Tools for Resilient Bones - Biostatistical Approaches to Past Physical Activity in Osteoarchaeology",
+    url: "https://www.researchgate.net/publication/364910035_Special_Issue_Adaptive_Tools_for_Resilient_Bones_Biostatistical_Approaches_to_Past_Physical_Activity_in_Osteoarchaeology",
+  },
+  {
+    id: "19",
+    title: "Ocupación y movilidad de las sociedades agropastoriles de alta montaña: una propuesta de estudio etnoarqueológico en el Jbel Sirwa (Anti-Atlas, Marruecos)",
+    url: "https://www.researchgate.net/publication/360715496_Ocupacion_y_movilidad_de_las_sociedades_agropastoriles_de_alta_montana_una_propuesta_de_estudio_etnoarqueologico_en_el_Jbel_Sirwa_Anti-Atlas_Marruecos",
+  },
+  {
+    id: "20",
+    title: "Les Guanches dans les montagnes de Tenerife: l'étude interdisciplinaire d'une population de substrat amazighe aux Îles Canaries",
+    url: "https://www.researchgate.net/publication/358747371_Les_Guanches_dans_les_montagnes_de_Tenerife_l'etude_interdisciplinaire_d'une_population_de_substrat_amazighe_aux_Iles_Canaries",
+  },
+  {
+    id: "21",
+    title: "Mummies under the wadi: Preliminary study of a burial deposit in Theban Tomb 209 (South Asasif, Egypt)",
+    url: "https://www.researchgate.net/publication/358270727_Mummies_under_the_wadi_Preliminary_study_of_a_burial_deposit_in_Theban_Tomb_209_South_Asasif_Egypt",
+  },
+  {
+    id: "22",
+    title: "Occupation and mobility in high-mountain agropastoral societies: a proposal for an ethnoarchaeological study in the Jbel Sirwa (Anti-Atlas, Morocco)",
+    url: "https://www.researchgate.net/publication/361069239_Occupation_and_mobility_in_high-mountain_agropastoral_societies_a_proposal_for_an_ethnoarchaeological_study_in_the_Jbel_Sirwa_Anti-Atlas_Morocco",
+  },
+  {
+    id: "23",
+    title: "Trazas vitales, huellas mortales: paleopatología craneal de la población guanche de Pino Leris (Tenerife, Canarias)",
+    url: "https://www.researchgate.net/publication/356565411_Trazas_vitales_huellas_mortales_paleopatologia_craneal_de_la_poblacion_guanche_de_Pino_Leris_Tenerife_Canarias",
+  },
+  {
+    id: "24",
+    title: "Nódulos de Schmorl en poblaciones del pasado: Consideraciones sobre su patogenia",
+    url: "https://www.researchgate.net/publication/351113142_Nodulos_de_Schmorl_en_poblaciones_del_pasado_Consideraciones_sobre_su_patogenia",
+  },
+  {
+    id: "25",
+    title: "La huella eterna del esfuerzo: los marcadores óseos de actividad física en la población calcolítica del Dolmen del Cortijo de los Vínculos",
+    url: "https://www.researchgate.net/publication/348099457_LA_HUELLA_ETERNA_DEL_ESFUERZO_LOS_MARCADORES_OSEOS_DE_ACTIVIDAD_FISICA_EN_LA_POBLACION_CALCOLITICA_DEL_DOLMEN_DEL_CORTIJO_DE_LOS_VINCULOS",
+  },
+  {
+    id: "26",
+    title: "Une approche ethnoarchéologique aux études de haute montagne entre le Jbel Sirwa et les Îles Canaries",
+    url: "https://www.researchgate.net/publication/348186038_Une_approche_ethnoarcheologique_aux_etudes_de_haute_montagne_entre_le_Jbel_Sirwa_et_les_Iles_Canaries",
+  },
+  {
+    id: "27",
+    title: "Recensión: Schrader S's Activity, Diet and Social Practice: Addressing Everyday Life in Human Skeletal Remains",
+    url: "https://www.researchgate.net/publication/349607775_Recension_Schrader_S's_Activity_Diet_and_Social_Practice_Addresing_Everyday_Life_in_Human_Skeletal_Remains",
+  },
+  {
+    id: "28",
+    title: "Voces femeninas en cuerpos aislados: lecturas de Género en la Osteoarqueología de la Protohistoria de Canarias y Baleares",
+    url: "https://www.researchgate.net/publication/349624495_Voces_femeninas_en_cuerpos_aislados_lecturas_de_Genero_en_la_Osteoarqueologia_de_la_Protohistoria_de_Canarias_y_Baleares",
+  },
+  {
+    id: "29",
+    title: "Nouvelles techniques pour des vieilles questions: tendances de l'ostéoarchéologie canarienne au XXIème siècle",
+    url: "https://www.researchgate.net/publication/346964445_Nouvelles_techniques_pour_des_vieilles_questions_tendances_de_l'osteoarcheologie_canarienne_au_XXIeme_siecle",
+  },
+  {
+    id: "30",
+    title: "Las investigaciones arqueológicas como recurso en la gestión integral del patrimonio del Parque Nacional del Teide",
+    url: "https://www.researchgate.net/publication/348570685_Las_investigaciones_arqueologicas_como_recurso_en_la_gestion_integral_del_patrimonio_del_Parque_Nacional_del_Teide",
+  },
+  {
+    id: "31",
+    title: "La Cotidianidad en los Huesos: La aportación de los marcadores óseos de actividad física en las poblaciones aborígenes de Canarias",
+    url: "https://www.researchgate.net/publication/340266775_La_Cotidianidad_en_los_Huesos_La_aportacion_de_los_marcadores_oseos_de_actividad_fisica_en_las_poblaciones_aborigenes_de_Canarias",
+  },
+  {
+    id: "32",
+    title: "Momias, carbones, cuchillos de sílex y un wadi: El trabajo arqueológico en la tumba 209",
+    url: "https://www.researchgate.net/publication/325386479_Momias_carbones_cuchillos_de_silex_y_un_wadi_El_trabajo_arqueologico_en_la_tumba_209",
+  },
+  {
+    id: "33",
+    title: "Mummies under the Wadi: Preliminary Study of a Burial Deposit in Theban Tomb 209 (South Asasif, Egypt)",
+    url: "https://www.researchgate.net/publication/340341651_Mummies_under_the_Wadi_Preliminary_Study_of_a_Burial_Deposit_in_Theban_Tomb_209_South_Asasif_Egypt",
+  },
 ];
 
 export const ResearchGallery = () => {
