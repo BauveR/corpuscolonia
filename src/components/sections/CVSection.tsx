@@ -22,19 +22,19 @@ export function CVSection({ sectionRef }: Props) {
           <div className="flex flex-col justify-center items-center px-4">
             <div className="flex flex-col gap-10 text-white" style={{ width: '70%' }}>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-5">
+                <h2 className="ext-xs sm:text-sm md:text-lg  mb-5">
                   Colonialismo Corpóreo (CORPUSCOLONIA): el impacto biopolítico del colonialismo en los restos humanos del mundo atlántico
                 </h2>
-                <p className="text-base md:text-lg leading-relaxed">
+                <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
                   Combinamos ciencia arqueológica, tecnología y experimentación para entender cómo vivieron, sufrieron y resistieron las personas durante la colonización europea.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl md:text-2xl font-bold mb-5">
+                <h3 className="ext-xs sm:text-sm md:text-lg  mb-5">
                   Un puente entre la Historia y el presente.
                 </h3>
-                <p className="text-base md:text-lg leading-relaxed">
+                <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
                   Queremos llevar la investigación más allá del laboratorio: al arte, a los museos y a las aulas, para reflexionar juntas sobre cómo el efecto que han tenido estas desigualdades hasta hoy.
                 </p>
               </div>
@@ -54,8 +54,8 @@ export function CVSection({ sectionRef }: Props) {
           </div>
 
           {/* Columna derecha: Galería CV */}
-          <div className="flex items-center justify-center">
-            <div className="w-full">
+          <div className="flex items-center justify-start">
+            <div className="w-[90%]">
               <CVGallery />
             </div>
           </div>

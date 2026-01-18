@@ -11,7 +11,7 @@ export function Education({ studies }: Props) {
     <GlassPanel variants={containerVariants} className="h-full flex flex-col py-10">
       <SectionHeader>Educación</SectionHeader>
 
-      <ul className="ms-4 sm:ms-8 grid gap-1 mt-4 text-sm">
+      <ul className="ms-4 sm:ms-8 grid gap-1 mt-4 text-sm sm:text-base">
         {studies.map((study, idx) => (
           <EducationItem key={idx} study={study} index={idx} />
         ))}
