@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import * as math from 'mathjs';
 
 import './GradualBlur.css';
 
@@ -85,7 +84,7 @@ const useResponsiveDimension = (responsive: boolean, config: any, key: string) =
   return responsive ? value : config[key];
 };
 
-const useIntersectionObserver = (ref: React.RefObject<HTMLElement>, shouldObserve = false) => {
+const useIntersectionObserver = (ref: React.RefObject<HTMLElement | null>, shouldObserve = false) => {
   const [isVisible, setIsVisible] = useState(!shouldObserve);
 
   useEffect(() => {
@@ -150,15 +149,15 @@ function GradualBlur(props: GradualBlurProps) {
 
       let blurValue;
       if (config.exponential) {
-        blurValue = math.pow(2, progress * 4) * 0.0625 * currentStrength;
+        blurValue = Math.pow(2, progress * 4) * 0.0625 * currentStrength;
       } else {
         blurValue = 0.0625 * (progress * config.divCount + 1) * currentStrength;
       }
 
-      const p1 = math.round((increment * i - increment) * 10) / 10;
-      const p2 = math.round(increment * i * 10) / 10;
-      const p3 = math.round((increment * i + increment) * 10) / 10;
-      const p4 = math.round((increment * i + increment * 2) * 10) / 10;
+      const p1 = Math.round((increment * i - increment) * 10) / 10;
+      const p2 = Math.round(increment * i * 10) / 10;
+      const p3 = Math.round((increment * i + increment) * 10) / 10;
+      const p4 = Math.round((increment * i + increment * 2) * 10) / 10;
 
       let gradient = `transparent ${p1}%, black ${p2}%`;
       if (p3 <= 100) gradient += `, black ${p3}%`;
@@ -203,13 +202,13 @@ function GradualBlur(props: GradualBlurProps) {
     if (isVertical) {
       baseStyle.height = responsiveHeight;
       baseStyle.width = responsiveWidth || '100%';
-      baseStyle[config.position] = 0;
+      (baseStyle as Record<string, unknown>)[config.position] = 0;
       baseStyle.left = 0;
       baseStyle.right = 0;
     } else if (isHorizontal) {
       baseStyle.width = responsiveWidth || responsiveHeight;
       baseStyle.height = '100%';
-      baseStyle[config.position] = 0;
+      (baseStyle as Record<string, unknown>)[config.position] = 0;
       baseStyle.top = 0;
       baseStyle.bottom = 0;
     }
