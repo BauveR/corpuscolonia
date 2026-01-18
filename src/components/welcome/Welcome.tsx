@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import desktopImage from "../../assets/corpus colonia desktop.png";
-import mobileImage from "../../assets/pantallas-02.png";
-import tabletImage from "../../assets/pantallas-03.png";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
+
+const desktopImage = "https://res.cloudinary.com/dmweipuof/image/upload/v1768775626/corpus_colonia_desktop_t90sru.png";
+const tabletImage = "https://res.cloudinary.com/dmweipuof/image/upload/v1768775628/pantallas-03_tlu7r2.png";
+const mobileImage = "https://res.cloudinary.com/dmweipuof/image/upload/v1768775625/pantallas-02_wdzoos.png";
 
 export const Welcome = () => {
   const [backgroundImage, setBackgroundImage] = useState(desktopImage);

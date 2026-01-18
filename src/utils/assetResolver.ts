@@ -58,6 +58,11 @@ export function resolveAssetUrl(
 ): string | undefined {
   if (!src) return undefined;
 
+  // Si es una URL externa, devolverla directamente
+  if (src.startsWith("http://") || src.startsWith("https://")) {
+    return src;
+  }
+
   // Intento directo
   if (assetMap[src]) return assetMap[src];
 
