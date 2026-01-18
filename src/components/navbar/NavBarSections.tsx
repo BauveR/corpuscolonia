@@ -11,8 +11,8 @@ type Props = {
 
 const routes: { id: SectionId; label: string }[] = [
   { id: "welcome", label: "Inicio" },
-  { id: "cv", label: "CV" },
-  { id: "portafolio", label: "Portafolio" },
+  { id: "cv", label: "Proyecto" },
+  { id: "portafolio", label: "Eventos y documentos" },
 ];
 
 export default function NavbarSections({ active, onGo }: Props) {
