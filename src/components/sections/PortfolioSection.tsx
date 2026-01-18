@@ -25,6 +25,7 @@ export function PortfolioSection({ sectionRef, showPortfolio, onViewportEnter }:
       ref={sectionRef}
       viewportAmount={0.25}
       onViewportEnter={onViewportEnter}
+      minHeight="auto"
     >
       <div className="w-full">
         {showPortfolio ? <PortafolioGrid /> : <PortfolioSkeleton />}

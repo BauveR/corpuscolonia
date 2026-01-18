@@ -9,6 +9,7 @@ import { WelcomeSection } from "../sections/WelcomeSection";
 import { CVSection } from "../sections/CVSection";
 import { PortfolioSection } from "../sections/PortfolioSection";
 import { PortafolioModal } from "../portafolio/PortafolioModal";
+import GradualBlur from "../gradualBlur/GradualBlur";
 import { useScrollSections } from "../../hooks/useScrollSections";
 import { useScrollNavigation } from "../../hooks/useScrollNavigation";
 import { useScrollRestoration } from "../../hooks/useScrollRestoration";
@@ -45,14 +46,14 @@ export function ScrollShell() {
   const portafolioMatch = useMatch("/portafolio/:id");
 
   return (
-    <div className="relative min-h-screen bg-slate-700 overflow-x-hidden max-w-full">
+    <div className="relative min-h-screen overflow-x-hidden max-w-full" style={{ backgroundColor: '#6E311E' }}>
       <NavbarSections active={activeSection} onGo={scrollTo} />
 
       <WelcomeSection sectionRef={welcomeRef} />
-      <Divider height="h-[67px]" />
+      <Divider height="h-[54px]" />
 
       <CVSection sectionRef={cvRef} />
-      <Divider height="h-12" />
+      <Divider height="h-10" />
 
       <PortfolioSection
         sectionRef={portafolioRef}
@@ -61,6 +62,18 @@ export function ScrollShell() {
       />
 
       <Footer />
+
+      {/* GradualBlur effect on bottom of page */}
+      <GradualBlur
+        target="page"
+        position="bottom"
+        height="6rem"
+        strength={2}
+        divCount={5}
+        curve="bezier"
+        exponential={true}
+        opacity={1}
+      />
 
       <AnimatePresence>
         {portafolioMatch && (

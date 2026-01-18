@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import DualColorTextPressure from "../textPressure/DualColorTextPressure";
-// import { TitleMovCvFast } from "../titleRicardo/TitleMovCvFast";
-// import { TitleBauveCvFast } from "../titleBauve/TitleBauveCvFast";
+import logoImage from "../../assets/colonial bio-02.png";
 
 type SectionId = "welcome" | "cv" | "portafolio";
 
@@ -80,17 +78,17 @@ export default function NavbarSections({ active, onGo }: Props) {
     <>
       <header
   className={[
-    "fixed top-0 left-0 right-0 z-50 transition-colors",
+    "fixed top-0 left-0 right-0 z-50 transition-colors pb-8",
     scrolled
-      ? "bg-gradient-to-b from-slate-900/90 to-slate-900/30 backdrop-blur-md "
-      : "bg-gradient-to-b from-slate-900/60 to-slate-900/0 backdrop-blur-md ",
+      ? "bg-gradient-to-b from-orange-950/80 via-orange-900/40 to-transparent "
+      : "bg-gradient-to-b from-orange-900/40 via-orange-900/15 to-transparent ",
   ].join(" ")}
   role="banner"
 >
 
 
         <nav className="w-full px-10">
-          <div className="grid grid-cols-3 items-center h-14 md:h-16">
+          <div className="grid grid-cols-3 items-center h-[80px] md:h-[92px]">
             {/* LEFT: Burger (móvil) */}
             <div className="flex items-center gap-3">
               {/* Burger */}
@@ -107,9 +105,9 @@ export default function NavbarSections({ active, onGo }: Props) {
             </div>
 
             {/* CENTER: logo / marca o títulos CV */}
-            <div className="flex items-center justify-center h-14 md:h-16 relative overflow-hidden">
+            <div className="flex items-center justify-center h-[80px] md:h-[92px] relative overflow-hidden">
               <motion.div
-                className="absolute w-full max-w-xs md:max-w-md px-2 md:px-4"
+                className="absolute flex items-center justify-center"
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: showTitles ? 1 : 0
@@ -117,20 +115,11 @@ export default function NavbarSections({ active, onGo }: Props) {
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 style={{ pointerEvents: showTitles ? "auto" : "none" }}
               >
-                <div className="w-full h-[56px] md:h-[64px]">
-                  <DualColorTextPressure
-                    text1="RICARDO"
-                    text2="BAUVE"
-                    color1="#F17313"
-                    color2="#93A1B7"
-                    width={true}
-                    weight={true}
-                    italic={false}
-                    alpha={false}
-                    minFontSize={21}
-                    spacing={8}
-                  />
-                </div>
+                <img
+                  src={logoImage}
+                  alt="Corpus Colonia"
+                  className="h-[58px] md:h-[70px] w-auto object-contain"
+                />
               </motion.div>
             </div>
 

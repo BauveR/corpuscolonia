@@ -1,0 +1,20 @@
+/* Forzar transparencia completa en el contenedor de Sketchfab */
+.sketchfab-container {
+  background: transparent !important;
+}
+
+.sketchfab-container iframe {
+  background: transparent !important;
+}
+
+/* Sobrescribir estilos del wrapper que genera Sketchfab */
+.sketchfab-container .sketchfab-embed-wrapper,
+.sketchfab-embed-wrapper {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Forzar transparencia en cualquier div hijo */
+.sketchfab-container div {
+  background: transparent !important;
+}

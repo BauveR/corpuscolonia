@@ -7,6 +7,7 @@ interface AnimatedSectionProps extends Omit<HTMLMotionProps<"section">, "variant
   viewportAmount?: number;
   onViewportEnter?: () => void;
   children: React.ReactNode;
+  minHeight?: "screen" | "auto";
 }
 
 /**
@@ -19,12 +20,15 @@ export function AnimatedSection({
   onViewportEnter,
   children,
   className = "",
+  minHeight = "screen",
   ...props
 }: AnimatedSectionProps) {
+  const minHeightClass = minHeight === "screen" ? "min-h-screen" : "min-h-0";
+
   return (
     <motion.section
       id={id}
-      className={`min-h-screen px-0 scroll-mt-24 ${className}`.trim()}
+      className={`${minHeightClass} px-0 scroll-mt-24 ${className}`.trim()}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: viewportAmount }}

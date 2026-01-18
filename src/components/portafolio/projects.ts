@@ -107,6 +107,12 @@ export type ProjectItem = {
       text: "Superfine art curator marketing pop up gallery",
       longDescription:
         "investment recruiter\nart basel week"
+    },
+    {
+      src: "src/assets/colonial-biopolitics.jpg",
+      text: "Colonial Biopolitics",
+      longDescription:
+        "Research project\nVisual design\nConceptual art\nCritical theory"
     }
   ];
   

@@ -16,20 +16,20 @@ export const PortafolioGrid = () => {
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      const scrollAmount = window.innerWidth < 640 ? window.innerWidth * 0.935 : 587; // 93.5vw o 581px + 6px gap
+      const scrollAmount = window.innerWidth < 640 ? window.innerWidth * 0.6545 : 411; // 65.45vw o 406.7px + 4.2px gap
       scrollContainerRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
     }
   };
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      const scrollAmount = window.innerWidth < 640 ? window.innerWidth * 0.935 : 587; // 93.5vw o 581px + 6px gap
+      const scrollAmount = window.innerWidth < 640 ? window.innerWidth * 0.6545 : 411; // 65.45vw o 406.7px + 4.2px gap
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
   return (
-    <div className="w-full pt-16 pb-12 relative">
+    <div className="w-full pt-9 pb-6 relative">
       {/* Botón izquierdo */}
       <button
         onClick={scrollLeft}
@@ -55,7 +55,7 @@ export const PortafolioGrid = () => {
       {/* Contenedor del carousel */}
       <div
         ref={scrollContainerRef}
-        className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide px-[1.05rem] sm:px-[1.575rem] lg:px-[2.1rem] pb-4"
+        className="flex gap-3 sm:gap-4 overflow-x-auto scrollbar-hide px-[0.735rem] sm:px-[1.1rem] lg:px-[1.47rem] pb-2"
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
@@ -64,7 +64,7 @@ export const PortafolioGrid = () => {
         {items.map((p) => (
           <div
             key={p.id}
-            className="flex-shrink-0 w-[93.5vw] h-[calc(93.5vw*1.67)] sm:w-[440px] sm:h-[734px] md:w-[581px] md:h-[968px]"
+            className="flex-shrink-0 w-[65.45vw] h-[calc(65.45vw*1.67)] sm:w-[308px] sm:h-[514px] md:w-[407px] md:h-[678px]"
           >
             <PortafolioCard
               id={p.id}
@@ -79,7 +79,7 @@ export const PortafolioGrid = () => {
       </div>
 
       {items.length === 0 && (
-        <div className="text-center text-sm opacity-70 mt-10 px-[1.05rem]">
+        <div className="text-center text-sm opacity-70 mt-6 px-[0.735rem]">
           No se han podido resolver imágenes. Revisa <code>src/components/portafolio/projects.ts</code> y que existan los assets.
         </div>
       )}
