@@ -1,8 +1,8 @@
-import { PortafolioCard } from "./PortafolioCard";
+import { DocumentosCard } from "./DocumentosCard";
 import { useValidProjects } from "../../hooks/useValidProjects";
 import { useRef } from "react";
 
-export const PortafolioGrid = () => {
+export const DocumentosGrid = () => {
   const validProjects = useValidProjects();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +66,7 @@ export const PortafolioGrid = () => {
             key={p.id}
             className="flex-shrink-0 w-[65.45vw] h-[calc(65.45vw*1.67)] sm:w-[308px] sm:h-[514px] md:w-[407px] md:h-[678px]"
           >
-            <PortafolioCard
+            <DocumentosCard
               id={p.id}
               index={p.index}
               name={p.name}
@@ -80,7 +80,7 @@ export const PortafolioGrid = () => {
 
       {items.length === 0 && (
         <div className="text-center text-sm opacity-70 mt-6 px-[0.735rem]">
-          No se han podido resolver imágenes. Revisa <code>src/components/portafolio/projects.ts</code> y que existan los assets.
+          No se han podido resolver imágenes. Revisa <code>src/components/documentos/projects.ts</code> y que existan los assets.
         </div>
       )}
 
@@ -93,4 +93,4 @@ export const PortafolioGrid = () => {
   );
 };
 
-export default PortafolioGrid;
+export default DocumentosGrid;

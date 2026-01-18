@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import logoImage from "../../assets/colonial bio-02.png";
 
-type SectionId = "welcome" | "cv" | "portafolio";
+type SectionId = "welcome" | "cv" | "documentos";
 
 type Props = {
   active: SectionId;
@@ -12,7 +12,7 @@ type Props = {
 const routes: { id: SectionId; label: string }[] = [
   { id: "welcome", label: "Inicio" },
   { id: "cv", label: "Proyecto" },
-  { id: "portafolio", label: "Eventos y documentos" },
+  { id: "documentos", label: "Eventos y documentos" },
 ];
 
 export default function NavbarSections({ active, onGo }: Props) {

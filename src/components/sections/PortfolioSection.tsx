@@ -1,7 +1,7 @@
 import { RefObject } from "react";
 import { AnimatedSection } from "../common/AnimatedSection";
-import { PortafolioGrid } from "../portafolio/PortafolioGrid";
-import { ResearchGallery } from "../portafolio/ResearchGallery";
+import { DocumentosGrid } from "../documentos/DocumentosGrid";
+import { ResearchGallery } from "../documentos/ResearchGallery";
 
 type Props = {
   sectionRef: RefObject<HTMLElement | null>;
@@ -22,7 +22,7 @@ function PortfolioSkeleton() {
 export function PortfolioSection({ sectionRef, showPortfolio, onViewportEnter }: Props) {
   return (
     <AnimatedSection
-      id="portafolio"
+      id="documentos"
       ref={sectionRef}
       viewportAmount={0.25}
       onViewportEnter={onViewportEnter}
@@ -31,7 +31,7 @@ export function PortfolioSection({ sectionRef, showPortfolio, onViewportEnter }:
       <div className="w-full flex flex-col lg:flex-row gap-8 px-16 lg:px-32 py-8">
         {/* Columna izquierda: Galería del portafolio */}
         <div className="w-full lg:w-[57%]">
-          {showPortfolio ? <PortafolioGrid /> : <PortfolioSkeleton />}
+          {showPortfolio ? <DocumentosGrid /> : <PortfolioSkeleton />}
         </div>
 
         {/* Columna derecha: Logo ResearchGate + Galería */}

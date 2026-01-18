@@ -5,7 +5,7 @@ type NavigationCallback = (section: string, shouldShowPortfolio?: boolean) => vo
 
 const INITIAL_SCROLL_MAP: Record<string, string> = {
   "/cv": "cv",
-  "/portafolio": "portafolio",
+  "/documentos": "documentos",
   "/": "welcome",
 };
 
@@ -23,12 +23,12 @@ export function useInitialNavigation(onNavigate: NavigationCallback) {
 
     const path = location.pathname;
 
-    // Si es una ruta de portafolio, no hacer nada
-    if (path.includes("/portafolio/")) return;
+    // Si es una ruta de documentos, no hacer nada
+    if (path.includes("/documentos/")) return;
 
     // Determinar sección basada en el path
     const section = INITIAL_SCROLL_MAP[path] || "welcome";
-    const shouldShowPortfolio = section === "portafolio";
+    const shouldShowPortfolio = section === "documentos";
 
     onNavigate(section, shouldShowPortfolio);
   }, [location.pathname, onNavigate]);

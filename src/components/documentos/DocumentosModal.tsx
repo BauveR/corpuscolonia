@@ -1,16 +1,16 @@
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { PortafolioDetailPage } from "./PortafolioDetailPage";
+import { DocumentosDetailPage } from "./DocumentosDetailPage";
 
-export function PortafolioModal() {
+export function DocumentosModal() {
   const navigate = useNavigate();
 
   const onClose = useCallback(() => {
-    // Cerrar modal y volver a la sección de portafolio
+    // Cerrar modal y volver a la sección de documentos
     navigate("/", { replace: true });
     setTimeout(() => {
-      window.location.hash = "#portafolio";
+      window.location.hash = "#documentos";
     }, 100);
   }, [navigate]);
 
@@ -44,7 +44,7 @@ export function PortafolioModal() {
         exit={{ scale: 0.95, opacity: 0, y: 20 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
-        <PortafolioDetailPage onClose={onClose} />
+        <DocumentosDetailPage onClose={onClose} />
       </motion.div>
     </motion.aside>
   );

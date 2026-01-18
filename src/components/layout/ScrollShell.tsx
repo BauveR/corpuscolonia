@@ -8,23 +8,23 @@ import { Divider } from "../common/Divider";
 import { WelcomeSection } from "../sections/WelcomeSection";
 import { CVSection } from "../sections/CVSection";
 import { PortfolioSection } from "../sections/PortfolioSection";
-import { PortafolioModal } from "../portafolio/PortafolioModal";
+import { DocumentosModal } from "../documentos/DocumentosModal";
 import GradualBlur from "../gradualBlur/GradualBlur";
 import { useScrollSections } from "../../hooks/useScrollSections";
 import { useScrollNavigation } from "../../hooks/useScrollNavigation";
 import { useScrollRestoration } from "../../hooks/useScrollRestoration";
 import { useInitialNavigation } from "../../hooks/useInitialNavigation";
 
-type SectionId = "welcome" | "cv" | "portafolio";
-const SECTION_IDS: SectionId[] = ["welcome", "cv", "portafolio"];
+type SectionId = "welcome" | "cv" | "documentos";
+const SECTION_IDS: SectionId[] = ["welcome", "cv", "documentos"];
 
 export function ScrollShell() {
   const welcomeRef = useRef<HTMLElement | null>(null);
   const cvRef = useRef<HTMLElement | null>(null);
-  const portafolioRef = useRef<HTMLElement | null>(null);
+  const documentosRef = useRef<HTMLElement | null>(null);
 
   const refs = useMemo(
-    () => ({ welcome: welcomeRef, cv: cvRef, portafolio: portafolioRef }) as const,
+    () => ({ welcome: welcomeRef, cv: cvRef, documentos: documentosRef }) as const,
     []
   );
 
@@ -43,7 +43,7 @@ export function ScrollShell() {
     }, [scrollTo])
   );
 
-  const portafolioMatch = useMatch("/portafolio/:id");
+  const documentosMatch = useMatch("/documentos/:id");
 
   return (
     <div className="relative min-h-screen overflow-x-hidden max-w-full" style={{ backgroundColor: '#6E311E' }}>
@@ -56,7 +56,7 @@ export function ScrollShell() {
       <Divider height="h-10" />
 
       <PortfolioSection
-        sectionRef={portafolioRef}
+        sectionRef={documentosRef}
         showPortfolio={showPortfolio}
         onViewportEnter={() => setShowPortfolio(true)}
       />
@@ -76,8 +76,8 @@ export function ScrollShell() {
       />
 
       <AnimatePresence>
-        {portafolioMatch && (
-          <PortafolioModal key={`portafolio-${portafolioMatch.params?.id ?? "modal"}`} />
+        {documentosMatch && (
+          <DocumentosModal key={`documentos-${documentosMatch.params?.id ?? "modal"}`} />
         )}
       </AnimatePresence>
     </div>

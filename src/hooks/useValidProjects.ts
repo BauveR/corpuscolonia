@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { projects, ProjectItem } from "../components/portafolio/projects";
+import { projects, ProjectItem } from "../components/documentos/projects";
 import { useAssetMap } from "./useAssetMap";
 import { resolveAssetUrl } from "../utils/assetResolver";
 

@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useValidProjects } from "../../hooks/useValidProjects";
 
-type PortafolioItemState = {
+type DocumentosItemState = {
   index: number;
   name: string;
   description?: string;
@@ -13,12 +13,12 @@ type Props = {
   onClose?: () => void;
 };
 
-export const PortafolioDetailPage = ({ onClose }: Props) => {
+export const DocumentosDetailPage = ({ onClose }: Props) => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const validProjects = useValidProjects();
 
-  const itemFromState = state as PortafolioItemState | undefined;
+  const itemFromState = state as DocumentosItemState | undefined;
 
   const handleClose = () => {
     if (onClose) {
@@ -26,7 +26,7 @@ export const PortafolioDetailPage = ({ onClose }: Props) => {
     } else {
       navigate("/", { replace: true });
       setTimeout(() => {
-        window.location.hash = "#portafolio";
+        window.location.hash = "#documentos";
       }, 100);
     }
   };
@@ -36,7 +36,7 @@ export const PortafolioDetailPage = ({ onClose }: Props) => {
   const project = validProjects[currentIndex];
 
   // Si no hay state, usar el primer proyecto
-  const data: PortafolioItemState = {
+  const data: DocumentosItemState = {
     index: currentIndex,
     name: itemFromState?.name ?? project?.text ?? "Proyecto",
     description: itemFromState?.description ?? project?.longDescription,
@@ -46,7 +46,7 @@ export const PortafolioDetailPage = ({ onClose }: Props) => {
   const goPrev = () => {
     const prevIndex = (currentIndex - 1 + validProjects.length) % validProjects.length;
     const prevProject = validProjects[prevIndex];
-    navigate(`/portafolio/${prevIndex}`, {
+    navigate(`/documentos/${prevIndex}`, {
       state: {
         index: prevIndex,
         name: prevProject?.text,
@@ -59,7 +59,7 @@ export const PortafolioDetailPage = ({ onClose }: Props) => {
   const goNext = () => {
     const nextIndex = (currentIndex + 1) % validProjects.length;
     const nextProject = validProjects[nextIndex];
-    navigate(`/portafolio/${nextIndex}`, {
+    navigate(`/documentos/${nextIndex}`, {
       state: {
         index: nextIndex,
         name: nextProject?.text,
@@ -142,4 +142,4 @@ export const PortafolioDetailPage = ({ onClose }: Props) => {
   );
 };
 
-export default PortafolioDetailPage;
+export default DocumentosDetailPage;

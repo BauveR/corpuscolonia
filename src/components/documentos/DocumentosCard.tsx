@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-export type PortafolioCardProps = {
+export type DocumentosCardProps = {
   id: string;
   index: number;
   name: string;
@@ -11,7 +11,7 @@ export type PortafolioCardProps = {
   className?: string;
 };
 
-export const PortafolioCard = ({
+export const DocumentosCard = ({
   id,
   index,
   name,
@@ -19,12 +19,12 @@ export const PortafolioCard = ({
   secondaryImage,
   description,
   className = "",
-}: PortafolioCardProps) => {
+}: DocumentosCardProps) => {
   const navigate = useNavigate();
   const hoverImage = secondaryImage || primaryImage;
 
   const goDetail = () => {
-    navigate(`/portafolio/${id}`, {
+    navigate(`/documentos/${id}`, {
       state: {
         index,
         name,
