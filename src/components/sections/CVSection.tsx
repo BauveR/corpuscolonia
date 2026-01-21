@@ -20,7 +20,7 @@ export function CVSection({ sectionRef }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-8" style={{ width: '120%', height: '98%', maxWidth: '100vw' }}>
           {/* Columna izquierda: Textos */}
           <div className="flex flex-col justify-center items-center px-4">
-            <div className="flex flex-col gap-10 text-white" style={{ width: '70%' }}>
+            <div className="flex flex-col gap-10 text-stone-200" style={{ width: '70%' }}>
               <div>
                 <h2 className="ext-xs sm:text-sm md:text-lg  mb-5">
                   Colonialismo Corpóreo (CORPUSCOLONIA): el impacto biopolítico del colonialismo en los restos humanos del mundo atlántico
@@ -35,7 +35,7 @@ export function CVSection({ sectionRef }: Props) {
                   Un puente entre la Historia y el presente.
                 </h3>
                 <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
-                  Queremos llevar la investigación más allá del laboratorio: al arte, a los museos y a las aulas, para reflexionar juntas sobre cómo el efecto que han tenido estas desigualdades hasta hoy.
+                  Queremos llevar la investigación más allá del laboratorio: al arte, a los museos y a las aulas, para reflexionar juntas cómo el efecto que han tenido estas desigualdades hasta hoy.
                 </p>
               </div>
 
@@ -46,7 +46,7 @@ export function CVSection({ sectionRef }: Props) {
                   alt="Dibujo de Leonardo Torriani (1592)"
                   className="w-full rounded-lg mb-3"
                 />
-                <p className="text-white/80 text-sm italic text-center">
+                <p className="text-stone-200/80 text-sm italic text-center">
                   Dibujo de Leonardo Torriani (1592) que representa su visión de las luchas rituales realizadas por los hombres indígenas de Gran Canaria
                 </p>
               </div>

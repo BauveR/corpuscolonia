@@ -12,8 +12,8 @@ export function Experience() {
         {experienceList.map((exp, i) => (
           <motion.div key={i} className="space-y-1" variants={itemVariants}>
             <p className="font-bold text-slate-400 text-base md:text-sm">{exp.title}</p>
-            {exp.place && <p className="font-bold text-stone-50 text-sm md:text-base">{exp.place}</p>}
-            {exp.desc && <p className="text-stone-300">{exp.desc}</p>}
+            {exp.place && <p className="font-bold text-stone-200 text-sm md:text-base">{exp.place}</p>}
+            {exp.desc && <p className="text-stone-200">{exp.desc}</p>}
 
             {exp.extra && (
               <motion.p

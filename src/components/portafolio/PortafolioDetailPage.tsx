@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useValidProjects } from "../../hooks/useValidProjects";
 
-type DocumentosItemState = {
+type PortafolioItemState = {
   index: number;
   name: string;
   description?: string;
@@ -13,12 +13,12 @@ type Props = {
   onClose?: () => void;
 };
 
-export const DocumentosDetailPage = ({ onClose }: Props) => {
+export const PortafolioDetailPage = ({ onClose }: Props) => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const validProjects = useValidProjects();
 
-  const itemFromState = state as DocumentosItemState | undefined;
+  const itemFromState = state as PortafolioItemState | undefined;
 
   const handleClose = () => {
     if (onClose) {
@@ -26,7 +26,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
     } else {
       navigate("/", { replace: true });
       setTimeout(() => {
-        window.location.hash = "#documentos";
+        window.location.hash = "#portafolio";
       }, 100);
     }
   };
@@ -36,7 +36,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
   const project = validProjects[currentIndex];
 
   // Si no hay state, usar el primer proyecto
-  const data: DocumentosItemState = {
+  const data: PortafolioItemState = {
     index: currentIndex,
     name: itemFromState?.name ?? project?.text ?? "Proyecto",
     description: itemFromState?.description ?? project?.longDescription,
@@ -46,7 +46,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
   const goPrev = () => {
     const prevIndex = (currentIndex - 1 + validProjects.length) % validProjects.length;
     const prevProject = validProjects[prevIndex];
-    navigate(`/documentos/${prevIndex}`, {
+    navigate(`/portafolio/${prevIndex}`, {
       state: {
         index: prevIndex,
         name: prevProject?.text,
@@ -59,7 +59,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
   const goNext = () => {
     const nextIndex = (currentIndex + 1) % validProjects.length;
     const nextProject = validProjects[nextIndex];
-    navigate(`/documentos/${nextIndex}`, {
+    navigate(`/portafolio/${nextIndex}`, {
       state: {
         index: nextIndex,
         name: nextProject?.text,
@@ -74,7 +74,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
       <button
         type="button"
         onClick={handleClose}
-        className="absolute top-4 right-4 sm:top-6 sm:right-6 p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-50 text-stone-200 hover:text-white"
+        className="absolute top-4 right-4 sm:top-6 sm:right-6 p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-50 text-stone-300 hover:text-white"
         aria-label="Cerrar"
       >
         <svg width="14" height="14" className="sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="1.5">
@@ -85,7 +85,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
       <button
         type="button"
         onClick={goPrev}
-        className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-4 md:left-6 p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-20 text-stone-200 hover:text-white"
+        className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-4 md:left-6 p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-20 text-stone-300 hover:text-white"
         aria-label="Anterior"
       >
         <svg width="14" height="14" className="sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="1.5">
@@ -96,7 +96,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
       <button
         type="button"
         onClick={goNext}
-        className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-4 md:right-6 p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-20 text-stone-200 hover:text-white"
+        className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-4 md:right-6 p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-20 text-stone-300 hover:text-white"
         aria-label="Siguiente"
       >
         <svg width="14" height="14" className="sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="1.5">
@@ -132,7 +132,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
         >
           <h1 className="text-lg sm:text-xl lg:text-2xl font-medium text-stone-200 leading-tight">{data.name}</h1>
           {data.description && (
-            <p className="mt-3 sm:mt-4 text-sm lg:text-base leading-relaxed text-stone-200">
+            <p className="mt-3 sm:mt-4 text-sm lg:text-base leading-relaxed text-stone-300">
               {data.description}
             </p>
           )}
@@ -142,4 +142,4 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
   );
 };
 
-export default DocumentosDetailPage;
+export default PortafolioDetailPage;

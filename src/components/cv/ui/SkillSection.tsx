@@ -19,7 +19,7 @@ export function SkillSection({ section, index, iconMap }: Props) {
       <h3 className="font-bold text-slate-400 mb-2">{section.title}</h3>
       <ul className="space-y-2">
         {section.items.map((item, j) => (
-          <li key={j} className="flex items-center gap-2 text-stone-50">
+          <li key={j} className="flex items-center gap-2 text-stone-200">
             {iconMap[item] && <span className="w-5 h-5">{iconMap[item]}</span>}
             <span>{item}</span>
           </li>

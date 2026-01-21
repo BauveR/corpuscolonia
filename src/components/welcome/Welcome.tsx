@@ -40,9 +40,10 @@ export const Welcome = () => {
       className="relative w-full max-w-full h-[100svh] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden isolate bg-black"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: '100% auto',
+        backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
         opacity: isInitialLoad ? 0 : 1,
         filter: isInitialLoad ? 'blur(8px)' : 'blur(0px)',
         transition: 'opacity 1s ease-out, filter 1s ease-out'
@@ -52,17 +53,15 @@ export const Welcome = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 flex flex-col items-center w-full mt-[63.25vh]"
+        className="relative z-10 flex flex-col items-center w-full mt-[43.25vh] sm:mt-[63.25vh]"
       >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-xs sm:text-sm md:text-lg tracking-[0.05em] sm:tracking-[0.08em] text-white mb-8 sm:mb-10 font-sans font-normal mt-6 sm:mt-8 text-center px-4 max-w-3xl leading-tight"
+          className="text-xs sm:text-sm md:text-lg tracking-[0.05em] sm:tracking-[0.08em] text-stone-200 mb-8 sm:mb-10 font-sans font-normal mt-6 sm:mt-8 text-center px-4 max-w-[80%] sm:max-w-3xl leading-tight"
         >
-          Bajo la superficie, los cuerpos del pasado guardan nuestra historia.
-          <br />
-          Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
+          Bajo la superficie, los cuerpos del pasado guardan nuestra historia. Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
         </motion.div>
 
         {/* Logos de las universidades */}
@@ -70,7 +69,7 @@ export const Welcome = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.4 }}
-          className="flex items-center justify-center gap-6 sm:gap-8 px-4 mt-8"
+          className="flex items-center justify-evenly sm:justify-center gap-6 sm:gap-8 px-4 mt-2 sm:mt-8 w-full sm:w-auto"
         >
           <img
             src={leidenLogo}

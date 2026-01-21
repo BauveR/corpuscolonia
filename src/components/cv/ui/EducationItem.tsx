@@ -13,7 +13,7 @@ export function EducationItem({ study, index }: Props) {
     >
       <div>
         <p className="font-bold text-slate-400">{study.title}</p>
-        <p className="text-stone-50">{study.place}</p>
+        <p className="text-stone-200">{study.place}</p>
       </div>
       <div>
         <p className="text-orange-400">{study.year}</p>

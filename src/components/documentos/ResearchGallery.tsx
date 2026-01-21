@@ -1,5 +1,47 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import researchgateLogo from "../../assets/researchgate-logo-white.svg";
+
+// Iconos SVG inline
+const ShareIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="18" cy="5" r="3" />
+    <circle cx="6" cy="12" r="3" />
+    <circle cx="18" cy="19" r="3" />
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+  </svg>
+);
+
+const CopyIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+const TwitterIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+const LinkedInIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+  </svg>
+);
 
 const publicationItems = [
   {
@@ -171,6 +213,8 @@ const publicationItems = [
 
 export const ResearchGallery = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [openShareMenu, setOpenShareMenu] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const scrollUp = () => {
     if (scrollContainerRef.current) {
@@ -182,6 +226,34 @@ export const ResearchGallery = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({ top: 200, behavior: "smooth" });
     }
+  };
+
+  const handleCopyUrl = async (url: string, id: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch (err) {
+      console.error("Error al copiar:", err);
+    }
+  };
+
+  const handleShare = (platform: string, url: string, title: string) => {
+    const encodedUrl = encodeURIComponent(url);
+    const encodedTitle = encodeURIComponent(title);
+
+    const shareUrls: Record<string, string> = {
+      twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    };
+
+    window.open(shareUrls[platform], "_blank", "width=600,height=400");
+    setOpenShareMenu(null);
+  };
+
+  const toggleShareMenu = (id: string) => {
+    setOpenShareMenu(openShareMenu === id ? null : id);
   };
 
   return (
@@ -196,33 +268,24 @@ export const ResearchGallery = () => {
       </div>
 
       {/* Galería con scroll vertical */}
-      <div className="w-full relative flex-1">
+      <div className="w-full flex-1 flex flex-col">
         {/* Botón arriba */}
-        <button
-          onClick={scrollUp}
-          className="absolute left-1/2 -translate-x-1/2 top-2 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
-          aria-label="Scroll arriba"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
-            <path d="M18 15l-6-6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-
-        {/* Botón abajo */}
-        <button
-          onClick={scrollDown}
-          className="absolute left-1/2 -translate-x-1/2 bottom-2 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
-          aria-label="Scroll abajo"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
-            <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
+        <div className="flex justify-center mb-3">
+          <button
+            onClick={scrollUp}
+            className="p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
+            aria-label="Scroll arriba"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
+              <path d="M18 15l-6-6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
 
         {/* Contenedor del scroll */}
         <div
           ref={scrollContainerRef}
-          className="flex flex-col gap-4 overflow-y-auto scrollbar-hide h-[500px] py-12 px-2"
+          className="flex flex-col gap-4 overflow-y-auto scrollbar-hide h-[700px] py-4 px-2"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -231,23 +294,85 @@ export const ResearchGallery = () => {
           {publicationItems.map((item) => (
             <div
               key={item.id}
-              className="flex-shrink-0 w-full h-[120px] bg-white/5 rounded-xl overflow-hidden hover:bg-white/10 transition-all duration-300"
+              className="flex-shrink-0 w-full min-h-[140px] bg-white/5 rounded-xl overflow-visible hover:bg-white/10 transition-all duration-300 relative"
             >
               <div className="h-full p-4 flex flex-col justify-between">
-                <h4 className="text-white font-semibold text-sm leading-snug line-clamp-3">
+                <h4 className="text-stone-200 font-semibold text-sm leading-snug line-clamp-3">
                   {item.title}
                 </h4>
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="self-start px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg text-white text-xs font-medium transition-all duration-200"
-                >
-                  Ver artículo
-                </a>
+                <div className="flex items-center gap-2 mt-2">
+                  {/* Ver artículo */}
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-white text-xs font-medium transition-all duration-200"
+                  >
+                    Ver artículo
+                  </a>
+
+                  {/* Copiar URL */}
+                  <button
+                    onClick={() => handleCopyUrl(item.url, item.id)}
+                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all duration-200"
+                    aria-label="Copiar URL"
+                    title="Copiar URL"
+                  >
+                    {copiedId === item.id ? <CheckIcon /> : <CopyIcon />}
+                  </button>
+
+                  {/* Compartir */}
+                  <div className="relative">
+                    <button
+                      onClick={() => toggleShareMenu(item.id)}
+                      className="p-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all duration-200"
+                      aria-label="Compartir"
+                      title="Compartir"
+                    >
+                      <ShareIcon />
+                    </button>
+
+                    {/* Menú de compartir */}
+                    {openShareMenu === item.id && (
+                      <div className="absolute bottom-full left-0 mb-2 bg-stone-800/95 backdrop-blur-sm rounded-lg shadow-xl border border-white/10 py-1 z-50 min-w-[140px]">
+                        <button
+                          onClick={() => handleShare("twitter", item.url, item.title)}
+                          className="w-full px-3 py-2 flex items-center gap-2 text-white text-xs hover:bg-white/10 transition-colors"
+                        >
+                          <TwitterIcon /> X (Twitter)
+                        </button>
+                        <button
+                          onClick={() => handleShare("linkedin", item.url, item.title)}
+                          className="w-full px-3 py-2 flex items-center gap-2 text-white text-xs hover:bg-white/10 transition-colors"
+                        >
+                          <LinkedInIcon /> LinkedIn
+                        </button>
+                        <button
+                          onClick={() => handleShare("facebook", item.url, item.title)}
+                          className="w-full px-3 py-2 flex items-center gap-2 text-white text-xs hover:bg-white/10 transition-colors"
+                        >
+                          <FacebookIcon /> Facebook
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Botón abajo */}
+        <div className="flex justify-center mt-3">
+          <button
+            onClick={scrollDown}
+            className="p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
+            aria-label="Scroll abajo"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
+              <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
         </div>
 
         <style>{`

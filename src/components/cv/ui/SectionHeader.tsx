@@ -9,7 +9,7 @@ type Props = {
 export default function SectionHeader({ children, className = "" }: Props) {
   return (
     <motion.h2
-      className={["ms-4 sm:ms-8 text-2xl sm:text-3xl font-bold text-stone-400", className].join(" ")}
+      className={["ms-4 sm:ms-8 text-2xl sm:text-3xl font-bold text-stone-200", className].join(" ")}
       variants={itemVariants}
     >
       {children}

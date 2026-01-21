@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-export type DocumentosCardProps = {
+export type PortafolioCardProps = {
   id: string;
   index: number;
   name: string;
@@ -11,7 +11,7 @@ export type DocumentosCardProps = {
   className?: string;
 };
 
-export const DocumentosCard = ({
+export const PortafolioCard = ({
   id,
   index,
   name,
@@ -19,12 +19,12 @@ export const DocumentosCard = ({
   secondaryImage,
   description,
   className = "",
-}: DocumentosCardProps) => {
+}: PortafolioCardProps) => {
   const navigate = useNavigate();
   const hoverImage = secondaryImage || primaryImage;
 
   const goDetail = () => {
-    navigate(`/documentos/${id}`, {
+    navigate(`/portafolio/${id}`, {
       state: {
         index,
         name,
@@ -44,7 +44,7 @@ export const DocumentosCard = ({
         "ring-1 ring-white/5",
         "hover:bg-slate-900/40 hover:border-white/15",
         "transition-all duration-500",
-        "text-stone-200",
+        "text-stone-300",
         "p-3",
         className,
       ].join(" ")}
@@ -103,7 +103,7 @@ export const DocumentosCard = ({
           <span className="line-clamp-1">{name}</span>
         </h3>
         {description && (
-          <p className="mt-1 text-sm text-stone-200 leading-snug line-clamp-2">
+          <p className="mt-1 text-sm text-stone-400 leading-snug line-clamp-2">
             {description}
           </p>
         )}

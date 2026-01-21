@@ -47,7 +47,7 @@ export const CVGallery = () => {
 
               {/* Descripción a la derecha */}
               <div className="w-2/3 p-4 flex flex-col justify-center">
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-stone-200 text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
