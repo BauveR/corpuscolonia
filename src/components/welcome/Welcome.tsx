@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
 
-const desktopImage = "https://res.cloudinary.com/dmweipuof/image/upload/v1768775626/corpus_colonia_desktop_t90sru.png";
-const tabletImage = "https://res.cloudinary.com/dmweipuof/image/upload/v1768775628/pantallas-03_tlu7r2.png";
-const mobileImage = "https://res.cloudinary.com/dmweipuof/image/upload/v1768775625/pantallas-02_wdzoos.png";
+const desktopImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_1920/v1768775626/corpus_colonia_desktop_t90sru.png";
+const tabletImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_1536/v1768775628/pantallas-03_tlu7r2.png";
+const mobileImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_828/v1768775625/pantallas-02_wdzoos.png";
 
 const getInitialImage = () => {
   if (typeof window === 'undefined') return desktopImage;
