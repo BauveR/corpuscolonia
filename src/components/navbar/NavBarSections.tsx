@@ -80,8 +80,8 @@ export default function NavbarSections({ active, onGo }: Props) {
   className={[
     "fixed top-0 left-0 right-0 z-50 transition-colors pb-8",
     scrolled
-      ? "bg-gradient-to-b from-orange-950/80 via-orange-900/40 to-transparent "
-      : "bg-gradient-to-b from-orange-900/40 via-orange-900/15 to-transparent ",
+      ? "bg-gradient-to-b from-orange-950/60 sm:from-orange-950/80 via-orange-900/30 sm:via-orange-900/40 to-transparent"
+      : "bg-gradient-to-b from-orange-900/20 sm:from-orange-900/40 via-orange-900/10 sm:via-orange-900/15 to-transparent",
   ].join(" ")}
   role="banner"
 >
