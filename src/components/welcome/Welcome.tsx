@@ -7,13 +7,23 @@ const desktopImage = "https://res.cloudinary.com/dmweipuof/image/upload/v1768775
 const tabletImage = "https://res.cloudinary.com/dmweipuof/image/upload/v1768775628/pantallas-03_tlu7r2.png";
 const mobileImage = "https://res.cloudinary.com/dmweipuof/image/upload/v1768775625/pantallas-02_wdzoos.png";
 
+const getInitialImage = () => {
+  if (typeof window === 'undefined') return desktopImage;
+  if (window.innerWidth < 640) return mobileImage;
+  if (window.innerWidth < 1024) return tabletImage;
+  return desktopImage;
+};
+
 export const Welcome = () => {
-  const [backgroundImage, setBackgroundImage] = useState(desktopImage);
+  const [backgroundImage, setBackgroundImage] = useState(getInitialImage);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
 
   useEffect(() => {
     const updateBackground = () => {
-      if (window.innerWidth < 640) {
+      const mobile = window.innerWidth < 640;
+      setIsMobile(mobile);
+      if (mobile) {
         setBackgroundImage(mobileImage);
       } else if (window.innerWidth < 1024) {
         setBackgroundImage(tabletImage);
@@ -43,7 +53,7 @@ export const Welcome = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
+        backgroundAttachment: isMobile ? 'scroll' : 'fixed',
         opacity: isInitialLoad ? 0 : 1,
         filter: isInitialLoad ? 'blur(8px)' : 'blur(0px)',
         transition: 'opacity 1s ease-out, filter 1s ease-out'
