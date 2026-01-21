@@ -16,13 +16,13 @@ export function CVSection({ sectionRef }: Props) {
       viewportAmount={0.01}
       minHeight="auto"
     >
-      <div className="w-full flex items-center justify-center py-20 bg-transparent">
+      <div className="w-full flex items-center justify-center py-8 sm:py-20 bg-transparent">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-8" style={{ width: '120%', height: '98%', maxWidth: '100vw' }}>
           {/* Columna izquierda: Textos */}
           <div className="flex flex-col justify-center items-center px-4">
-            <div className="flex flex-col gap-10 text-stone-200" style={{ width: '70%' }}>
+            <div className="flex flex-col gap-10 text-white w-full sm:w-[70%] text-justify" style={{ wordSpacing: '-0.02em', textJustify: 'inter-word' }}>
               <div>
-                <h2 className="ext-xs sm:text-sm md:text-lg  mb-5">
+                <h2 className="text-xs sm:text-sm md:text-lg mb-5 text-center text-[#D5C5B0]">
                   Colonialismo Corpóreo (CORPUSCOLONIA): el impacto biopolítico del colonialismo en los restos humanos del mundo atlántico
                 </h2>
                 <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
@@ -31,8 +31,8 @@ export function CVSection({ sectionRef }: Props) {
               </div>
 
               <div>
-                <h3 className="ext-xs sm:text-sm md:text-lg  mb-5">
-                  Un puente entre la Historia y el presente.
+                <h3 className="text-xs sm:text-sm md:text-lg mb-5 text-center text-[#D5C5B0]">
+                  Un puente entre la Historia y el presente
                 </h3>
                 <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
                   Queremos llevar la investigación más allá del laboratorio: al arte, a los museos y a las aulas, para reflexionar juntas cómo el efecto que han tenido estas desigualdades hasta hoy.
@@ -40,13 +40,13 @@ export function CVSection({ sectionRef }: Props) {
               </div>
 
               {/* Imagen con pie de foto */}
-              <div className="mt-6">
+              <div className="mt-2 sm:mt-6">
                 <img
                   src={figure5}
                   alt="Dibujo de Leonardo Torriani (1592)"
                   className="w-full rounded-lg mb-3"
                 />
-                <p className="text-stone-200/80 text-sm italic text-center">
+                <p className="text-white/80 text-[0.6rem] sm:text-sm italic text-center">
                   Dibujo de Leonardo Torriani (1592) que representa su visión de las luchas rituales realizadas por los hombres indígenas de Gran Canaria
                 </p>
               </div>
@@ -54,8 +54,8 @@ export function CVSection({ sectionRef }: Props) {
           </div>
 
           {/* Columna derecha: Galería CV */}
-          <div className="flex items-center justify-start">
-            <div className="w-[90%]">
+          <div className="flex items-center justify-center sm:justify-start">
+            <div className="w-full sm:w-[90%]">
               <CVGallery />
             </div>
           </div>
