@@ -58,10 +58,9 @@ export const Welcome = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-xs sm:text-sm md:text-lg tracking-[0.05em] sm:tracking-[0.08em] text-white mb-8 sm:mb-10 font-sans font-normal mt-6 sm:mt-8 text-center px-4 max-w-3xl leading-tight"
+          className="text-[0.825rem] sm:text-sm md:text-lg tracking-[0.05em] sm:tracking-[0.08em] text-white mb-8 sm:mb-10 font-sans font-normal mt-6 sm:mt-8 text-center px-4 max-w-[90%] sm:max-w-3xl leading-tight"
         >
           Bajo la superficie, los cuerpos del pasado guardan nuestra historia.
-          <br />
           Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
         </motion.div>
 
@@ -70,7 +69,7 @@ export const Welcome = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.4 }}
-          className="flex items-center justify-center gap-6 sm:gap-8 px-4 mt-8"
+          className="flex items-center justify-center gap-6 sm:gap-8 px-4 mt-8 w-full"
         >
           <img
             src={leidenLogo}
@@ -80,8 +79,7 @@ export const Welcome = () => {
           <img
             src={ullLogo}
             alt="Universidad de La Laguna"
-            className="h-12 sm:h-16 md:h-20 w-auto object-contain"
-            style={{ transform: 'scale(0.6)' }}
+            className="h-7 sm:h-10 md:h-12 w-auto object-contain"
           />
         </motion.div>
       </motion.div>

@@ -33,7 +33,7 @@ export const DocumentosGrid = () => {
       {/* Botón izquierdo */}
       <button
         onClick={scrollLeft}
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
+        className="absolute -left-3 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
         aria-label="Scroll izquierda"
       >
         <svg width="20" height="20" className="sm:w-6 sm:h-6" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
@@ -44,7 +44,7 @@ export const DocumentosGrid = () => {
       {/* Botón derecho */}
       <button
         onClick={scrollRight}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
+        className="absolute -right-3 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
         aria-label="Scroll derecha"
       >
         <svg width="20" height="20" className="sm:w-6 sm:h-6" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">

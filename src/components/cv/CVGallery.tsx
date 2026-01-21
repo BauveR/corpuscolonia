@@ -29,7 +29,7 @@ const galleryItems = [
 export const CVGallery = () => {
   return (
     <div className="w-full h-full">
-      <div className="flex flex-col gap-4 py-12">
+      <div className="flex flex-col gap-4 py-4 sm:py-12">
         {galleryItems.map((item) => (
           <div
             key={item.id}
