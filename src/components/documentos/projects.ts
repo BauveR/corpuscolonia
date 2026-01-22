@@ -109,7 +109,7 @@ export type ProjectItem = {
         "investment recruiter\nart basel week"
     },
     {
-      src: "https://res.cloudinary.com/dmweipuof/image/upload/v1768991838/Colonial_biopolitics_vtzu31.png",
+      src: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_800/v1768991838/Colonial_biopolitics_vtzu31.png",
       text: "Colonial Biopolitics",
       longDescription:
         "Research project\nVisual design\nConceptual art\nCritical theory"
