@@ -11,7 +11,7 @@ export function CollaboratorsPage() {
     >
       <NavbarSections active={null} onGo={() => {}} />
 
-      <main className="flex-1 pt-[120px] pb-20 px-6 md:px-16 lg:px-24 max-w-[1400px] mx-auto w-full">
+      <main className="flex-1 pt-[120px] pb-20 px-6 md:px-16 lg:px-24 max-w-[1680px] mx-auto w-full">
         <h1 className="text-2xl md:text-3xl font-semibold text-stone-100 tracking-wide mb-10">
           A NETWORK OF PEOPLE ACROSS AN OCEAN
         </h1>
