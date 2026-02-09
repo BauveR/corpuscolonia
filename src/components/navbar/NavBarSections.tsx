@@ -1,28 +1,38 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import logoImage from "../../assets/colonial bio-02.png";
 
 type SectionId = "welcome" | "cv" | "documentos";
 
+type ScrollRoute = { kind: "scroll"; id: SectionId; label: string };
+type LinkRoute = { kind: "link"; href: string; label: string };
+type RouteItem = ScrollRoute | LinkRoute;
+
 type Props = {
-  active: SectionId;
+  active: SectionId | null;
   onGo: (id: SectionId) => void;
 };
 
-const routes: { id: SectionId; label: string }[] = [
-  { id: "welcome", label: "Inicio" },
-  { id: "cv", label: "Proyecto" },
-  { id: "documentos", label: "Eventos y documentos" },
+const routes: RouteItem[] = [
+  { kind: "scroll", id: "welcome", label: "Inicio" },
+  { kind: "scroll", id: "cv", label: "Proyecto" },
+  { kind: "scroll", id: "documentos", label: "Eventos y documentos" },
+  { kind: "link", href: "/collaborators", label: "Colaboradores" },
 ];
 
 export default function NavbarSections({ active, onGo }: Props) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showTitles, setShowTitles] = useState(false);
 
+  const isOnMainPage = location.pathname === "/" || location.pathname.startsWith("/cv") || location.pathname.startsWith("/documentos");
+
   // Estabilizar el estado de los títulos con debounce e hysteresis
   useEffect(() => {
-    const shouldShow = active !== "welcome";
+    const shouldShow = active !== "welcome" && active !== null;
 
     // Si vamos a mostrar, hacerlo más rápido (100ms)
     // Si vamos a ocultar, hacerlo más lento (400ms) para evitar parpadeos
@@ -69,9 +79,20 @@ export default function NavbarSections({ active, onGo }: Props) {
   const linkInactive =
     "text-stone-300 blur-[0.8px] hover:text-white hover:blur-none font-normal";
 
-  const go = (id: SectionId) => {
+  const handleRoute = (item: RouteItem) => {
     setMobileOpen(false);
-    onGo(id);
+    if (item.kind === "link") {
+      navigate(item.href);
+    } else if (isOnMainPage) {
+      onGo(item.id);
+    } else {
+      navigate(item.id === "welcome" ? "/" : `/${item.id}`);
+    }
+  };
+
+  const isActive = (item: RouteItem) => {
+    if (item.kind === "link") return location.pathname === item.href;
+    return active === item.id;
   };
 
   return (
@@ -127,29 +148,33 @@ export default function NavbarSections({ active, onGo }: Props) {
             <div className="flex items-center justify-end pr-16">
               {/* Links desktop */}
               <div className="hidden lg:flex items-start gap-4">
-                {routes.map((r) => (
-                  <button
-                    key={r.id}
-                    onClick={() => go(r.id)}
-                    className={[
-                      linkBase,
-                      active === r.id ? linkActive : linkInactive,
-                    ].join(" ")}
-                    aria-current={active === r.id ? "page" : undefined}
-                  >
-                    <span className="relative">
-                      {r.label}
-                      <span
-                        className="
-                          absolute left-0 -bottom-0.5 w-full h-[2px] bg-white
-                          origin-left scale-x-0
-                          lg:group-hover:scale-x-100
-                          transition-transform duration-300 ease-out
-                        "
-                      />
-                    </span>
-                  </button>
-                ))}
+                {routes.map((r) => {
+                  const key = r.kind === "scroll" ? r.id : r.href;
+                  const current = isActive(r);
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => handleRoute(r)}
+                      className={[
+                        linkBase,
+                        current ? linkActive : linkInactive,
+                      ].join(" ")}
+                      aria-current={current ? "page" : undefined}
+                    >
+                      <span className="relative">
+                        {r.label}
+                        <span
+                          className="
+                            absolute left-0 -bottom-0.5 w-full h-[2px] bg-white
+                            origin-left scale-x-0
+                            lg:group-hover:scale-x-100
+                            transition-transform duration-300 ease-out
+                          "
+                        />
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -190,21 +215,25 @@ export default function NavbarSections({ active, onGo }: Props) {
               </div>
 
               <div className="mt-3 flex flex-col">
-                {routes.map((r) => (
-                  <button
-                    key={r.id}
-                    onClick={() => go(r.id)}
-                    className={[
-                      "py-3 text-base border-b border-white/10 text-left transition-all duration-300",
-                      active === r.id
-                        ? "text-white font-bold blur-none"
-                        : "text-stone-300 hover:text-white blur-[0.8px] hover:blur-none font-normal",
-                    ].join(" ")}
-                    aria-current={active === r.id ? "page" : undefined}
-                  >
-                    {r.label}
-                  </button>
-                ))}
+                {routes.map((r) => {
+                  const key = r.kind === "scroll" ? r.id : r.href;
+                  const current = isActive(r);
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => handleRoute(r)}
+                      className={[
+                        "py-3 text-base border-b border-white/10 text-left transition-all duration-300",
+                        current
+                          ? "text-white font-bold blur-none"
+                          : "text-stone-300 hover:text-white blur-[0.8px] hover:blur-none font-normal",
+                      ].join(" ")}
+                      aria-current={current ? "page" : undefined}
+                    >
+                      {r.label}
+                    </button>
+                  );
+                })}
               </div>
             </motion.aside>
           </>

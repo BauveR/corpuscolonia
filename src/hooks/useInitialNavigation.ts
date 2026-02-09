@@ -6,6 +6,7 @@ type NavigationCallback = (section: string, shouldShowPortfolio?: boolean) => vo
 const INITIAL_SCROLL_MAP: Record<string, string> = {
   "/cv": "cv",
   "/documentos": "documentos",
+  "/collaborators": "collaborators",
   "/": "welcome",
 };
 
