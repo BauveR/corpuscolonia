@@ -1,7 +1,7 @@
 import { RefObject } from "react";
 import { AnimatedSection } from "../common/AnimatedSection";
 import { CVGallery } from "../cv/CVGallery";
-import figure5 from "../../assets/Figure 5.png";
+const figure5 = "https://res.cloudinary.com/dmweipuof/image/upload/v1770911634/Imagen_grande_drw1xq.png";
 import "./CVSection.css";
 
 type Props = {
@@ -23,19 +23,10 @@ export function CVSection({ sectionRef }: Props) {
             <div className="flex flex-col gap-10 text-white w-full sm:w-[70%] text-justify" style={{ wordSpacing: '-0.02em', textJustify: 'inter-word' }}>
               <div>
                 <h2 className="text-xs sm:text-sm md:text-lg mb-5 text-center text-[#D5C5B0]">
-                  Colonialismo Corpóreo (CORPUSCOLONIA): el impacto biopolítico del colonialismo en los restos humanos del mundo atlántico
+                  Redes atlánticas de intercambio
                 </h2>
                 <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
-                  Combinamos ciencia arqueológica, tecnología y experimentación para entender cómo vivieron, sufrieron y resistieron las personas durante la colonización europea.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xs sm:text-sm md:text-lg mb-5 text-center text-[#D5C5B0]">
-                  Un puente entre la Historia y el presente
-                </h3>
-                <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
-                  Queremos llevar la investigación más allá del laboratorio: al arte, a los museos y a las aulas, para reflexionar juntas sobre cómo el efecto que han tenido estas desigualdades hasta hoy.
+                  Un mapa de las conexiones que articularon el mundo atlántico moderno en los casos de estudio de este proyecto (Canarias, México y Holanda): circulación de personas, mercancías y tecnologías entre Europa, África y América. Estas redes no solo movieron productos —como azúcar, tabaco o metales— sino también cuerpos, conocimientos y formas de vida que transformaron profundamente las sociedades implicadas.
                 </p>
               </div>
 
@@ -43,11 +34,11 @@ export function CVSection({ sectionRef }: Props) {
               <div className="mt-2 sm:mt-6">
                 <img
                   src={figure5}
-                  alt="Dibujo de Leonardo Torriani (1592)"
+                  alt="Redes atlánticas de intercambio"
                   className="w-full rounded-lg mb-3"
                 />
                 <p className="text-white/80 text-[0.6rem] sm:text-sm italic text-center">
-                  Dibujo de Leonardo Torriani (1592) que representa su visión de las luchas rituales realizadas por los hombres indígenas de Gran Canaria
+                  Redes atlánticas de intercambio
                 </p>
               </div>
             </div>

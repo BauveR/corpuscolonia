@@ -35,7 +35,7 @@ export function TeamMemberCard({ member, index = 0 }: Props) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden ring-2 ring-white/10">
+      <div className="w-36 h-36 md:w-[10.5rem] md:h-[10.5rem] rounded-full overflow-hidden ring-2 ring-white/10">
         <img
           src={member.image}
           alt={member.name}
