@@ -21,14 +21,13 @@ export function CVSection({ sectionRef }: Props) {
           {/* Columna izquierda: Textos */}
           <div className="flex flex-col justify-center items-center px-4">
             <div className="flex flex-col gap-10 text-white w-full sm:w-[70%] text-justify" style={{ wordSpacing: '-0.02em', textJustify: 'inter-word' }}>
-              <div>
-                <h2 className="text-xs sm:text-sm md:text-lg mb-5 text-center text-[#D5C5B0]">
-                  Redes atlánticas de intercambio
-                </h2>
-                <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
-                  Un mapa de las conexiones que articularon el mundo atlántico moderno en los casos de estudio de este proyecto (Canarias, México y Holanda): circulación de personas, mercancías y tecnologías entre Europa, África y América. Estas redes no solo movieron productos —como azúcar, tabaco o metales— sino también cuerpos, conocimientos y formas de vida que transformaron profundamente las sociedades implicadas.
-                </p>
-              </div>
+              <h2 className="font-anton text-xl sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-center md:text-left text-[#D5C5B0]">
+                Redes atlánticas de intercambio
+              </h2>
+
+              <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
+                Un mapa de las conexiones que articularon el mundo atlántico moderno en los casos de estudio de este proyecto (Canarias, México y Holanda): circulación de personas, mercancías y tecnologías entre Europa, África y América. Estas redes no solo movieron productos —como azúcar, tabaco o metales— sino también cuerpos, conocimientos y formas de vida que transformaron profundamente las sociedades implicadas.
+              </p>
 
               {/* Imagen con pie de foto */}
               <div className="mt-2 sm:mt-6">

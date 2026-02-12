@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-anton: "Anton", sans-serif;
+}
+
 @layer base {
   html,
   body {
