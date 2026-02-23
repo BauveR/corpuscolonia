@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import logoImage from "../../assets/colonial bio-02.png";
 
-type SectionId = "welcome" | "cv" | "documentos";
+type SectionId = "welcome" | "cv" | "documentos" | "redes";
 
 type ScrollRoute = { kind: "scroll"; id: SectionId; label: string };
 type LinkRoute = { kind: "link"; href: string; label: string };
@@ -18,6 +18,7 @@ const routes: RouteItem[] = [
   { kind: "scroll", id: "welcome", label: "Inicio" },
   { kind: "scroll", id: "cv", label: "Proyecto" },
   { kind: "scroll", id: "documentos", label: "Eventos y documentos" },
+  { kind: "scroll", id: "redes", label: "Redes" },
   { kind: "link", href: "/collaborators", label: "Colaboradores" },
 ];
 
