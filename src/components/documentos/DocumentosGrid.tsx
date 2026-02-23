@@ -12,6 +12,7 @@ export const DocumentosGrid = () => {
     name: project.text,
     description: project.longDescription,
     primaryImage: project.resolvedImage,
+    downloadUrl: project.downloadUrl,
   }));
 
   const scrollLeft = () => {
@@ -72,6 +73,7 @@ export const DocumentosGrid = () => {
               name={p.name}
               description={p.description}
               primaryImage={p.primaryImage!}
+              downloadUrl={p.downloadUrl}
               className="h-full w-full"
             />
           </div>

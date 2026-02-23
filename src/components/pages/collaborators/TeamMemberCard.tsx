@@ -41,6 +41,8 @@ export function TeamMemberCard({ member, index = 0 }: Props) {
           alt={member.name}
           className="w-full h-full object-cover"
           draggable={false}
+          loading="lazy"
+          decoding="async"
         />
       </div>
 

@@ -22,11 +22,15 @@ export const Footer = () => {
               src={leidenLogo}
               alt="Universiteit Leiden"
               className="h-10 md:h-12 w-auto object-contain"
+              loading="lazy"
+              decoding="async"
             />
             <img
               src={ullLogo}
               alt="Universidad de La Laguna"
               className="h-8 md:h-10 w-auto object-contain"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
