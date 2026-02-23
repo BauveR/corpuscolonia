@@ -267,6 +267,8 @@ export const ResearchGallery = () => {
           src={researchgateLogo}
           alt="ResearchGate"
           className="h-6 sm:h-8 w-auto"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 

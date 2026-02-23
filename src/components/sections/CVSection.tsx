@@ -1,7 +1,7 @@
 import { RefObject } from "react";
 import { AnimatedSection } from "../common/AnimatedSection";
 import { CVGallery } from "../cv/CVGallery";
-const figure5 = "https://res.cloudinary.com/dmweipuof/image/upload/v1770911634/Imagen_grande_drw1xq.png";
+const figure5 = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_800/v1770911634/Imagen_grande_drw1xq.png";
 import "./CVSection.css";
 
 type Props = {
@@ -35,6 +35,8 @@ export function CVSection({ sectionRef }: Props) {
                   src={figure5}
                   alt="Redes atlánticas de intercambio"
                   className="w-full rounded-lg mb-3"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <p className="text-white/80 text-[0.6rem] sm:text-sm italic text-center">
                   Redes atlánticas de intercambio

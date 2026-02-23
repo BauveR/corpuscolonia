@@ -3,6 +3,7 @@ export type ProjectItem = {
     src: string;          // ruta relativa en src/assets
     text: string;         // título corto
     longDescription: string; // descripción larga para el detalle
+    downloadUrl?: string; // URL de descarga (opcional)
   };
   
   export const projects: ProjectItem[] = [
@@ -109,10 +110,11 @@ export type ProjectItem = {
         "investment recruiter\nart basel week"
     },
     {
-      src: "https://res.cloudinary.com/dmweipuof/image/upload/v1768775625/colonial-biopolitics_sgxxe6.png",
+      src: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_600/v1768991838/Colonial_biopolitics_vtzu31.png",
       text: "Colonial Biopolitics",
       longDescription:
-        "Research project\nVisual design\nConceptual art\nCritical theory"
+        "Research project\nVisual design\nConceptual art\nCritical theory",
+      downloadUrl: "https://res.cloudinary.com/dmweipuof/image/upload/v1771878194/Copy_-_Colonial_biopolitics_-_Leiden_compressed_lgbsnx.pdf"
     }
   ];
   

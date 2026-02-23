@@ -8,6 +8,7 @@ export type DocumentosCardProps = {
   primaryImage: string;
   secondaryImage?: string;
   description?: string;
+  downloadUrl?: string;
   className?: string;
 };
 
@@ -18,6 +19,7 @@ export const DocumentosCard = ({
   primaryImage,
   secondaryImage,
   description,
+  downloadUrl,
   className = "",
 }: DocumentosCardProps) => {
   const navigate = useNavigate();
@@ -33,6 +35,11 @@ export const DocumentosCard = ({
       },
     });
   };
+
+  const resolvedDownloadUrl = downloadUrl
+    ?? (primaryImage.includes("res.cloudinary.com")
+      ? primaryImage.replace("/upload/", "/upload/fl_attachment/")
+      : primaryImage);
 
   return (
     <div
@@ -79,22 +86,36 @@ export const DocumentosCard = ({
           />
         )}
 
-        {/* Botón View (solo en hover) */}
-        <motion.button
-          onClick={(e) => {
-            e.stopPropagation();
-            goDetail();
-          }}
-          className="pointer-events-none absolute inset-x-4 bottom-4 z-20 hidden h-10 items-center justify-center bg-orange-500 text-white text-md tracking-wide uppercase group-hover:flex group-hover:pointer-events-auto rounded-2xl shadow-xl
-  bg-gradient-to-r from-orange-500 to-orange-700
-  shadow-orange-300/50
-  hover:shadow-orange-500/70
-  transition duration-300 ease-in-out
-"
-          whileTap={{ scale: 0.98 }}
-        >
-          View
-        </motion.button>
+        {/* Botones View + Descarga (solo en hover) */}
+        <div className="pointer-events-none absolute inset-x-4 bottom-4 z-20 hidden gap-2 group-hover:flex group-hover:pointer-events-auto">
+          <motion.button
+            onClick={(e) => {
+              e.stopPropagation();
+              goDetail();
+            }}
+            className="flex-1 h-10 flex items-center justify-center text-white text-md tracking-wide uppercase rounded-2xl shadow-xl
+              bg-gradient-to-r from-orange-500 to-orange-700
+              shadow-orange-300/50 hover:shadow-orange-500/70
+              transition duration-300 ease-in-out"
+            whileTap={{ scale: 0.98 }}
+          >
+            View
+          </motion.button>
+
+          <motion.a
+            href={resolvedDownloadUrl}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex-1 h-10 flex items-center justify-center text-white text-md tracking-wide uppercase rounded-2xl shadow-xl
+              transition duration-300 ease-in-out"
+            style={{ backgroundColor: "#778ED8" }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Descarga
+          </motion.a>
+        </div>
       </div>
 
       {/* Título + descripción breve - en la parte inferior */}
