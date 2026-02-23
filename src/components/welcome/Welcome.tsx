@@ -1,25 +1,16 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
 
 const desktopImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_1920/v1768775626/corpus_colonia_desktop_t90sru.png";
-const tabletImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_1536/v1768775628/pantallas-03_tlu7r2.png";
-const mobileImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_828/v1768775625/pantallas-02_wdzoos.png";
-
-const getInitialImage = () => {
-  if (typeof window === 'undefined') return desktopImage;
-  if (window.innerWidth < 640) return mobileImage;
-  if (window.innerWidth < 1024) return tabletImage;
-  return desktopImage;
-};
+const tabletImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_1024/v1768775628/pantallas-03_tlu7r2.png";
+const mobileImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_640/v1768775625/pantallas-02_wdzoos.png";
 
 export const Welcome = () => {
-  const { t } = useTranslation();
-  const [backgroundImage, setBackgroundImage] = useState(getInitialImage);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [backgroundImage, setBackgroundImage] = useState(desktopImage);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   useEffect(() => {
     const updateBackground = () => {
@@ -40,71 +31,62 @@ export const Welcome = () => {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsInitialLoad(false), 100);
+    // Remover el efecto de difuminado después de la carga inicial
+    const timer = setTimeout(() => {
+      setIsInitialLoad(false);
+    }, 100);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="relative w-full max-w-full h-[100svh] overflow-hidden isolate bg-black">
-
-      {/* Imagen de fondo como elemento DOM — evita bugs de background-image en Safari */}
-      <img
-        src={backgroundImage}
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        style={{
-          objectPosition: isMobile ? '50% 0%' : 'center',
-          opacity: isInitialLoad ? 0 : 1,
-          filter: isInitialLoad ? 'blur(8px)' : 'blur(0px)',
-          transition: 'opacity 1s ease-out, filter 1s ease-out',
-        }}
-      />
-
-      {/* Mobile: contenedor absoluto — ajusta bottom para subir/bajar todo el bloque */}
-      {isMobile && (
+    <section
+      className="relative w-full max-w-full h-[100svh] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden isolate bg-black"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: isMobile ? 'scroll' : 'fixed',
+        opacity: isInitialLoad ? 0 : 1,
+        filter: isInitialLoad ? 'blur(8px)' : 'blur(0px)',
+        transition: 'opacity 1s ease-out, filter 1s ease-out'
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 flex flex-col items-center w-full mt-[63.25vh]"
+      >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="absolute z-10 left-0 right-0 flex flex-col items-center gap-3 px-5"
-          style={{ bottom: '10%' }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="text-[0.825rem] sm:text-sm md:text-lg tracking-[0.05em] sm:tracking-[0.08em] text-white mb-8 sm:mb-10 font-sans font-normal mt-6 sm:mt-8 text-center px-4 max-w-[90%] sm:max-w-3xl leading-tight"
         >
-          <p className="text-sm text-stone-300/80 text-center leading-relaxed max-w-full">
-            {t('welcome.text')}
-          </p>
-          <div className="flex items-center justify-center gap-6 w-full">
-            <img src={leidenLogo} alt="Universiteit Leiden" className="h-10 w-auto object-contain" draggable={false} />
-            <img src={ullLogo} alt="Universidad de La Laguna" className="h-7 w-auto object-contain" draggable={false} />
-          </div>
+          Bajo la superficie, los cuerpos del pasado guardan nuestra historia.
+          Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
         </motion.div>
-      )}
 
-      {/* Tablet / Desktop */}
-      {!isMobile && (
-        <div className="relative z-10 flex flex-col items-center w-full mt-[70vh] px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-sm lg:text-[0.96rem] text-stone-300/80 mb-10 mt-8 text-center px-4 max-w-3xl leading-relaxed"
-          >
-            {t('welcome.text')}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.4 }}
-            className="flex items-center justify-center gap-8 px-4 mt-8 w-full"
-          >
-            <img src={leidenLogo} alt="Universiteit Leiden" className="h-16 md:h-20 w-auto object-contain" />
-            <img src={ullLogo} alt="Universidad de La Laguna" className="h-10 md:h-12 w-auto object-contain" />
-          </motion.div>
-        </div>
-      )}
-
+        {/* Logos de las universidades */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.4 }}
+          className="flex items-center justify-center gap-6 sm:gap-8 px-4 mt-8 w-full"
+        >
+          <img
+            src={leidenLogo}
+            alt="Universiteit Leiden"
+            className="h-12 sm:h-16 md:h-20 w-auto object-contain"
+          />
+          <img
+            src={ullLogo}
+            alt="Universidad de La Laguna"
+            className="h-7 sm:h-10 md:h-12 w-auto object-contain"
+          />
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 export type DocumentosCardProps = {
   id: string;
@@ -24,7 +23,6 @@ export const DocumentosCard = ({
   className = "",
 }: DocumentosCardProps) => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
   const hoverImage = secondaryImage || primaryImage;
 
   const goDetail = () => {
@@ -53,7 +51,7 @@ export const DocumentosCard = ({
         "ring-1 ring-white/5",
         "hover:bg-slate-900/40 hover:border-white/15",
         "transition-all duration-500",
-        "text-stone-200",
+        "text-stone-300",
         "p-3",
         className,
       ].join(" ")}
@@ -88,49 +86,48 @@ export const DocumentosCard = ({
           />
         )}
 
+        {/* Botones View + Descarga (solo en hover) */}
+        <div className="pointer-events-none absolute inset-x-4 bottom-4 z-20 hidden gap-2 group-hover:flex group-hover:pointer-events-auto">
+          <motion.button
+            onClick={(e) => {
+              e.stopPropagation();
+              goDetail();
+            }}
+            className="flex-1 h-10 flex items-center justify-center text-white text-md tracking-wide uppercase rounded-2xl shadow-xl
+              bg-gradient-to-r from-orange-500 to-orange-700
+              shadow-orange-300/50 hover:shadow-orange-500/70
+              transition duration-300 ease-in-out"
+            whileTap={{ scale: 0.98 }}
+          >
+            View
+          </motion.button>
+
+          <motion.a
+            href={resolvedDownloadUrl}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex-1 h-10 flex items-center justify-center text-white text-md tracking-wide uppercase rounded-2xl shadow-xl
+              transition duration-300 ease-in-out"
+            style={{ backgroundColor: "#778ED8" }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Descarga
+          </motion.a>
+        </div>
       </div>
 
-      {/* Título + descripción breve */}
+      {/* Título + descripción breve - en la parte inferior */}
       <div className="mt-3 px-1 flex-shrink-0">
         <h3 className="text-base tracking-wide font-medium">
           <span className="line-clamp-1">{name}</span>
         </h3>
         {description && (
-          <p className="mt-1 text-sm text-stone-300/80 leading-relaxed line-clamp-2">
+          <p className="mt-1 text-sm text-stone-400 leading-snug line-clamp-2">
             {description}
           </p>
         )}
-      </div>
-
-      {/* Botones View + Descarga — siempre visibles */}
-      <div className="mt-3 px-1 flex gap-2 flex-shrink-0">
-        <motion.button
-          onClick={(e) => {
-            e.stopPropagation();
-            goDetail();
-          }}
-          className="flex-1 h-10 flex items-center justify-center text-white text-sm tracking-wide uppercase rounded-2xl
-            bg-gradient-to-r from-orange-500 to-orange-700
-            shadow-orange-300/30 hover:shadow-orange-500/50 shadow-lg
-            transition duration-300 ease-in-out"
-          whileTap={{ scale: 0.98 }}
-        >
-          {t("documents.view")}
-        </motion.button>
-
-        <motion.a
-          href={resolvedDownloadUrl}
-          download
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="flex-1 h-10 flex items-center justify-center text-white text-sm tracking-wide uppercase rounded-2xl shadow-lg
-            transition duration-300 ease-in-out"
-          style={{ backgroundColor: "#778ED8" }}
-          whileTap={{ scale: 0.98 }}
-        >
-          {t("documents.download")}
-        </motion.a>
       </div>
     </div>
   );
