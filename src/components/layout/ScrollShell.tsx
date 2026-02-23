@@ -8,6 +8,7 @@ import { Divider } from "../common/Divider";
 import { WelcomeSection } from "../sections/WelcomeSection";
 import { CVSection } from "../sections/CVSection";
 import { PortfolioSection } from "../sections/PortfolioSection";
+import { RedesSection } from "../sections/RedesSection";
 import { DocumentosModal } from "../documentos/DocumentosModal";
 import GradualBlur from "../gradualBlur/GradualBlur";
 import { useScrollSections } from "../../hooks/useScrollSections";
@@ -15,16 +16,17 @@ import { useScrollNavigation } from "../../hooks/useScrollNavigation";
 import { useScrollRestoration } from "../../hooks/useScrollRestoration";
 import { useInitialNavigation } from "../../hooks/useInitialNavigation";
 
-type SectionId = "welcome" | "cv" | "documentos";
-const SECTION_IDS: SectionId[] = ["welcome", "cv", "documentos"];
+type SectionId = "welcome" | "cv" | "documentos" | "redes";
+const SECTION_IDS: SectionId[] = ["welcome", "cv", "documentos", "redes"];
 
 export function ScrollShell() {
   const welcomeRef = useRef<HTMLElement | null>(null);
   const cvRef = useRef<HTMLElement | null>(null);
   const documentosRef = useRef<HTMLElement | null>(null);
+  const redesRef = useRef<HTMLElement | null>(null);
 
   const refs = useMemo(
-    () => ({ welcome: welcomeRef, cv: cvRef, documentos: documentosRef }) as const,
+    () => ({ welcome: welcomeRef, cv: cvRef, documentos: documentosRef, redes: redesRef }) as const,
     []
   );
 
@@ -60,6 +62,9 @@ export function ScrollShell() {
         showPortfolio={showPortfolio}
         onViewportEnter={() => setShowPortfolio(true)}
       />
+      <Divider height="h-10" />
+
+      <RedesSection sectionRef={redesRef} />
 
       <Footer />
 
