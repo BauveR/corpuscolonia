@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useMatch } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
@@ -31,19 +31,6 @@ export function ScrollShell() {
   );
 
   const [showPortfolio, setShowPortfolio] = useState(false);
-  const [footerVisible, setFooterVisible] = useState(false);
-  const footerRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const el = footerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setFooterVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
 
   // Hooks personalizados para manejar scroll
   const activeSection = useScrollSections({ sectionIds: SECTION_IDS, sectionRefs: refs });
@@ -79,21 +66,19 @@ export function ScrollShell() {
 
       <RedesSection sectionRef={redesRef} />
 
-      <Footer ref={footerRef} />
+      <Footer />
 
       {/* GradualBlur effect on bottom of page */}
-      {!footerVisible && (
-        <GradualBlur
-          target="page"
-          position="bottom"
-          height="6rem"
-          strength={2}
-          divCount={5}
-          curve="bezier"
-          exponential={true}
-          opacity={1}
-        />
-      )}
+      <GradualBlur
+        target="page"
+        position="bottom"
+        height="6rem"
+        strength={2}
+        divCount={5}
+        curve="bezier"
+        exponential={true}
+        opacity={1}
+      />
 
       <AnimatePresence>
         {documentosMatch && (

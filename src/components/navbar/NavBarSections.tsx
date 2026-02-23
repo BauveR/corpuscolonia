@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
 import logoImage from "../../assets/colonial bio-02.png";
 
 type SectionId = "welcome" | "cv" | "documentos" | "redes";
 
-type ScrollRoute = { kind: "scroll"; id: SectionId; labelKey: string };
-type LinkRoute = { kind: "link"; href: string; labelKey: string };
+type ScrollRoute = { kind: "scroll"; id: SectionId; label: string };
+type LinkRoute = { kind: "link"; href: string; label: string };
 type RouteItem = ScrollRoute | LinkRoute;
 
 type Props = {
@@ -15,27 +14,20 @@ type Props = {
   onGo: (id: SectionId) => void;
 };
 
-const routeDefs: RouteItem[] = [
-  { kind: "scroll", id: "welcome", labelKey: "nav.home" },
-  { kind: "scroll", id: "cv", labelKey: "nav.project" },
-  { kind: "scroll", id: "documentos", labelKey: "nav.events" },
-  { kind: "scroll", id: "redes", labelKey: "nav.networks" },
-  { kind: "link", href: "/collaborators", labelKey: "nav.collaborators" },
+const routes: RouteItem[] = [
+  { kind: "scroll", id: "welcome", label: "Inicio" },
+  { kind: "scroll", id: "cv", label: "Proyecto" },
+  { kind: "scroll", id: "documentos", label: "Eventos y documentos" },
+  { kind: "scroll", id: "redes", label: "Redes" },
+  { kind: "link", href: "/collaborators", label: "Colaboradores" },
 ];
 
 export default function NavbarSections({ active, onGo }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t, i18n } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showTitles, setShowTitles] = useState(false);
-
-  const toggleLang = () => {
-    i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es");
-  };
-
-  const routes = routeDefs.map((r) => ({ ...r, label: t(r.labelKey) }));
 
   const isOnMainPage = location.pathname === "/" || location.pathname.startsWith("/cv") || location.pathname.startsWith("/documentos");
 
@@ -110,8 +102,8 @@ export default function NavbarSections({ active, onGo }: Props) {
   className={[
     "fixed top-0 left-0 right-0 z-50 transition-colors pb-8",
     scrolled
-      ? "bg-gradient-to-b from-orange-950/60 sm:from-orange-950/80 via-orange-900/30 sm:via-orange-900/40 to-transparent"
-      : "bg-gradient-to-b from-orange-900/20 sm:from-orange-900/40 via-orange-900/10 sm:via-orange-900/15 to-transparent",
+      ? "bg-gradient-to-b from-orange-950/80 via-orange-900/40 to-transparent "
+      : "bg-gradient-to-b from-orange-900/40 via-orange-900/15 to-transparent ",
   ].join(" ")}
   role="banner"
 >
@@ -121,6 +113,7 @@ export default function NavbarSections({ active, onGo }: Props) {
           <div className="grid grid-cols-3 items-center h-[80px] md:h-[92px]">
             {/* LEFT: Burger (móvil) */}
             <div className="flex items-center gap-3">
+              {/* Burger */}
               <button
                 className="lg:hidden p-2 rounded-md hover:bg-white/10"
                 aria-label="Abrir menú"
@@ -138,7 +131,9 @@ export default function NavbarSections({ active, onGo }: Props) {
               <motion.div
                 className="absolute flex items-center justify-center"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: showTitles ? 1 : 0 }}
+                animate={{
+                  opacity: showTitles ? 1 : 0
+                }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 style={{ pointerEvents: showTitles ? "auto" : "none" }}
               >
@@ -150,8 +145,8 @@ export default function NavbarSections({ active, onGo }: Props) {
               </motion.div>
             </div>
 
-            {/* RIGHT: Links (desktop) + lang switcher */}
-            <div className="flex items-center justify-end pr-16 gap-4">
+            {/* RIGHT: Links (desktop) */}
+            <div className="flex items-center justify-end pr-16">
               {/* Links desktop */}
               <div className="hidden lg:flex items-start gap-4">
                 {routes.map((r) => {
@@ -182,13 +177,6 @@ export default function NavbarSections({ active, onGo }: Props) {
                   );
                 })}
               </div>
-              {/* Language switcher */}
-              <button
-                onClick={toggleLang}
-                className="text-xs font-semibold tracking-widest text-stone-300 hover:text-white transition-colors duration-300 uppercase border border-white/20 rounded-md px-2 py-1"
-              >
-                {i18n.language.startsWith("es") ? "EN" : "ES"}
-              </button>
             </div>
           </div>
         </nav>
@@ -247,12 +235,6 @@ export default function NavbarSections({ active, onGo }: Props) {
                     </button>
                   );
                 })}
-                <button
-                  onClick={toggleLang}
-                  className="mt-4 self-start text-xs font-semibold tracking-widest text-stone-300 hover:text-white transition-colors duration-300 uppercase border border-white/20 rounded-md px-2 py-1"
-                >
-                  {i18n.language.startsWith("es") ? "EN" : "ES"}
-                </button>
               </div>
             </motion.aside>
           </>

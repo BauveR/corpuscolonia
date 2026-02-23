@@ -1,5 +1,4 @@
 import { RefObject } from "react";
-import { useTranslation } from "react-i18next";
 import { AnimatedSection } from "../common/AnimatedSection";
 
 type Props = {
@@ -25,22 +24,12 @@ const socialItems = [
       </svg>
     ),
   },
-  {
-    href: "https://www.tiktok.com/@corpuscolonia?_r=1&_t=ZS-94F05q0cpmP",
-    label: "TikTok",
-    icon: (
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" />
-      </svg>
-    ),
-  },
 ];
 
 // 40 items: la mitad (20) debe superar el ancho más grande posible
 const marqueeItems = Array.from({ length: 40 }, (_, i) => socialItems[i % socialItems.length]);
 
 export function RedesSection({ sectionRef }: Props) {
-  const { t } = useTranslation();
   return (
     <AnimatedSection
       id="redes"
@@ -52,27 +41,27 @@ export function RedesSection({ sectionRef }: Props) {
 
         {/* Contenedor glass + video + botón */}
         <div className={[
-          "relative z-10 flex flex-row items-center gap-6 px-8 py-6 mx-auto w-[90%] sm:w-[40%]",
-          "bg-slate-900/30 backdrop-blur-2xl",
+          "relative z-10 flex flex-row items-center gap-6 px-8 py-6 mx-auto w-[40%]",
+          "bg-slate-900/10 backdrop-blur-2xl",
           "shadow-xl shadow-black/20",
           "border border-white/10",
           "ring-1 ring-white/5",
-          "hover:bg-slate-900/40 hover:border-white/15",
-          "transition-all duration-500",
           "rounded-3xl",
         ].join(" ")}>
 
           {/* Video */}
           <iframe
-            className="-ml-16 w-full aspect-[4/3] sm:w-[836px] sm:h-[627px] rounded-2xl flex-shrink-0 sm:-ml-40"
+            className="w-[836px] h-[627px] rounded-2xl flex-shrink-0 -ml-40"
             src="https://player.vimeo.com/video/1167521640?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&controls=0"
+            width="836"
+            height="627"
             allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             title="ScreenRecording_02-23-2026 22-59-24_1"
           />
 
           {/* Botón derecho — estilo Instagram */}
-          <div className="flex flex-col items-center justify-center gap-3 flex-shrink-0 -ml-20 sm:-ml-36">
+          <div className="flex flex-col items-center justify-center gap-3 flex-shrink-0 -ml-36">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="white">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
             </svg>
@@ -83,14 +72,14 @@ export function RedesSection({ sectionRef }: Props) {
               className="px-5 py-2 rounded-xl text-sm font-semibold text-white tracking-wide transition-opacity duration-300 hover:opacity-80"
               style={{ backgroundColor: "#3897f0" }}
             >
-              {t("networks.viewMore")}
+              View more
             </a>
           </div>
 
         </div>
 
         {/* Marquee de logos — ancho total, sube 50% de su alto detrás del video */}
-        <div className="marquee-wrapper py-6 relative z-0" style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", overflow: "hidden", marginTop: "-380px" }}>
+        <div className="py-6 relative z-0" style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", overflow: "hidden", marginTop: "-380px" }}>
           <div className="flex animate-marquee" style={{ width: "max-content" }}>
             {marqueeItems.map((item, i) => (
               <a
@@ -99,7 +88,7 @@ export function RedesSection({ sectionRef }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={item.label}
-                className="flex-shrink-0 text-stone-400 hover:text-stone-200 transition-colors duration-300 px-6 sm:px-12 [&_svg]:w-6 [&_svg]:h-6 sm:[&_svg]:w-12 sm:[&_svg]:h-12"
+                className="flex-shrink-0 text-stone-400 hover:text-stone-200 transition-colors duration-300 px-12"
               >
                 {item.icon}
               </a>
@@ -116,11 +105,6 @@ export function RedesSection({ sectionRef }: Props) {
         }
         .animate-marquee {
           animation: marquee 120s linear infinite;
-        }
-        @media (max-width: 639px) {
-          .marquee-wrapper {
-            margin-top: 16px;
-          }
         }
       `}</style>
     </AnimatedSection>
