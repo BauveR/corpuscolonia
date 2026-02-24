@@ -28,7 +28,7 @@ export function PortfolioSection({ sectionRef, showPortfolio, onViewportEnter }:
       onViewportEnter={onViewportEnter}
       minHeight="auto"
     >
-      <div className="w-full flex flex-col lg:flex-row gap-8 px-16 lg:px-32 py-8">
+      <div className="w-full flex flex-col lg:flex-row gap-8 px-4 sm:px-16 lg:px-32 py-8">
         {/* Columna izquierda: Galería del portafolio */}
         <div className="w-full lg:w-[57%]">
           {showPortfolio ? <DocumentosGrid /> : <PortfolioSkeleton />}

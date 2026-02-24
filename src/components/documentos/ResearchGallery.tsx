@@ -290,7 +290,7 @@ export const ResearchGallery = () => {
         {/* Contenedor del scroll */}
         <div
           ref={scrollContainerRef}
-          className="flex flex-col gap-4 overflow-y-auto scrollbar-hide h-[250px] sm:h-[500px] py-12 px-0 sm:px-2 w-[135%] sm:w-full -ml-[17.5%] sm:ml-0"
+          className="flex flex-col gap-4 overflow-y-auto scrollbar-hide h-[250px] sm:h-[500px] py-12 px-0 sm:px-2 w-full"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",

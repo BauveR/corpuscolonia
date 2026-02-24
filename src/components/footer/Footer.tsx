@@ -1,9 +1,11 @@
+import { forwardRef } from "react";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
 
-export const Footer = () => {
+export const Footer = forwardRef<HTMLElement>((_, ref) => {
   return (
     <footer
+      ref={ref}
       className="relative z-40 w-full bg-gradient-to-t from-orange-950 to-transparent"
       role="contentinfo"
     >
@@ -17,7 +19,7 @@ export const Footer = () => {
           </div>
 
           {/* Logos a la derecha */}
-          <div className="flex items-center gap-4 -mt-4 sm:mt-0">
+          <div className="flex items-center gap-4 mt-4 sm:mt-0">
             <img
               src={leidenLogo}
               alt="Universiteit Leiden"
@@ -37,4 +39,4 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
+});

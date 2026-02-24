@@ -17,7 +17,7 @@ export function CVSection({ sectionRef }: Props) {
       viewportAmount={0.01}
       minHeight="auto"
     >
-      <div className="w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[7.8rem]">
+      <div className="w-full flex flex-col py-8 sm:py-20 bg-transparent gap-20 sm:gap-[7.8rem]">
 
         {/* Fila superior: columna izquierda (textos) + columna derecha (vacía) */}
         <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 px-8" style={{ maxWidth: '100vw' }}>
@@ -49,7 +49,7 @@ export function CVSection({ sectionRef }: Props) {
           </div>
 
           {/* Columna derecha: SVG giratorio */}
-          <div className="flex items-center justify-center" style={{ perspective: "800px", transform: "translate(-160px, -40px)" }}>
+          <div className="hidden lg:flex items-center justify-center" style={{ perspective: "800px", transform: "translate(-160px, -40px)" }}>
             <motion.img
               src="https://res.cloudinary.com/dmweipuof/image/upload/v1771880596/corpus_colonia-01_t98bot.svg"
               alt="Corpus Colonia"

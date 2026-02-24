@@ -17,14 +17,14 @@ export const DocumentosGrid = () => {
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      const scrollAmount = window.innerWidth < 640 ? window.innerWidth * 0.6545 : 411; // 65.45vw o 406.7px + 4.2px gap
+      const scrollAmount = window.innerWidth < 640 ? window.innerWidth * 0.7854 : 411; // 78.54vw o 406.7px + 4.2px gap
       scrollContainerRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
     }
   };
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      const scrollAmount = window.innerWidth < 640 ? window.innerWidth * 0.6545 : 411; // 65.45vw o 406.7px + 4.2px gap
+      const scrollAmount = window.innerWidth < 640 ? window.innerWidth * 0.7854 : 411; // 78.54vw o 406.7px + 4.2px gap
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
@@ -56,7 +56,7 @@ export const DocumentosGrid = () => {
       {/* Contenedor del carousel */}
       <div
         ref={scrollContainerRef}
-        className="flex gap-3 sm:gap-4 overflow-x-auto scrollbar-hide px-[0.735rem] sm:px-[1.1rem] lg:px-[1.47rem] pb-2"
+        className="flex gap-3 sm:gap-4 overflow-x-auto scrollbar-hide px-[10.73vw] sm:px-[1.1rem] lg:px-[1.47rem] pb-2"
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
@@ -65,7 +65,7 @@ export const DocumentosGrid = () => {
         {items.map((p) => (
           <div
             key={p.id}
-            className="flex-shrink-0 w-[65.45vw] h-[calc(65.45vw*1.67)] sm:w-[308px] sm:h-[514px] md:w-[407px] md:h-[678px]"
+            className="flex-shrink-0 w-[78.54vw] h-[calc(78.54vw*1.67)] sm:w-[308px] sm:h-[514px] md:w-[407px] md:h-[678px]"
           >
             <DocumentosCard
               id={p.id}

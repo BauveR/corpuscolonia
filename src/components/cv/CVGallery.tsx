@@ -36,7 +36,7 @@ export const CVGallery = () => {
           <div
             key={item.id}
             className="flex flex-col bg-white/5 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 border border-white/10"
-            style={{ width: CARD_WIDTH, height: CARD_HEIGHT }}
+            style={{ width: `min(${CARD_WIDTH}px, calc(100vw - 2rem))`, height: CARD_HEIGHT }}
           >
             {/* Imagen — 36% */}
             <div style={{ height: "36%" }} className="w-full flex-shrink-0 overflow-hidden">
