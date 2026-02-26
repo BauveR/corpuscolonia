@@ -48,7 +48,7 @@ export const Welcome = () => {
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
-        backgroundPosition: isMobile ? 'top center' : 'center',
+        backgroundPosition: isMobile ? '50% -5%' : 'center',
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: isMobile ? 'scroll' : 'fixed',
         opacity: isInitialLoad ? 0 : 1,
