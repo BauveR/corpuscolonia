@@ -28,7 +28,7 @@ export function CVSection({ sectionRef }: Props) {
                 Redes atlánticas de intercambio
               </h2>
 
-              <p className="text-sm md:text-lg text-stone-300/80 leading-relaxed text-center md:text-left">
+              <p className="text-sm lg:text-[0.96rem] text-stone-300/80 leading-relaxed text-center">
                 Un mapa de las conexiones que articularon el mundo atlántico moderno en los casos de estudio de este proyecto (Canarias, México y Holanda): circulación de personas, mercancías y tecnologías entre Europa, África y América. Estas redes no solo movieron productos —como azúcar, tabaco o metales— sino también cuerpos, conocimientos y formas de vida que transformaron profundamente las sociedades implicadas.
               </p>
 

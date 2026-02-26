@@ -51,10 +51,10 @@ export const CVGallery = () => {
 
             {/* Texto — 64% */}
             <div style={{ height: "64%" }} className="p-5 flex flex-col justify-start overflow-hidden">
-              <h4 className="font-anton text-[1.685rem] mb-4 text-[#D5C5B0] leading-snug">
+              <h4 className={`font-anton mb-4 text-[#D5C5B0] leading-snug ${item.id === "3" ? "text-[1.685rem] lg:text-[1.432rem]" : "text-[1.685rem]"}`}>
                 {item.title}
               </h4>
-              <p className="text-stone-300/80 text-sm leading-relaxed text-center">
+              <p className="text-stone-300/80 text-sm lg:text-[0.96rem] leading-relaxed text-center">
                 {item.description}
               </p>
             </div>

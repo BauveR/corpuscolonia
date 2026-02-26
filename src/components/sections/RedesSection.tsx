@@ -51,10 +51,12 @@ export function RedesSection({ sectionRef }: Props) {
         {/* Contenedor glass + video + botón */}
         <div className={[
           "relative z-10 flex flex-row items-center gap-6 px-8 py-6 mx-auto w-[90%] sm:w-[40%]",
-          "bg-slate-900/10 backdrop-blur-2xl",
+          "bg-slate-900/30 backdrop-blur-2xl",
           "shadow-xl shadow-black/20",
           "border border-white/10",
           "ring-1 ring-white/5",
+          "hover:bg-slate-900/40 hover:border-white/15",
+          "transition-all duration-500",
           "rounded-3xl",
         ].join(" ")}>
 
@@ -86,7 +88,7 @@ export function RedesSection({ sectionRef }: Props) {
         </div>
 
         {/* Marquee de logos — ancho total, sube 50% de su alto detrás del video */}
-        <div className="marquee-wrapper py-6 relative z-20" style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", overflow: "hidden", marginTop: "-380px" }}>
+        <div className="marquee-wrapper py-6 relative z-0" style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", overflow: "hidden", marginTop: "-380px" }}>
           <div className="flex animate-marquee" style={{ width: "max-content" }}>
             {marqueeItems.map((item, i) => (
               <a

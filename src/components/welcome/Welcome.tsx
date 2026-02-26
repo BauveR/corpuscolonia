@@ -82,12 +82,12 @@ export const Welcome = () => {
 
       {/* Tablet / Desktop */}
       {!isMobile && (
-        <div className="relative z-10 flex flex-col items-center w-full mt-[63.25vh] px-6 lg:px-8">
+        <div className="relative z-10 flex flex-col items-center w-full mt-[70vh] px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-sm md:text-lg tracking-[0.08em] text-white mb-10 font-sans font-normal mt-8 text-center px-4 max-w-3xl leading-tight"
+            className="text-sm lg:text-[0.96rem] text-stone-300/80 mb-10 mt-8 text-center px-4 max-w-3xl leading-relaxed"
           >
             Bajo la superficie, los cuerpos del pasado guardan nuestra historia.
             Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.

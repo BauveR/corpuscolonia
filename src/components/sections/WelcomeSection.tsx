@@ -12,7 +12,7 @@ export function WelcomeSection({ sectionRef }: Props) {
       id="welcome"
       ref={sectionRef}
       viewportAmount={0.45}
-      className="!h-[100svh] !min-h-[100svh] overflow-hidden"
+      className="!h-[100svh] sm:!h-screen !min-h-[100svh] sm:!min-h-screen overflow-hidden"
       initial={{ opacity: 1, y: 0 }}
     >
       <Welcome />
