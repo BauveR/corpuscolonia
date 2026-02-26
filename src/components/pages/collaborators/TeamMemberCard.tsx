@@ -44,7 +44,7 @@ export function TeamMemberCard({ member }: Props) {
         />
       </div>
 
-      <h3 className="mt-4 text-base md:text-lg font-medium text-stone-100 tracking-wide">
+      <h3 className="mt-4 text-[0.7rem] md:text-lg font-medium text-stone-100 tracking-wide">
         {member.name}
       </h3>
 
@@ -55,7 +55,7 @@ export function TeamMemberCard({ member }: Props) {
           href={member.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-1.5 text-sm text-orange-300 hover:text-orange-200 transition-colors duration-300"
+          className="mt-3 inline-flex items-center gap-1.5 text-[0.96rem] font-bold text-[#778ED8] hover:text-[#778ED8]/80 transition-colors duration-300"
         >
           Ver perfil
           <svg

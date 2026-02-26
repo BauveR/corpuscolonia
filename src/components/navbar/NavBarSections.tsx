@@ -113,7 +113,6 @@ export default function NavbarSections({ active, onGo }: Props) {
           <div className="grid grid-cols-3 items-center h-[80px] md:h-[92px]">
             {/* LEFT: Burger (móvil) */}
             <div className="flex items-center gap-3">
-              {/* Burger */}
               <button
                 className="lg:hidden p-2 rounded-md hover:bg-white/10"
                 aria-label="Abrir menú"
@@ -131,9 +130,7 @@ export default function NavbarSections({ active, onGo }: Props) {
               <motion.div
                 className="absolute flex items-center justify-center"
                 initial={{ opacity: 0 }}
-                animate={{
-                  opacity: showTitles ? 1 : 0
-                }}
+                animate={{ opacity: showTitles ? 1 : 0 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 style={{ pointerEvents: showTitles ? "auto" : "none" }}
               >
