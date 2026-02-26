@@ -14,7 +14,7 @@ const cardVariants = {
   },
 };
 
-export function TeamMemberCard({ member, index = 0 }: Props) {
+export function TeamMemberCard({ member }: Props) {
   return (
     <motion.article
       className={[
