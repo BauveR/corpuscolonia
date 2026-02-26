@@ -50,7 +50,7 @@ export const Welcome = () => {
         backgroundSize: 'cover',
         backgroundPosition: isMobile ? '50% 0%' : 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundAttachment: isMobile ? 'scroll' : 'fixed',
+        backgroundAttachment: 'scroll',
         opacity: isInitialLoad ? 0 : 1,
         filter: isInitialLoad ? 'blur(8px)' : 'blur(0px)',
         transition: 'opacity 1s ease-out, filter 1s ease-out'
