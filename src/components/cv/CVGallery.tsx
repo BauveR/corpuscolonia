@@ -54,7 +54,7 @@ export const CVGallery = () => {
               <h4 className="font-anton text-[1.685rem] mb-4 text-[#D5C5B0] leading-snug">
                 {item.title}
               </h4>
-              <p className="text-stone-300/80 text-sm leading-relaxed">
+              <p className="text-stone-300/80 text-sm leading-relaxed text-center">
                 {item.description}
               </p>
             </div>

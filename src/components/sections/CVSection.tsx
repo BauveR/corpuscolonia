@@ -20,15 +20,15 @@ export function CVSection({ sectionRef }: Props) {
       <div className="w-full flex flex-col py-8 sm:py-20 bg-transparent gap-20 sm:gap-[7.8rem]">
 
         {/* Fila superior: columna izquierda (textos) + columna derecha (vacía) */}
-        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 px-8" style={{ maxWidth: '100vw' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 px-5 lg:px-8" style={{ maxWidth: '100vw' }}>
           {/* Columna izquierda: Textos */}
-          <div className="flex flex-col justify-center items-center px-4">
+          <div className="flex flex-col justify-center items-center">
             <div className="flex flex-col gap-10 text-stone-300 w-full sm:w-[70%] text-justify" style={{ wordSpacing: '-0.02em', textJustify: 'inter-word' }}>
-              <h2 className="font-anton text-xl sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-center md:text-left text-[#D5C5B0]">
+              <h2 className="font-anton text-[1.685rem] md:text-[2rem] lg:text-[2.8rem] leading-snug text-center md:text-left text-[#D5C5B0]">
                 Redes atlánticas de intercambio
               </h2>
 
-              <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
+              <p className="text-sm md:text-lg text-stone-300/80 leading-relaxed text-center md:text-left">
                 Un mapa de las conexiones que articularon el mundo atlántico moderno en los casos de estudio de este proyecto (Canarias, México y Holanda): circulación de personas, mercancías y tecnologías entre Europa, África y América. Estas redes no solo movieron productos —como azúcar, tabaco o metales— sino también cuerpos, conocimientos y formas de vida que transformaron profundamente las sociedades implicadas.
               </p>
 

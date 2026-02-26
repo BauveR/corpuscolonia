@@ -94,7 +94,7 @@ export const DocumentosCard = ({
           <span className="line-clamp-1">{name}</span>
         </h3>
         {description && (
-          <p className="mt-1 text-sm text-stone-200 leading-snug line-clamp-2">
+          <p className="mt-1 text-sm text-stone-300/80 leading-relaxed line-clamp-2">
             {description}
           </p>
         )}

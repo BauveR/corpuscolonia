@@ -7,12 +7,11 @@ type Props = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
+  hidden: { opacity: 0 },
+  visible: {
     opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-  }),
+    transition: { duration: 0.4 },
+  },
 };
 
 export function TeamMemberCard({ member, index = 0 }: Props) {
@@ -30,10 +29,9 @@ export function TeamMemberCard({ member, index = 0 }: Props) {
         "text-stone-300",
       ].join(" ")}
       variants={cardVariants}
-      custom={index}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.2 }}
     >
       <div className="w-36 h-36 md:w-[10.5rem] md:h-[10.5rem] rounded-full overflow-hidden ring-2 ring-white/10">
         <img

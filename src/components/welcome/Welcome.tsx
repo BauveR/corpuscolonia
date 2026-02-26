@@ -63,10 +63,10 @@ export const Welcome = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="absolute z-10 left-0 right-0 flex flex-col items-center gap-3"
+          className="absolute z-10 left-0 right-0 flex flex-col items-center gap-3 px-5"
           style={{ bottom: '10%' }}
         >
-          <p className="text-[0.74rem] text-white text-center font-sans font-normal leading-tight tracking-[0.05em] max-w-full">
+          <p className="text-sm text-stone-300/80 text-center leading-relaxed max-w-full">
             Bajo la superficie, los cuerpos del pasado guardan nuestra historia.
             Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
           </p>
