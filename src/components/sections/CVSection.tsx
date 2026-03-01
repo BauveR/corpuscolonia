@@ -1,6 +1,7 @@
 import { RefObject } from "react";
 import { motion } from "framer-motion";
 import { AnimatedSection } from "../common/AnimatedSection";
+import { ScrollReveal } from "../common/ScrollReveal";
 import { CVGallery } from "../cv/CVGallery";
 const figure5 = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_800/v1770911634/Imagen_grande_drw1xq.png";
 import "./CVSection.css";
@@ -24,13 +25,29 @@ export function CVSection({ sectionRef }: Props) {
           {/* Columna izquierda: Textos */}
           <div className="flex flex-col justify-center items-center px-4">
             <div className="flex flex-col gap-10 text-stone-300 w-full sm:w-[70%] text-justify" style={{ wordSpacing: '-0.02em', textJustify: 'inter-word' }}>
-              <h2 className="font-anton text-xl sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-center md:text-left text-[#D5C5B0]">
+              <ScrollReveal
+                textClassName="font-anton text-xl sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-center md:text-left text-[#D5C5B0]"
+                baseOpacity={0}
+                baseRotation={0}
+                enableBlur={true}
+                blurStrength={6}
+                staggerDelay={0.06}
+                threshold={0.3}
+              >
                 Redes atlánticas de intercambio
-              </h2>
+              </ScrollReveal>
 
-              <p className="text-xs sm:text-sm md:text-lg leading-relaxed">
+              <ScrollReveal
+                textClassName="text-xs sm:text-sm md:text-lg leading-relaxed text-stone-300"
+                baseOpacity={0}
+                baseRotation={0}
+                enableBlur={true}
+                blurStrength={4}
+                staggerDelay={0.03}
+                threshold={0.2}
+              >
                 Un mapa de las conexiones que articularon el mundo atlántico moderno en los casos de estudio de este proyecto (Canarias, México y Holanda): circulación de personas, mercancías y tecnologías entre Europa, África y América. Estas redes no solo movieron productos —como azúcar, tabaco o metales— sino también cuerpos, conocimientos y formas de vida que transformaron profundamente las sociedades implicadas.
-              </p>
+              </ScrollReveal>
 
               {/* Imagen con pie de foto */}
               <div className="mt-2 sm:mt-6">
@@ -41,15 +58,23 @@ export function CVSection({ sectionRef }: Props) {
                   loading="lazy"
                   decoding="async"
                 />
-                <p className="text-stone-300/80 text-[0.6rem] sm:text-sm italic text-center">
+                <ScrollReveal
+                  textClassName="text-stone-300/80 text-[0.6rem] sm:text-sm italic text-center"
+                  baseOpacity={0}
+                  baseRotation={0}
+                  enableBlur={true}
+                  blurStrength={4}
+                  staggerDelay={0.05}
+                  threshold={0.2}
+                >
                   Redes atlánticas de intercambio
-                </p>
+                </ScrollReveal>
               </div>
             </div>
           </div>
 
           {/* Columna derecha: SVG giratorio */}
-          <div className="flex items-center justify-center" style={{ perspective: "800px", transform: "translate(-160px, -40px)" }}>
+          <div className="hidden lg:flex items-center justify-center" style={{ perspective: "800px", transform: "translate(-160px, -40px)" }}>
             <motion.img
               src="https://res.cloudinary.com/dmweipuof/image/upload/v1771880596/corpus_colonia-01_t98bot.svg"
               alt="Corpus Colonia"

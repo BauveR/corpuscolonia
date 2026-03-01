@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
 import type { TeamMember } from "./data";
 
 type Props = {
@@ -11,25 +10,14 @@ const cardVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.4 },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
 export function TeamMemberCard({ member }: Props) {
-  const { t } = useTranslation();
   return (
     <motion.article
-      className={[
-        "flex flex-col items-center text-center p-6",
-        "bg-slate-900/30 backdrop-blur-2xl",
-        "shadow-xl shadow-black/20",
-        "border border-white/10",
-        "ring-1 ring-white/5",
-        "hover:bg-slate-900/40 hover:border-white/15",
-        "transition-all duration-500",
-        "rounded-3xl",
-        "text-stone-300",
-      ].join(" ")}
+      className="flex flex-col items-center text-center w-full"
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
@@ -46,7 +34,7 @@ export function TeamMemberCard({ member }: Props) {
         />
       </div>
 
-      <h3 className="mt-4 text-[0.7rem] md:text-lg font-medium text-stone-100 tracking-wide">
+      <h3 className="mt-4 text-base md:text-lg font-medium text-stone-100 tracking-wide">
         {member.name}
       </h3>
 
@@ -57,9 +45,9 @@ export function TeamMemberCard({ member }: Props) {
           href={member.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-1.5 text-[0.96rem] font-bold text-[#778ED8] hover:text-[#778ED8]/80 transition-colors duration-300"
+          className="mt-3 inline-flex items-center gap-1.5 text-sm text-orange-300 hover:text-orange-200 transition-colors duration-300"
         >
-          {t("collaborators.viewProfile")}
+          Ver perfil
           <svg
             width="14"
             height="14"

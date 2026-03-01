@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import logoImage from "../../assets/colonial bio-02.png";
+import SparkleNavbar from "./SparkleNavbar";
 
 type SectionId = "welcome" | "cv" | "documentos" | "redes";
 
@@ -25,6 +26,7 @@ const routes: RouteItem[] = [
 export default function NavbarSections({ active, onGo }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [lang, setLang] = useState<"es" | "en">("es");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showTitles, setShowTitles] = useState(false);
@@ -72,13 +74,6 @@ export default function NavbarSections({ active, onGo }: Props) {
       body.style.overflow = prev;
     };
   }, [mobileOpen]);
-
-  const linkBase =
-    "relative px-2 py-1 text-sm md:text-[15px] tracking-wide transition-all duration-300";
-  const linkActive =
-    "text-white font-bold blur-none";
-  const linkInactive =
-    "text-stone-300 blur-[0.8px] hover:text-white hover:blur-none font-normal";
 
   const handleRoute = (item: RouteItem) => {
     setMobileOpen(false);
@@ -145,38 +140,23 @@ export default function NavbarSections({ active, onGo }: Props) {
               </motion.div>
             </div>
 
-            {/* RIGHT: Links (desktop) */}
-            <div className="flex items-center justify-end pr-16">
-              {/* Links desktop */}
-              <div className="hidden lg:flex items-start gap-4">
-                {routes.map((r) => {
-                  const key = r.kind === "scroll" ? r.id : r.href;
-                  const current = isActive(r);
-                  return (
-                    <button
-                      key={key}
-                      onClick={() => handleRoute(r)}
-                      className={[
-                        linkBase,
-                        current ? linkActive : linkInactive,
-                      ].join(" ")}
-                      aria-current={current ? "page" : undefined}
-                    >
-                      <span className="relative">
-                        {r.label}
-                        <span
-                          className="
-                            absolute left-0 -bottom-0.5 w-full h-[2px] bg-white
-                            origin-left scale-x-0
-                            lg:group-hover:scale-x-100
-                            transition-transform duration-300 ease-out
-                          "
-                        />
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+            {/* RIGHT: Links (desktop) con SparkleNavbar + lang switcher */}
+            <div className="hidden lg:flex items-center justify-end pr-16 gap-4">
+              <SparkleNavbar
+                items={routes.map((r) => ({
+                  label: r.label,
+                  key: r.kind === "scroll" ? r.id : r.href,
+                }))}
+                activeIndex={Math.max(0, routes.findIndex((r) => isActive(r)))}
+                onItemClick={(index) => handleRoute(routes[index])}
+                color="#ffffff"
+              />
+              <button
+                onClick={() => setLang((l) => (l === "es" ? "en" : "es"))}
+                className="text-xs font-semibold tracking-widest text-stone-300 hover:text-white transition-colors duration-300 uppercase border border-white/20 rounded-md px-2 py-1"
+              >
+                {lang === "es" ? "EN" : "ES"}
+              </button>
             </div>
           </div>
         </nav>
@@ -235,6 +215,12 @@ export default function NavbarSections({ active, onGo }: Props) {
                     </button>
                   );
                 })}
+                <button
+                  onClick={() => setLang((l) => (l === "es" ? "en" : "es"))}
+                  className="mt-4 self-start text-xs font-semibold tracking-widest text-stone-300 hover:text-white transition-colors duration-300 uppercase border border-white/20 rounded-md px-2 py-1"
+                >
+                  {lang === "es" ? "EN" : "ES"}
+                </button>
               </div>
             </motion.aside>
           </>
