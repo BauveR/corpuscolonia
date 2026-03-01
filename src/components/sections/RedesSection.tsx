@@ -88,7 +88,7 @@ export function RedesSection({ sectionRef }: Props) {
         </div>
 
         {/* Marquee de logos — ancho total, sube 50% de su alto detrás del video */}
-        <div className="py-6 relative z-0" style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", overflow: "hidden", marginTop: "-380px" }}>
+        <div className="py-6 relative z-0" style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", overflow: "hidden", marginTop: "-80px" }}>
           <div className="flex animate-marquee" style={{ width: "max-content" }}>
             {marqueeItems.map((item, i) => (
               <a
