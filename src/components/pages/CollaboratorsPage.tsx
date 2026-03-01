@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import NavbarSections from "../navbar/NavBarSections";
 import { Footer } from "../footer/Footer";
@@ -6,6 +7,7 @@ import { TeamMemberCard } from "./collaborators/TeamMemberCard";
 import { teamMembers } from "./collaborators/data";
 
 export function CollaboratorsPage() {
+  const { t } = useTranslation();
   const [titleVisible, setTitleVisible] = useState(true);
 
   useEffect(() => {
@@ -25,9 +27,9 @@ export function CollaboratorsPage() {
         <motion.h1
           animate={{ opacity: titleVisible ? 1 : 0 }}
           transition={{ duration: 0.3 }}
-          className="font-anton text-xl sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-[#778ED8] tracking-wide mb-10 text-center"
+          className="font-anton text-xl sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-[#BE4800] tracking-wide mb-10 text-center"
         >
-          A NETWORK OF PEOPLE ACROSS AN OCEAN
+          {t("collaborators.title")}
         </motion.h1>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">

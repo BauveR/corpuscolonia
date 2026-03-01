@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import researchgateLogo from "../../assets/researchgate-logo-white.svg";
 
 // Iconos
@@ -212,6 +213,7 @@ const publicationItems = [
 ];
 
 export const ResearchGallery = () => {
+  const { t } = useTranslation();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [openShareMenu, setOpenShareMenu] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -279,7 +281,7 @@ export const ResearchGallery = () => {
           <button
             onClick={scrollUp}
             className="p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
-            aria-label="Scroll arriba"
+            aria-label={t("documents.scrollUp")}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
               <path d="M18 15l-6-6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -312,14 +314,14 @@ export const ResearchGallery = () => {
                     rel="noopener noreferrer"
                     className="px-2 sm:px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg text-white text-xs font-medium transition-all duration-200"
                   >
-                    Ver artículo
+                    {t("documents.viewArticle")}
                   </a>
                   <div className="flex items-center gap-1 sm:gap-2">
                     {/* Botón copiar URL */}
                     <button
                       onClick={() => handleCopyUrl(item.url, item.id)}
                       className="p-1.5 sm:p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all duration-200"
-                      title="Copiar URL"
+                      title={t("documents.copyUrl")}
                     >
                       {copiedId === item.id ? <CheckIcon /> : <CopyIcon />}
                     </button>
@@ -328,7 +330,7 @@ export const ResearchGallery = () => {
                       <button
                         onClick={() => setOpenShareMenu(openShareMenu === item.id ? null : item.id)}
                         className="p-1.5 sm:p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all duration-200"
-                        title="Compartir"
+                        title={t("documents.share")}
                       >
                         <ShareIcon />
                       </button>
@@ -370,7 +372,7 @@ export const ResearchGallery = () => {
           <button
             onClick={scrollDown}
             className="p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 text-white shadow-lg"
-            aria-label="Scroll abajo"
+            aria-label={t("documents.scrollDown")}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
               <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import logoImage from "../../assets/colonial bio-02.png";
 
 type SectionId = "welcome" | "cv" | "documentos" | "redes";
 
-type ScrollRoute = { kind: "scroll"; id: SectionId; label: string };
-type LinkRoute = { kind: "link"; href: string; label: string };
+type ScrollRoute = { kind: "scroll"; id: SectionId; labelKey: string };
+type LinkRoute = { kind: "link"; href: string; labelKey: string };
 type RouteItem = ScrollRoute | LinkRoute;
 
 type Props = {
@@ -14,20 +15,27 @@ type Props = {
   onGo: (id: SectionId) => void;
 };
 
-const routes: RouteItem[] = [
-  { kind: "scroll", id: "welcome", label: "Inicio" },
-  { kind: "scroll", id: "cv", label: "Proyecto" },
-  { kind: "scroll", id: "documentos", label: "Eventos y documentos" },
-  { kind: "scroll", id: "redes", label: "Redes" },
-  { kind: "link", href: "/collaborators", label: "Colaboradores" },
+const routeDefs: RouteItem[] = [
+  { kind: "scroll", id: "welcome", labelKey: "nav.home" },
+  { kind: "scroll", id: "cv", labelKey: "nav.project" },
+  { kind: "scroll", id: "documentos", labelKey: "nav.events" },
+  { kind: "scroll", id: "redes", labelKey: "nav.networks" },
+  { kind: "link", href: "/collaborators", labelKey: "nav.collaborators" },
 ];
 
 export default function NavbarSections({ active, onGo }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showTitles, setShowTitles] = useState(false);
+
+  const toggleLang = () => {
+    i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es");
+  };
+
+  const routes = routeDefs.map((r) => ({ ...r, label: t(r.labelKey) }));
 
   const isOnMainPage = location.pathname === "/" || location.pathname.startsWith("/cv") || location.pathname.startsWith("/documentos");
 
@@ -142,8 +150,8 @@ export default function NavbarSections({ active, onGo }: Props) {
               </motion.div>
             </div>
 
-            {/* RIGHT: Links (desktop) */}
-            <div className="flex items-center justify-end pr-16">
+            {/* RIGHT: Links (desktop) + lang switcher */}
+            <div className="flex items-center justify-end pr-16 gap-4">
               {/* Links desktop */}
               <div className="hidden lg:flex items-start gap-4">
                 {routes.map((r) => {
@@ -174,6 +182,13 @@ export default function NavbarSections({ active, onGo }: Props) {
                   );
                 })}
               </div>
+              {/* Language switcher */}
+              <button
+                onClick={toggleLang}
+                className="text-xs font-semibold tracking-widest text-stone-300 hover:text-white transition-colors duration-300 uppercase border border-white/20 rounded-md px-2 py-1"
+              >
+                {i18n.language.startsWith("es") ? "EN" : "ES"}
+              </button>
             </div>
           </div>
         </nav>
@@ -232,6 +247,12 @@ export default function NavbarSections({ active, onGo }: Props) {
                     </button>
                   );
                 })}
+                <button
+                  onClick={toggleLang}
+                  className="mt-4 self-start text-xs font-semibold tracking-widest text-stone-300 hover:text-white transition-colors duration-300 uppercase border border-white/20 rounded-md px-2 py-1"
+                >
+                  {i18n.language.startsWith("es") ? "EN" : "ES"}
+                </button>
               </div>
             </motion.aside>
           </>

@@ -1,4 +1,5 @@
 import { RefObject } from "react";
+import { useTranslation } from "react-i18next";
 import { AnimatedSection } from "../common/AnimatedSection";
 
 type Props = {
@@ -39,6 +40,7 @@ const socialItems = [
 const marqueeItems = Array.from({ length: 40 }, (_, i) => socialItems[i % socialItems.length]);
 
 export function RedesSection({ sectionRef }: Props) {
+  const { t } = useTranslation();
   return (
     <AnimatedSection
       id="redes"
@@ -81,7 +83,7 @@ export function RedesSection({ sectionRef }: Props) {
               className="px-5 py-2 rounded-xl text-sm font-semibold text-white tracking-wide transition-opacity duration-300 hover:opacity-80"
               style={{ backgroundColor: "#3897f0" }}
             >
-              View more
+              {t("networks.viewMore")}
             </a>
           </div>
 

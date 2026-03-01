@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
 
@@ -15,6 +16,7 @@ const getInitialImage = () => {
 };
 
 export const Welcome = () => {
+  const { t } = useTranslation();
   const [backgroundImage, setBackgroundImage] = useState(getInitialImage);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
@@ -70,8 +72,7 @@ export const Welcome = () => {
           style={{ bottom: '10%' }}
         >
           <p className="text-sm text-stone-300/80 text-center leading-relaxed max-w-full">
-            Bajo la superficie, los cuerpos del pasado guardan nuestra historia.
-            Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
+            {t('welcome.text')}
           </p>
           <div className="flex items-center justify-center gap-6 w-full">
             <img src={leidenLogo} alt="Universiteit Leiden" className="h-10 w-auto object-contain" draggable={false} />
@@ -89,8 +90,7 @@ export const Welcome = () => {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-sm lg:text-[0.96rem] text-stone-300/80 mb-10 mt-8 text-center px-4 max-w-3xl leading-relaxed"
           >
-            Bajo la superficie, los cuerpos del pasado guardan nuestra historia.
-            Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
+            {t('welcome.text')}
           </motion.div>
 
           <motion.div

@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "home": "Home",
+    "project": "Project",
+    "events": "Events",
+    "networks": "Networks",
+    "collaborators": "Collaborators",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menu": "Menu"
+  },
+  "welcome": {
+    "text": "Below the surface, the bodies of the past hold our history. Our project unearths the traces of colonialism in human bones spread across three continents connected by the Atlantic."
+  },
+  "cv": {
+    "title": "Atlantic networks of exchange",
+    "text": "A map of the connections that articulated the modern Atlantic world in the case studies of this project (Canary Islands, Mexico, and Holland): the circulation of people, goods, and technologies between Europe, Africa, and America. These networks not only moved products —such as sugar, tobacco, or metals— but also bodies, knowledge, and ways of life that profoundly transformed the societies involved.",
+    "caption": "Atlantic networks of exchange"
+  },
+  "gallery": {
+    "card1": {
+      "title": "Tobacco, pipes and their impact on the body",
+      "description": "The impact of American tobacco and kaolin pipes produced in Holland is archaeologically documented in the Church of Nuestra Señora de La Concepción (Santa Cruz de Tenerife). The Canary Islands acted as an intermediary space in these trade routes, where tobacco consumption left material and biological traces detectable in the archaeological record."
+    },
+    "card2": {
+      "title": "Resilience and survival in San Marcial de Rubicón",
+      "description": "The first European settlers established in the Canary Islands faced episodes of water scarcity and food limitations. The bioarchaeological evidence from San Marcial de Rubicón will reveal the effects of these conditions on the health and daily life of a population inhabiting an environmentally demanding territory."
+    },
+    "card3": {
+      "title": "Consequences in the metropolis: urbanization and smoke in the Netherlands",
+      "description": "Urban growth and the intensification of trade in Holland during the Early Modern period favored the increase in tobacco consumption. In sites such as Alkmaar, osteoarchaeological analysis has identified alterations linked to respiratory problems, showing how globalization processes also had direct consequences on health."
+    },
+    "card4": {
+      "title": "Water up to the ears in the Valley of Mexico",
+      "description": "The expansion of Mexico City implied an intensification in the construction and maintenance of the chinampas of Lake Xochimilco. The frequent and prolonged contact with water left physical traces in the indigenous population of San Gregorio Atlapulco, visible in alterations of the external auditory canals. The transformation of the productive landscape thus had a direct impact on the body."
+    }
+  },
+  "networks": {
+    "viewMore": "View more"
+  },
+  "footer": {
+    "text": "The principal investigator of the project, Jared Carballo-Pérez, is a postdoctoral researcher contracted under the \"Catalina Ruiz\" program of the University of La Laguna, funded by the Canarian Agency for Research, Innovation and Information Society, of the Government of the Canary Islands."
+  },
+  "collaborators": {
+    "title": "A NETWORK OF PEOPLE ACROSS AN OCEAN",
+    "viewProfile": "View profile"
+  },
+  "documents": {
+    "view": "View",
+    "download": "Download",
+    "scrollUp": "Scroll up",
+    "scrollDown": "Scroll down",
+    "viewArticle": "View article",
+    "copyUrl": "Copy URL",
+    "share": "Share"
+  }
+}

@@ -1,8 +1,10 @@
 import { forwardRef } from "react";
+import { useTranslation } from "react-i18next";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
 
 export const Footer = forwardRef<HTMLElement>((_, ref) => {
+  const { t } = useTranslation();
   return (
     <footer
       ref={ref}
@@ -14,7 +16,7 @@ export const Footer = forwardRef<HTMLElement>((_, ref) => {
           {/* Texto a la izquierda */}
           <div className="flex-1 w-full sm:w-auto mr-0 sm:mr-20 md:mr-60">
             <p className="text-xs md:text-sm text-stone-200 leading-relaxed">
-              El investigador principal del proyecto, Jared Carballo-Pérez es personal postdoctoral contratado dentro del programa "Catalina Ruiz" de la Universidad de La Laguna, realizado con la financiación de la Agencia Canaria de Investigación, Innovación y Sociedad de la Información, del Gobierno de Canarias.
+              {t("footer.text")}
             </p>
           </div>
 
