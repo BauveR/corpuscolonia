@@ -1,5 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useMatch } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
@@ -48,13 +47,12 @@ export function ScrollShell() {
 
   const documentosMatch = useMatch("/documentos/:id");
 
+  useEffect(() => {
+    document.title = "CORPUSCOLONIA — Colonialismo Corpóreo en el Atlántico";
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-x-hidden max-w-full" style={{ backgroundColor: '#6E311E' }}>
-      <Helmet>
-        <title>CORPUSCOLONIA — Colonialismo Corpóreo en el Atlántico</title>
-        <meta name="description" content="Proyecto de investigación sobre el impacto biopolítico del colonialismo en los restos humanos del mundo atlántico: Canarias, México y Holanda." />
-        <link rel="canonical" href="https://corpuscolonia.com/" />
-      </Helmet>
       <NavbarSections active={activeSection} onGo={scrollTo} />
 
       <WelcomeSection sectionRef={welcomeRef} />
