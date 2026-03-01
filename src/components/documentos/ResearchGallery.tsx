@@ -217,6 +217,7 @@ export const ResearchGallery = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [openShareMenu, setOpenShareMenu] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const scrollUp = () => {
     if (scrollContainerRef.current) {

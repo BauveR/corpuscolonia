@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import type { TeamMember } from "./data";
 
 type Props = {
@@ -15,6 +16,7 @@ const cardVariants = {
 };
 
 export function TeamMemberCard({ member }: Props) {
+  const { t } = useTranslation();
   return (
     <motion.article
       className="flex flex-col items-center text-center w-full"
@@ -47,7 +49,7 @@ export function TeamMemberCard({ member }: Props) {
           rel="noopener noreferrer"
           className="mt-3 inline-flex items-center gap-1.5 text-sm text-orange-300 hover:text-orange-200 transition-colors duration-300"
         >
-          Ver perfil
+          {t("collaborators.viewProfile")}
           <svg
             width="14"
             height="14"

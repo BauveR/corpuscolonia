@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { ScrollReveal } from "../common/ScrollReveal";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
@@ -9,6 +10,7 @@ const tabletImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_
 const mobileImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_640/v1768775625/pantallas-02_wdzoos.png";
 
 export const Welcome = () => {
+  const { t } = useTranslation();
   const [backgroundImage, setBackgroundImage] = useState(desktopImage);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
@@ -69,7 +71,7 @@ export const Welcome = () => {
           staggerDelay={0.04}
           threshold={0.2}
         >
-          Bajo la superficie, los cuerpos del pasado guardan nuestra historia. Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
+          {t("welcome.text")}
         </ScrollReveal>
 
         {/* Logos de las universidades */}

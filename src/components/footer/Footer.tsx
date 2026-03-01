@@ -1,27 +1,25 @@
-import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
 
-export const Footer = forwardRef<HTMLElement>((_, ref) => {
+export const Footer = () => {
   const { t } = useTranslation();
   return (
     <footer
-      ref={ref}
       className="relative z-40 w-full bg-gradient-to-t from-orange-950 to-transparent"
       role="contentinfo"
     >
-      <div className="w-full px-5 md:px-32 pt-6 pb-10 sm:py-30">
+      <div className="w-full px-16 md:px-32 pt-6 pb-10 sm:py-30">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Texto a la izquierda */}
-          <div className="flex-1 w-full sm:w-auto mr-0 sm:mr-20 md:mr-60">
+          <div className="flex-1 w-[140%] sm:w-auto mr-0 sm:mr-20 md:mr-60">
             <p className="text-xs md:text-sm text-stone-200 leading-relaxed">
               {t("footer.text")}
             </p>
           </div>
 
           {/* Logos a la derecha */}
-          <div className="flex items-center gap-4 mt-4 sm:mt-0">
+          <div className="flex items-center gap-4 -mt-4 sm:mt-0">
             <img
               src={leidenLogo}
               alt="Universiteit Leiden"
@@ -41,4 +39,4 @@ export const Footer = forwardRef<HTMLElement>((_, ref) => {
       </div>
     </footer>
   );
-});
+};

@@ -4,8 +4,10 @@ import { TeamMemberCard } from "./collaborators/TeamMemberCard";
 import { teamMembers } from "./collaborators/data";
 import { TypingText } from "../common/TypingText";
 import { GlowingCards, GlowingCard } from "../common/GlowingCards";
+import { useTranslation } from "react-i18next";
 
 export function CollaboratorsPage() {
+  const { t } = useTranslation();
   return (
     <div
       className="relative flex flex-col min-h-screen overflow-x-hidden max-w-full"
@@ -20,7 +22,7 @@ export function CollaboratorsPage() {
           duration={2.5}
           delay={0.2}
         >
-          A NETWORK OF PEOPLE ACROSS AN OCEAN
+          {t("collaborators.title")}
         </TypingText>
 
         <GlowingCards containerClassName="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">

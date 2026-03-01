@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export type DocumentosCardProps = {
   id: string;
@@ -23,6 +24,7 @@ export const DocumentosCard = ({
   className = "",
 }: DocumentosCardProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const hoverImage = secondaryImage || primaryImage;
 
   const resolvedDownloadUrl = downloadUrl
@@ -114,7 +116,7 @@ export const DocumentosCard = ({
             transition duration-300 ease-in-out"
           whileTap={{ scale: 0.98 }}
         >
-          View
+          {t("documents.view")}
         </motion.button>
 
         <motion.a
@@ -128,7 +130,7 @@ export const DocumentosCard = ({
           style={{ backgroundColor: "#778ED8" }}
           whileTap={{ scale: 0.98 }}
         >
-          Descarga
+          {t("documents.download")}
         </motion.a>
       </div>
     </div>

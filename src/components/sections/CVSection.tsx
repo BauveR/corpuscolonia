@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { AnimatedSection } from "../common/AnimatedSection";
 import { ScrollReveal } from "../common/ScrollReveal";
 import { CVGallery } from "../cv/CVGallery";
+import { useTranslation } from "react-i18next";
 const figure5 = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_800/v1770911634/Imagen_grande_drw1xq.png";
 import "./CVSection.css";
 
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export function CVSection({ sectionRef }: Props) {
+  const { t } = useTranslation();
   return (
     <AnimatedSection
       id="cv"
@@ -21,7 +23,7 @@ export function CVSection({ sectionRef }: Props) {
       <div className="w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[7.8rem]">
 
         {/* Fila superior: columna izquierda (textos) + columna derecha (vacía) */}
-        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 px-8" style={{ maxWidth: '100vw' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 px-3 sm:px-8" style={{ maxWidth: '100vw' }}>
           {/* Columna izquierda: Textos */}
           <div className="flex flex-col justify-center items-center px-4">
             <div className="flex flex-col gap-10 text-stone-300 w-full sm:w-[70%] text-justify" style={{ wordSpacing: '-0.02em', textJustify: 'inter-word' }}>
@@ -34,7 +36,7 @@ export function CVSection({ sectionRef }: Props) {
                 staggerDelay={0.06}
                 threshold={0.3}
               >
-                Redes atlánticas de intercambio
+                {t("cv.title")}
               </ScrollReveal>
 
               <ScrollReveal
@@ -46,7 +48,7 @@ export function CVSection({ sectionRef }: Props) {
                 staggerDelay={0.03}
                 threshold={0.2}
               >
-                Un mapa de las conexiones que articularon el mundo atlántico moderno en los casos de estudio de este proyecto (Canarias, México y Holanda): circulación de personas, mercancías y tecnologías entre Europa, África y América. Estas redes no solo movieron productos —como azúcar, tabaco o metales— sino también cuerpos, conocimientos y formas de vida que transformaron profundamente las sociedades implicadas.
+                {t("cv.text")}
               </ScrollReveal>
 
               {/* Imagen con pie de foto */}
@@ -67,7 +69,7 @@ export function CVSection({ sectionRef }: Props) {
                   staggerDelay={0.05}
                   threshold={0.2}
                 >
-                  Redes atlánticas de intercambio
+                  {t("cv.caption")}
                 </ScrollReveal>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import logoImage from "../../assets/colonial bio-02.png";
 import SparkleNavbar from "./SparkleNavbar";
 
@@ -15,18 +16,21 @@ type Props = {
   onGo: (id: SectionId) => void;
 };
 
-const routes: RouteItem[] = [
-  { kind: "scroll", id: "welcome", label: "Inicio" },
-  { kind: "scroll", id: "cv", label: "Proyecto" },
-  { kind: "scroll", id: "documentos", label: "Eventos y documentos" },
-  { kind: "scroll", id: "redes", label: "Redes" },
-  { kind: "link", href: "/collaborators", label: "Colaboradores" },
-];
-
 export default function NavbarSections({ active, onGo }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [lang, setLang] = useState<"es" | "en">("es");
+  const { t, i18n } = useTranslation();
+
+  const routes: RouteItem[] = [
+    { kind: "scroll", id: "welcome", label: t("nav.home") },
+    { kind: "scroll", id: "cv", label: t("nav.project") },
+    { kind: "scroll", id: "documentos", label: t("nav.events") },
+    { kind: "scroll", id: "redes", label: t("nav.networks") },
+    { kind: "link", href: "/collaborators", label: t("nav.collaborators") },
+  ];
+
+  const toggleLang = () => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es");
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showTitles, setShowTitles] = useState(false);
@@ -152,10 +156,10 @@ export default function NavbarSections({ active, onGo }: Props) {
                 color="#ffffff"
               />
               <button
-                onClick={() => setLang((l) => (l === "es" ? "en" : "es"))}
+                onClick={toggleLang}
                 className="text-xs font-semibold tracking-widest text-stone-300 hover:text-white transition-colors duration-300 uppercase border border-white/20 rounded-md px-2 py-1"
               >
-                {lang === "es" ? "EN" : "ES"}
+                {i18n.language.startsWith("es") ? "EN" : "ES"}
               </button>
             </div>
           </div>
@@ -216,10 +220,10 @@ export default function NavbarSections({ active, onGo }: Props) {
                   );
                 })}
                 <button
-                  onClick={() => setLang((l) => (l === "es" ? "en" : "es"))}
+                  onClick={toggleLang}
                   className="mt-4 self-start text-xs font-semibold tracking-widest text-stone-300 hover:text-white transition-colors duration-300 uppercase border border-white/20 rounded-md px-2 py-1"
                 >
-                  {lang === "es" ? "EN" : "ES"}
+                  {i18n.language.startsWith("es") ? "EN" : "ES"}
                 </button>
               </div>
             </motion.aside>
