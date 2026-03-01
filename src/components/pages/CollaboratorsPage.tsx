@@ -17,7 +17,7 @@ export function CollaboratorsPage() {
       <Helmet>
         <title>Colaboradores — CORPUSCOLONIA</title>
         <meta name="description" content="Equipo de investigadores del proyecto CORPUSCOLONIA: una red de personas a través del Atlántico." />
-        <link rel="canonical" href="https://corpuscolonia.vercel.app/collaborators" />
+        <link rel="canonical" href="https://corpuscolonia.com/collaborators" />
       </Helmet>
       <NavbarSections active={null} onGo={() => {}} />
 

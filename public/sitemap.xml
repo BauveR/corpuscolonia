@@ -3,21 +3,21 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://corpuscolonia.vercel.app/</loc>
+    <loc>https://corpuscolonia.com/</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://corpuscolonia.vercel.app/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://corpuscolonia.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://corpuscolonia.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://corpuscolonia.com/"/>
   </url>
 
   <url>
-    <loc>https://corpuscolonia.vercel.app/collaborators</loc>
+    <loc>https://corpuscolonia.com/collaborators</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://corpuscolonia.vercel.app/collaborators"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://corpuscolonia.vercel.app/collaborators"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://corpuscolonia.com/collaborators"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://corpuscolonia.com/collaborators"/>
   </url>
 
 </urlset>

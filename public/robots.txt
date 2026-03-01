@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://corpuscolonia.vercel.app/sitemap.xml
+Sitemap: https://corpuscolonia.com/sitemap.xml

@@ -53,7 +53,7 @@ export function ScrollShell() {
       <Helmet>
         <title>CORPUSCOLONIA — Colonialismo Corpóreo en el Atlántico</title>
         <meta name="description" content="Proyecto de investigación sobre el impacto biopolítico del colonialismo en los restos humanos del mundo atlántico: Canarias, México y Holanda." />
-        <link rel="canonical" href="https://corpuscolonia.vercel.app/" />
+        <link rel="canonical" href="https://corpuscolonia.com/" />
       </Helmet>
       <NavbarSections active={activeSection} onGo={scrollTo} />
 
