@@ -28,8 +28,8 @@ export const TypingText = ({
       if (Array.isArray(node)) {
         return node.map(extractText).join("");
       }
-      if (React.isValidElement(node) && typeof node.props.children !== "undefined") {
-        return extractText(node.props.children);
+      if (React.isValidElement(node) && typeof (node.props as { children?: ReactNode }).children !== "undefined") {
+        return extractText((node.props as { children?: ReactNode }).children);
       }
       return "";
     };
