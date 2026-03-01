@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { ScrollReveal } from "../common/ScrollReveal";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
 
@@ -58,15 +59,18 @@ export const Welcome = () => {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 flex flex-col items-center w-full mt-[63.25vh]"
       >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-[0.825rem] sm:text-sm md:text-lg tracking-[0.05em] sm:tracking-[0.08em] text-white mb-8 sm:mb-10 font-sans font-normal mt-6 sm:mt-8 text-center px-4 max-w-[90%] sm:max-w-3xl leading-tight"
+        <ScrollReveal
+          containerClassName="mt-6 sm:mt-8 mb-8 sm:mb-10 px-4 max-w-[90%] sm:max-w-3xl"
+          textClassName="text-[0.825rem] sm:text-sm md:text-lg tracking-[0.05em] sm:tracking-[0.08em] text-white font-sans font-normal text-center leading-tight"
+          baseOpacity={0}
+          baseRotation={0}
+          enableBlur={true}
+          blurStrength={6}
+          staggerDelay={0.04}
+          threshold={0.2}
         >
-          Bajo la superficie, los cuerpos del pasado guardan nuestra historia.
-          Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
-        </motion.div>
+          Bajo la superficie, los cuerpos del pasado guardan nuestra historia. Nuestro proyecto desentierra las huellas del colonialismo en huesos humanos repartidos por tres continentes unidos por el Atlántico.
+        </ScrollReveal>
 
         {/* Logos de las universidades */}
         <motion.div

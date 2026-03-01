@@ -25,6 +25,11 @@ export const DocumentosCard = ({
   const navigate = useNavigate();
   const hoverImage = secondaryImage || primaryImage;
 
+  const resolvedDownloadUrl = downloadUrl
+    ?? (primaryImage.includes("res.cloudinary.com")
+      ? primaryImage.replace("/upload/", "/upload/fl_attachment/")
+      : primaryImage);
+
   const goDetail = () => {
     navigate(`/documentos/${id}`, {
       state: {
@@ -32,14 +37,10 @@ export const DocumentosCard = ({
         name,
         primaryImage,
         description,
+        downloadUrl: resolvedDownloadUrl,
       },
     });
   };
-
-  const resolvedDownloadUrl = downloadUrl
-    ?? (primaryImage.includes("res.cloudinary.com")
-      ? primaryImage.replace("/upload/", "/upload/fl_attachment/")
-      : primaryImage);
 
   return (
     <div

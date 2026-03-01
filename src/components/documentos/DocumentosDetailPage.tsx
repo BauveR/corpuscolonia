@@ -1,12 +1,14 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useValidProjects } from "../../hooks/useValidProjects";
+import GlassFolder from "../common/GlassFolder";
 
 type DocumentosItemState = {
   index: number;
   name: string;
   description?: string;
   primaryImage: string;
+  downloadUrl?: string;
 };
 
 type Props = {
@@ -24,10 +26,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
     if (onClose) {
       onClose();
     } else {
-      navigate("/", { replace: true });
-      setTimeout(() => {
-        window.location.hash = "#documentos";
-      }, 100);
+      navigate(-1);
     }
   };
 
@@ -36,11 +35,17 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
   const project = validProjects[currentIndex];
 
   // Si no hay state, usar el primer proyecto
+  const resolvedDownload = itemFromState?.downloadUrl
+    ?? (project?.resolvedImage?.includes("res.cloudinary.com")
+      ? project?.resolvedImage?.replace("/upload/", "/upload/fl_attachment/")
+      : project?.resolvedImage);
+
   const data: DocumentosItemState = {
     index: currentIndex,
     name: itemFromState?.name ?? project?.text ?? "Proyecto",
     description: itemFromState?.description ?? project?.longDescription,
     primaryImage: itemFromState?.primaryImage ?? project?.resolvedImage ?? "",
+    downloadUrl: resolvedDownload,
   };
 
   const goPrev = () => {
@@ -116,7 +121,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
             key={data.primaryImage + currentIndex}
             src={data.primaryImage}
             alt={data.name}
-            className="w-full lg:w-[560px] h-auto object-contain"
+            className="w-full lg:w-[392px] h-auto object-contain"
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -135,6 +140,27 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
             <p className="mt-3 sm:mt-4 text-sm lg:text-base leading-relaxed text-stone-300">
               {data.description}
             </p>
+          )}
+
+          {data.downloadUrl && (
+            <a
+              href={data.downloadUrl}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 self-start"
+              aria-label="Descargar documento"
+            >
+              <GlassFolder
+                icon={
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 15V3m0 12l-4-4m4 4l4-4" />
+                    <path d="M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17" />
+                  </svg>
+                }
+              />
+              <p className="mt-2 text-center text-xs text-stone-400 tracking-wide uppercase">Descargar</p>
+            </a>
           )}
         </motion.div>
       </motion.div>

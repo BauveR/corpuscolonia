@@ -1,3 +1,6 @@
+import { TypingText } from "../common/TypingText";
+import { GlowingCards, GlowingCard } from "../common/GlowingCards";
+
 const galleryItems = [
   {
     id: "1",
@@ -31,10 +34,11 @@ const CARD_HEIGHT = 600;
 export const CVGallery = () => {
   return (
     <div className="w-full flex justify-center py-4">
-      <div className="flex gap-4 flex-wrap justify-center">
+      <GlowingCards>
         {galleryItems.map((item) => (
-          <div
+          <GlowingCard
             key={item.id}
+            glowColor="#FF8B00"
             className="flex flex-col bg-white/5 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 border border-white/10"
             style={{ width: CARD_WIDTH, height: CARD_HEIGHT }}
           >
@@ -51,16 +55,21 @@ export const CVGallery = () => {
 
             {/* Texto — 70% */}
             <div style={{ height: "64%" }} className="p-5 flex flex-col justify-start overflow-hidden">
-              <h4 className="font-anton text-[1.685rem] mb-4 text-[#D5C5B0] leading-snug">
+              <TypingText
+                as="h4"
+                className="font-anton text-[1.685rem] mb-4 text-[#D5C5B0] leading-snug"
+                duration={1.8}
+                delay={0.1}
+              >
                 {item.title}
-              </h4>
+              </TypingText>
               <p className="text-stone-300/80 text-sm leading-relaxed">
                 {item.description}
               </p>
             </div>
-          </div>
+          </GlowingCard>
         ))}
-      </div>
+      </GlowingCards>
     </div>
   );
 };
