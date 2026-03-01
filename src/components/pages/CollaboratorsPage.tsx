@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import NavbarSections from "../navbar/NavBarSections";
 import { Footer } from "../footer/Footer";
 import { TeamMemberCard } from "./collaborators/TeamMemberCard";
@@ -13,6 +14,11 @@ export function CollaboratorsPage() {
       className="relative flex flex-col min-h-screen overflow-x-hidden max-w-full"
       style={{ backgroundColor: "#6E311E" }}
     >
+      <Helmet>
+        <title>Colaboradores — CORPUSCOLONIA</title>
+        <meta name="description" content="Equipo de investigadores del proyecto CORPUSCOLONIA: una red de personas a través del Atlántico." />
+        <link rel="canonical" href="https://corpuscolonia.vercel.app/collaborators" />
+      </Helmet>
       <NavbarSections active={null} onGo={() => {}} />
 
       <main className="flex-1 pt-[120px] pb-20 px-6 md:px-16 lg:px-24 max-w-[1680px] mx-auto w-full">
