@@ -9,11 +9,11 @@ export const Footer = () => {
       className="relative z-40 w-full bg-gradient-to-t from-orange-950 to-transparent"
       role="contentinfo"
     >
-      <div className="w-full px-16 md:px-32 pt-6 pb-10 sm:py-30">
+      <div className="w-full px-4 md:px-32 pt-6 pb-24 sm:py-30">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Texto a la izquierda */}
-          <div className="flex-1 w-[140%] sm:w-auto mr-0 sm:mr-20 md:mr-60">
-            <p className="text-xs md:text-sm text-stone-200 leading-relaxed">
+          {/* Texto */}
+          <div className="flex-1 w-full md:w-auto mr-0 md:mr-60">
+            <p className="text-xs md:text-sm text-stone-200 leading-relaxed text-center md:text-left">
               {t("footer.text")}
             </p>
           </div>

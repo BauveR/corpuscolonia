@@ -35,12 +35,13 @@ const CARD_HEIGHT = 600;
 
 export const CVGallery = () => {
   const { t } = useTranslation();
-  const [dims, setDims] = useState({ w: CARD_WIDTH, h: CARD_HEIGHT });
+  const [dims, setDims] = useState({ w: CARD_WIDTH, h: CARD_HEIGHT, mobile: false });
 
   useEffect(() => {
     const update = () => {
       const w = Math.min(CARD_WIDTH, window.innerWidth - 32);
-      setDims({ w, h: Math.round(w * (CARD_HEIGHT / CARD_WIDTH)) });
+      const mobile = w < CARD_WIDTH;
+      setDims({ w, h: Math.round(w * (CARD_HEIGHT / CARD_WIDTH)), mobile });
     };
     update();
     window.addEventListener("resize", update);
@@ -55,10 +56,13 @@ export const CVGallery = () => {
             key={item.id}
             glowColor="#FF8B00"
             className="flex flex-col bg-white/5 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 border border-white/10"
-            style={{ width: dims.w, height: dims.h }}
+            style={{ width: dims.w, height: dims.mobile ? undefined : dims.h }}
           >
-            {/* Imagen — 36% */}
-            <div style={{ height: "36%" }} className="w-full flex-shrink-0 overflow-hidden">
+            {/* Imagen */}
+            <div
+              className="w-full flex-shrink-0 overflow-hidden"
+              style={{ height: dims.mobile ? 120 : "36%" }}
+            >
               <img
                 src={item.image}
                 alt={t(item.titleKey)}
@@ -68,8 +72,8 @@ export const CVGallery = () => {
               />
             </div>
 
-            {/* Texto — 64% */}
-            <div style={{ height: "64%" }} className="p-5 flex flex-col justify-start overflow-hidden">
+            {/* Texto */}
+            <div className="p-5 flex flex-col justify-start">
               <TypingText
                 as="h4"
                 className="font-anton text-[1.685rem] mb-4 text-[#D5C5B0] leading-snug"

@@ -17,7 +17,7 @@ interface UseScrollSectionsOptions<T extends SectionId> {
 export function useScrollSections<T extends SectionId>({
   sectionIds,
   sectionRefs,
-  rootMargin = "0px 0px -40% 0px",
+  rootMargin = "0px 0px -20% 0px",
 }: UseScrollSectionsOptions<T>) {
   const [activeSection, setActiveSection] = useState<T>(sectionIds[0]);
 
@@ -36,7 +36,7 @@ export function useScrollSections<T extends SectionId>({
 
         const id = mostVisible.target.id as T;
 
-        if (sectionIds.includes(id) && mostVisible.intersectionRatio > 0.1) {
+        if (sectionIds.includes(id)) {
           setActiveSection(id);
         }
       },

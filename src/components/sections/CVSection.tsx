@@ -26,9 +26,9 @@ export function CVSection({ sectionRef }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 px-3 sm:px-8" style={{ maxWidth: '100vw' }}>
           {/* Columna izquierda: Textos */}
           <div className="flex flex-col justify-center items-center px-4">
-            <div className="flex flex-col gap-10 text-stone-300 w-full sm:w-[70%] text-justify" style={{ wordSpacing: '-0.02em', textJustify: 'inter-word' }}>
+            <div className="flex flex-col gap-10 text-stone-300 w-full sm:w-[70%] text-center">
               <ScrollReveal
-                textClassName="font-anton text-xl sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-center md:text-left text-[#D5C5B0]"
+                textClassName="font-anton text-xl sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-center text-[#D5C5B0]"
                 baseOpacity={0}
                 baseRotation={0}
                 enableBlur={true}

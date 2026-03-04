@@ -118,7 +118,7 @@ export function RedesSection({ sectionRef }: Props) {
       viewportAmount={0.1}
       minHeight="auto"
     >
-      <div className="w-full flex flex-col items-center py-16 gap-0 relative">
+      <div className="w-full flex flex-col items-center pt-16 pb-8 sm:pb-16 gap-0 relative">
 
         {/* Wrapper relativo para centrar el marquee detrás del carrusel */}
         <div className="relative w-full">

@@ -114,7 +114,7 @@ export default function NavbarSections({ active, onGo }: Props) {
             <div className="flex items-center gap-3">
               {/* Burger */}
               <button
-                className="lg:hidden p-2 rounded-md hover:bg-white/10"
+                className="lg:hidden p-2 rounded-md hover:bg-white/10 text-white"
                 aria-label="Abrir menú"
                 aria-expanded={mobileOpen}
                 onClick={() => setMobileOpen(true)}
@@ -126,7 +126,7 @@ export default function NavbarSections({ active, onGo }: Props) {
             </div>
 
             {/* CENTER: logo / marca o títulos CV */}
-            <div className="flex items-center justify-center h-[80px] md:h-[92px] relative overflow-hidden">
+            <div className="flex items-center justify-center h-[80px] md:h-[92px] relative">
               <motion.div
                 className="absolute flex items-center justify-center"
                 initial={{ opacity: 0 }}
