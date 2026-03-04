@@ -6,14 +6,15 @@ type Props = {
   sectionRef: RefObject<HTMLElement | null>;
 };
 
-const VIDEO_SRC =
-  "https://player.vimeo.com/video/1167521640?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&controls=0";
+const vimeoSrc = (id: string) =>
+  `https://player.vimeo.com/video/${id}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&controls=0`;
 
 const socialCards = [
   {
     id: "instagram",
     href: "https://www.instagram.com/corpuscolonia/",
     label: "Instagram",
+    videoSrc: vimeoSrc("1167521640"),
     buttonColor: "#E1306C",
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
@@ -25,6 +26,7 @@ const socialCards = [
     id: "tiktok",
     href: "https://www.tiktok.com/@corpuscolonia",
     label: "TikTok",
+    videoSrc: vimeoSrc("1170410564"),
     buttonColor: "#010101",
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
@@ -36,6 +38,7 @@ const socialCards = [
     id: "linkedin",
     href: "https://www.linkedin.com/in/jared-carballo-p%C3%A9rez-17b09261/",
     label: "LinkedIn",
+    videoSrc: vimeoSrc("1170410544"),
     buttonColor: "#0A66C2",
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
@@ -182,7 +185,7 @@ export function RedesSection({ sectionRef }: Props) {
                           top: "50%",
                           transform: "translate(-50%, -50%)",
                         }}
-                        src={VIDEO_SRC}
+                        src={card.videoSrc}
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                         referrerPolicy="strict-origin-when-cross-origin"
                         title={`${card.label} — CorpusColonia`}
