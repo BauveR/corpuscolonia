@@ -30,9 +30,18 @@ export function useScrollSections<T extends SectionId>({
 
         if (intersecting.length === 0) return;
 
-        const mostVisible = intersecting.reduce((max, e) =>
-          e.intersectionRatio > max.intersectionRatio ? e : max
-        );
+        const mostVisible = intersecting.reduce((best, e) => {
+          const eTop = e.boundingClientRect.top;
+          const bestTop = best.boundingClientRect.top;
+          // Prefer the section whose top has most recently crossed above the viewport top.
+          // Both above fold (top <= 0): pick the one closest to 0 (most recently entered).
+          // One above fold, one below: prefer the one above.
+          // Both below fold (entering from bottom): pick highest ratio.
+          if (eTop <= 0 && bestTop <= 0) return eTop > bestTop ? e : best;
+          if (eTop <= 0) return e;
+          if (bestTop <= 0) return best;
+          return e.intersectionRatio > best.intersectionRatio ? e : best;
+        });
 
         const id = mostVisible.target.id as T;
 
