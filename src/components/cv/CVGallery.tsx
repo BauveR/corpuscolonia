@@ -39,8 +39,8 @@ export const CVGallery = () => {
 
   useEffect(() => {
     const update = () => {
-      const w = Math.min(CARD_WIDTH, window.innerWidth - 32);
-      const mobile = w < CARD_WIDTH;
+      const mobile = window.innerWidth < 640;
+      const w = mobile ? Math.min(CARD_WIDTH, window.innerWidth - 32) : CARD_WIDTH;
       setDims({ w, h: Math.round(w * (CARD_HEIGHT / CARD_WIDTH)), mobile });
     };
     update();
@@ -50,13 +50,13 @@ export const CVGallery = () => {
 
   return (
     <div className="w-full flex justify-center py-4">
-      <GlowingCards>
+      <GlowingCards containerClassName="items-start">
         {galleryItemKeys.map((item) => (
           <GlowingCard
             key={item.id}
             glowColor="#FF8B00"
-            className="flex flex-col bg-white/5 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 border border-white/10"
-            style={{ width: dims.w, height: dims.mobile ? undefined : dims.h }}
+            className={`flex flex-col bg-white/5 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 border border-white/10${dims.mobile ? " self-start" : ""}`}
+            style={{ width: dims.w, height: dims.mobile ? "auto" : dims.h }}
           >
             {/* Imagen */}
             <div

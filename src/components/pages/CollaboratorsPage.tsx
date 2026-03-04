@@ -12,6 +12,7 @@ export function CollaboratorsPage() {
 
   useEffect(() => {
     document.title = "Colaboradores — CORPUSCOLONIA";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

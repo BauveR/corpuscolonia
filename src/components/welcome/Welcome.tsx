@@ -63,7 +63,7 @@ export const Welcome = () => {
       >
         <ScrollReveal
           containerClassName="mt-6 sm:mt-8 mb-8 sm:mb-10 px-4 max-w-[90%] sm:max-w-3xl"
-          textClassName="text-[0.825rem] sm:text-sm md:text-lg tracking-[0.05em] sm:tracking-[0.08em] text-white font-sans font-normal text-center leading-tight"
+          textClassName="text-sm md:text-lg sm:tracking-[0.08em] text-stone-300/80 sm:text-white font-sans font-normal text-center leading-relaxed"
           baseOpacity={0}
           baseRotation={0}
           enableBlur={true}
