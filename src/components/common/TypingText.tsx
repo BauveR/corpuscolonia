@@ -36,9 +36,8 @@ export const TypingText = ({
     setTextContent(extractText(children));
   }, [children]);
 
-  const characters = textContent.split("").map((char) =>
-    char === " " ? "\u00A0" : char
-  );
+  // Split into words preserving spaces, calculate global char index per character
+  const totalChars = textContent.length;
 
   const characterVariants: Variants = {
     hidden: { opacity: 0, scale: 0.95 },
@@ -46,33 +45,49 @@ export const TypingText = ({
       opacity: 1,
       scale: 1,
       transition: {
-        delay: delay + i * (duration / Math.max(characters.length, 1)),
+        delay: delay + i * (duration / Math.max(totalChars, 1)),
         duration: 0.3,
         ease: "easeInOut",
       },
     }),
   };
 
+  // Build word groups so wrapping only happens at word boundaries
+  const words = textContent.split(" ");
+  let globalCharIndex = 0;
+
   return (
-    <Component className={cn("inline-flex flex-wrap", className)}>
-      <motion.span
-        className="inline-block"
-        initial="hidden"
-        animate="visible"
-        aria-label={textContent}
-        role="text"
-      >
-        {characters.map((char, index) => (
-          <motion.span
-            key={`${char}-${index}`}
-            className="inline-block"
-            variants={characterVariants}
-            custom={index}
-          >
-            {char}
-          </motion.span>
-        ))}
-      </motion.span>
+    <Component
+      className={cn("block break-words", className)}
+      aria-label={textContent}
+      role="text"
+    >
+      {words.map((word, wordIdx) => {
+        const wordStartIndex = globalCharIndex;
+        globalCharIndex += word.length + (wordIdx < words.length - 1 ? 1 : 0);
+
+        return (
+          <React.Fragment key={wordIdx}>
+            {/* Word as an unbreakable inline unit */}
+            <span className="inline-block whitespace-nowrap">
+              {word.split("").map((char, charIdx) => (
+                <motion.span
+                  key={charIdx}
+                  className="inline-block"
+                  variants={characterVariants}
+                  custom={wordStartIndex + charIdx}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+            {/* Space between words — allows line break here */}
+            {wordIdx < words.length - 1 && " "}
+          </React.Fragment>
+        );
+      })}
     </Component>
   );
 };

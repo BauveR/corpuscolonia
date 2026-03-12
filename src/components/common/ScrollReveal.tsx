@@ -81,10 +81,10 @@ export function ScrollReveal({
     <motion.div
       ref={containerRef}
       style={{ rotate: rotation }}
-      className={cn("transform-gpu", containerClassName)}
+      className={cn("transform-gpu w-full min-w-0", containerClassName)}
     >
       <motion.p
-        className={cn("leading-relaxed", textClassName)}
+        className={cn("leading-relaxed w-full break-words", textClassName)}
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}

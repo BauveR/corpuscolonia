@@ -23,7 +23,7 @@ export function CVSection({ sectionRef }: Props) {
       <div className="w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[7.8rem]">
 
         {/* Fila superior: columna izquierda (textos) + columna derecha (vacía) */}
-        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%]" style={{ maxWidth: '100vw' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-full min-w-0">
           {/* Columna izquierda: Textos */}
           <div className="flex flex-col justify-center items-center px-4">
             <div className="flex flex-col gap-10 text-stone-300 w-full sm:w-[70%] text-center">

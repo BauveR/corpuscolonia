@@ -94,7 +94,7 @@ export const DocumentosCard = ({
       {/* Título + descripción breve */}
       <div className="mt-3 px-1 flex-shrink-0">
         <h3 className="text-base tracking-wide font-medium">
-          <span className="line-clamp-1">{name}</span>
+          <span className="line-clamp-2">{name}</span>
         </h3>
         {description && (
           <p className="mt-1 text-sm text-stone-400 leading-snug line-clamp-2">
