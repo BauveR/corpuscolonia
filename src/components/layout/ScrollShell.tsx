@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { PageSEO } from "../seo/PageSEO";
 import { useMatch } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
@@ -47,12 +49,37 @@ export function ScrollShell() {
 
   const documentosMatch = useMatch("/documentos/:id");
 
-  useEffect(() => {
-    document.title = "CORPUSCOLONIA — Colonialismo Corpóreo en el Atlántico";
-  }, []);
+  const { i18n } = useTranslation();
+  const isEN = i18n.language.startsWith("en");
 
   return (
     <div className="relative min-h-screen overflow-x-hidden max-w-full" style={{ backgroundColor: '#6E311E' }}>
+      <PageSEO
+        title="CORPUSCOLONIA — Colonialismo Corpóreo en el Atlántico"
+        description={
+          isEN
+            ? "Research project on the biopolitical impact of colonialism on human remains in the Atlantic world: Canary Islands, Mexico, and the Netherlands."
+            : "Proyecto de investigación sobre el impacto biopolítico del colonialismo en los restos humanos del mundo atlántico: Canarias, México y Holanda."
+        }
+        canonicalPath="/"
+        lang={isEN ? "en" : "es"}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "ResearchProject",
+          "name": "CORPUSCOLONIA",
+          "alternateName": "Colonialismo Corpóreo",
+          "description": "Proyecto de investigación sobre el impacto biopolítico del colonialismo en los restos humanos del mundo atlántico moderno en los casos de estudio de Canarias, México y Holanda.",
+          "url": "https://corpuscolonia.com/",
+          "image": "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_1200/v1768775626/corpus_colonia_desktop_t90sru.png",
+          "foundingDate": "2024",
+          "keywords": ["colonialismo", "biopolítica", "restos humanos", "atlántico", "historia colonial", "Canarias", "México", "Holanda"],
+          "sponsor": [
+            { "@type": "Organization", "name": "Universiteit Leiden", "url": "https://www.universiteitleiden.nl/" },
+            { "@type": "Organization", "name": "Universidad de La Laguna", "url": "https://www.ull.es/" }
+          ],
+          "inLanguage": ["es", "en"]
+        }}
+      />
       <NavbarSections active={activeSection} onGo={scrollTo} />
 
       <WelcomeSection sectionRef={welcomeRef} />

@@ -1,0 +1,19 @@
+{
+  "name": "CORPUSCOLONIA — Colonialismo Corpóreo en el Atlántico",
+  "short_name": "CORPUSCOLONIA",
+  "description": "Proyecto de investigación sobre el impacto biopolítico del colonialismo en los restos humanos del mundo atlántico: Canarias, México y Holanda.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#6E311E",
+  "theme_color": "#6E311E",
+  "lang": "es",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

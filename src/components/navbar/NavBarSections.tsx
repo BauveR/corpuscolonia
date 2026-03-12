@@ -71,11 +71,9 @@ export default function NavbarSections({ active, onGo }: Props) {
 
   // Lock scroll cuando está abierto el drawer
   useEffect(() => {
-    const { body } = document;
-    const prev = body.style.overflow;
-    body.style.overflow = mobileOpen ? "hidden" : prev;
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
-      body.style.overflow = prev;
+      document.body.style.overflow = "";
     };
   }, [mobileOpen]);
 
