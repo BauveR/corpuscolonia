@@ -11,6 +11,9 @@ type ScrollRoute = { kind: "scroll"; id: SectionId; label: string };
 type LinkRoute = { kind: "link"; href: string; label: string };
 type RouteItem = ScrollRoute | LinkRoute;
 
+// Persiste entre desmontajes/montajes al navegar entre páginas
+let globalPending: SectionId | null = null;
+
 type Props = {
   active: SectionId | null;
   onGo: (id: SectionId) => void;
@@ -34,13 +37,18 @@ export default function NavbarSections({ active, onGo }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showTitles, setShowTitles] = useState(false);
-  const [pendingSection, setPendingSection] = useState<SectionId | null>(null);
+  const [pendingSection, setPendingSection] = useState<SectionId | null>(() => globalPending);
+
+  const setPending = (s: SectionId | null) => {
+    globalPending = s;
+    setPendingSection(s);
+  };
 
   const isOnMainPage = location.pathname === "/" || location.pathname.startsWith("/cv") || location.pathname.startsWith("/documentos");
 
-  // Libera el pending en cuanto el observer confirma la sección destino
+  // Libera el pending en cuanto el scroll listener confirma la sección destino
   useEffect(() => {
-    if (pendingSection && active === pendingSection) setPendingSection(null);
+    if (pendingSection && active === pendingSection) setPending(null);
   }, [active, pendingSection]);
 
   // Estabilizar el estado de los títulos con debounce e hysteresis
@@ -86,10 +94,10 @@ export default function NavbarSections({ active, onGo }: Props) {
   const handleRoute = (item: RouteItem) => {
     setMobileOpen(false);
     if (item.kind === "link") {
-      setPendingSection(null);
+      setPending(null);
       navigate(item.href);
     } else {
-      setPendingSection(item.id);
+      setPending(item.id);
       if (isOnMainPage) {
         onGo(item.id);
       } else {
@@ -162,7 +170,13 @@ export default function NavbarSections({ active, onGo }: Props) {
                   label: r.label,
                   key: r.kind === "scroll" ? r.id : r.href,
                 }))}
-                activeIndex={Math.max(0, routes.findIndex((r) => isActive(r)))}
+                activeIndex={(() => {
+                  const found = routes.findIndex((r) => isActive(r));
+                  if (found >= 0) return found;
+                  const seg = location.pathname.replace(/^\//, "") || "welcome";
+                  const byUrl = routes.findIndex(r => r.kind === "scroll" && r.id === seg);
+                  return byUrl >= 0 ? byUrl : 0;
+                })()}
                 onItemClick={(index) => handleRoute(routes[index])}
                 color="#ffffff"
               />
