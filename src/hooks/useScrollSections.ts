@@ -5,65 +5,44 @@ export type SectionId = string;
 interface UseScrollSectionsOptions<T extends SectionId> {
   sectionIds: readonly T[];
   sectionRefs: Record<T, RefObject<HTMLElement | null>>;
-  rootMargin?: string;
 }
 
 /**
- * Hook para detectar qué sección está visible en el viewport
- * Usa IntersectionObserver para una detección eficiente y simple
- * @param options - Configuración de secciones y refs
- * @returns ID de la sección activa actualmente
+ * Detecta la sección activa comparando la posición real de cada sección
+ * en cada evento scroll. La activa es la última cuyo top ha cruzado el 45%
+ * del viewport hacia arriba (orden en sectionIds = orden en la página).
  */
 export function useScrollSections<T extends SectionId>({
   sectionIds,
   sectionRefs,
-  rootMargin = "0px 0px -20% 0px",
 }: UseScrollSectionsOptions<T>) {
-  const [activeSection, setActiveSection] = useState<T>(sectionIds[0]);
+  const [activeSection, setActiveSection] = useState<T | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !("IntersectionObserver" in window)) return;
+    const detect = () => {
+      const threshold = window.innerHeight * 0.45;
+      let result: T | null = null;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const intersecting = entries.filter((e) => e.isIntersecting);
-
-        if (intersecting.length === 0) return;
-
-        const mostVisible = intersecting.reduce((best, e) => {
-          const eTop = e.boundingClientRect.top;
-          const bestTop = best.boundingClientRect.top;
-          // Prefer the section whose top has most recently crossed above the viewport top.
-          // Both above fold (top <= 0): pick the one closest to 0 (most recently entered).
-          // One above fold, one below: prefer the one above.
-          // Both below fold (entering from bottom): pick highest ratio.
-          if (eTop <= 0 && bestTop <= 0) return eTop > bestTop ? e : best;
-          if (eTop <= 0) return e;
-          if (bestTop <= 0) return best;
-          return e.intersectionRatio > best.intersectionRatio ? e : best;
-        });
-
-        const id = mostVisible.target.id as T;
-
-        if (sectionIds.includes(id)) {
-          setActiveSection(id);
+      for (const id of sectionIds) {
+        const el = sectionRefs[id].current;
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= threshold) {
+          result = id;
         }
-      },
-      {
-        root: null,
-        rootMargin,
-        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
       }
-    );
 
-    const elements = sectionIds
-      .map(id => sectionRefs[id].current)
-      .filter((el): el is HTMLElement => el !== null);
+      setActiveSection((prev) => (prev === result ? prev : result));
+    };
 
-    elements.forEach((el) => observer.observe(el));
+    window.addEventListener("scroll", detect, { passive: true });
+    // Detectar sección inicial tras un frame para que el layout esté listo
+    const timer = setTimeout(detect, 100);
 
-    return () => observer.disconnect();
-  }, [sectionIds, sectionRefs, rootMargin]);
+    return () => {
+      window.removeEventListener("scroll", detect);
+      clearTimeout(timer);
+    };
+  }, [sectionIds, sectionRefs]);
 
-  return activeSection;
+  return activeSection as T | null;
 }

@@ -34,8 +34,14 @@ export default function NavbarSections({ active, onGo }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showTitles, setShowTitles] = useState(false);
+  const [pendingSection, setPendingSection] = useState<SectionId | null>(null);
 
   const isOnMainPage = location.pathname === "/" || location.pathname.startsWith("/cv") || location.pathname.startsWith("/documentos");
+
+  // Libera el pending en cuanto el observer confirma la sección destino
+  useEffect(() => {
+    if (pendingSection && active === pendingSection) setPendingSection(null);
+  }, [active, pendingSection]);
 
   // Estabilizar el estado de los títulos con debounce e hysteresis
   useEffect(() => {
@@ -80,17 +86,24 @@ export default function NavbarSections({ active, onGo }: Props) {
   const handleRoute = (item: RouteItem) => {
     setMobileOpen(false);
     if (item.kind === "link") {
+      setPendingSection(null);
       navigate(item.href);
-    } else if (isOnMainPage) {
-      onGo(item.id);
     } else {
-      navigate(item.id === "welcome" ? "/" : `/${item.id}`);
+      setPendingSection(item.id);
+      if (isOnMainPage) {
+        onGo(item.id);
+      } else {
+        navigate(item.id === "welcome" ? "/" : `/${item.id}`);
+      }
     }
   };
 
+  // La sección efectiva: pending ancla el indicador hasta que el observer confirme
+  const effectiveActive = pendingSection ?? active;
+
   const isActive = (item: RouteItem) => {
     if (item.kind === "link") return location.pathname === item.href;
-    return active === item.id;
+    return effectiveActive === item.id;
   };
 
   return (

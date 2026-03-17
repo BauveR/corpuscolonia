@@ -73,7 +73,7 @@ export const CVGallery = () => {
             <div className="p-5 flex flex-col justify-start">
               <TypingText
                 as="h4"
-                className="font-anton text-[1.685rem] mb-4 text-[#D5C5B0] leading-snug"
+                className="font-anton text-[1.18rem] sm:text-[1.685rem] mb-4 text-[#D5C5B0] leading-snug"
                 duration={1.8}
                 delay={0.1}
               >
