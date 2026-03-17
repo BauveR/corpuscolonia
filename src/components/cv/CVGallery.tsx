@@ -6,25 +6,25 @@ import { GlowingCards, GlowingCard } from "../common/GlowingCards";
 const galleryItemKeys = [
   {
     id: "1",
-    image: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_400,h_120,c_fill/v1770912007/1_ppw6g3.png",
+    image: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_800/v1770912007/1_ppw6g3.png",
     titleKey: "gallery.card1.title",
     descriptionKey: "gallery.card1.description",
   },
   {
     id: "2",
-    image: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_400,h_120,c_fill/v1770912011/2_fjcj82.png",
+    image: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_800/v1770912011/2_fjcj82.png",
     titleKey: "gallery.card2.title",
     descriptionKey: "gallery.card2.description",
   },
   {
     id: "3",
-    image: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_400,h_120,c_fill/v1770912016/3_oybiwk.png",
+    image: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_800/v1770912016/3_oybiwk.png",
     titleKey: "gallery.card3.title",
     descriptionKey: "gallery.card3.description",
   },
   {
     id: "4",
-    image: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_400,h_120,c_fill/v1770912020/4_g1x4pv.png",
+    image: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_800/v1770912020/4_g1x4pv.png",
     titleKey: "gallery.card4.title",
     descriptionKey: "gallery.card4.description",
   },
@@ -59,14 +59,11 @@ export const CVGallery = () => {
             style={{ width: dims.w, height: dims.mobile ? "auto" : dims.h }}
           >
             {/* Imagen */}
-            <div
-              className="w-full flex-shrink-0 overflow-hidden"
-              style={{ height: dims.mobile ? 120 : "36%" }}
-            >
+            <div className={`w-full overflow-hidden${dims.mobile ? "" : " flex-1 min-h-0"}`}>
               <img
                 src={item.image}
                 alt={t(item.titleKey)}
-                className="w-full h-full object-cover"
+                className={dims.mobile ? "w-full h-auto block" : "w-full h-full object-contain"}
                 loading="lazy"
                 decoding="async"
               />
