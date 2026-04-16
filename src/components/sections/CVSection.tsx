@@ -1,11 +1,12 @@
-import { RefObject } from "react";
-import { motion } from "framer-motion";
+import { RefObject, lazy, Suspense } from "react";
 import { AnimatedSection } from "../common/AnimatedSection";
 import { ScrollReveal } from "../common/ScrollReveal";
 import { CVGallery } from "../cv/CVGallery";
 import { useTranslation } from "react-i18next";
 const figure5 = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto,w_800/v1770911634/Imagen_grande_drw1xq.png";
 import "./CVSection.css";
+
+const ObjViewer3D = lazy(() => import("../cv/ObjViewer3D"));
 
 type Props = {
   sectionRef: RefObject<HTMLElement | null>;
@@ -20,12 +21,11 @@ export function CVSection({ sectionRef }: Props) {
       viewportAmount={0.01}
       minHeight="auto"
     >
-      <div className="w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[7.8rem]">
+      <div className="relative w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[7.8rem]">
 
-        {/* Fila superior: columna izquierda (textos) + columna derecha (vacía) */}
-        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-full min-w-0">
-          {/* Columna izquierda: Textos */}
-          <div className="flex flex-col justify-center items-center px-4">
+        {/* Panel de vidrio — solo texto, overflow:hidden para que funcione el blur */}
+        <div className="px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-full min-w-0 overflow-hidden">
+          <div className="flex flex-col justify-center items-center px-4 lg:w-[55%]">
             <div className="flex flex-col gap-10 text-stone-300 w-full sm:w-[70%] text-center">
               <ScrollReveal
                 textClassName="font-anton text-[1.685rem] sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-center text-[#D5C5B0] leading-snug"
@@ -51,7 +51,6 @@ export function CVSection({ sectionRef }: Props) {
                 {t("cv.text")}
               </ScrollReveal>
 
-              {/* Imagen con pie de foto */}
               <div className="mt-2 sm:mt-6">
                 <img
                   src={figure5}
@@ -74,19 +73,20 @@ export function CVSection({ sectionRef }: Props) {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Columna derecha: SVG giratorio */}
-          <div className="hidden lg:flex items-center justify-center" style={{ perspective: "800px", transform: "translate(-160px, -40px)" }}>
-            <motion.img
-              src="https://res.cloudinary.com/dmweipuof/image/upload/v1771880596/corpus_colonia-01_t98bot.svg"
-              alt="Corpus Colonia"
-              className="w-[499px] h-[499px] sm:w-[624px] sm:h-[624px]"
-              animate={{ rotateY: 360 }}
-              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-              style={{ transformStyle: "preserve-3d" }}
-              draggable={false}
-            />
-          </div>
+        {/* Modelo 3D — anclado al wrapper externo, libre de crecer */}
+        <div className="hidden lg:block" style={{
+          position: "absolute",
+          top: "30%",
+          right: "180px",
+          transform: "translateY(-50%)",
+          pointerEvents: "none",
+          zIndex: 10,
+        }}>
+          <Suspense fallback={null}>
+            <ObjViewer3D />
+          </Suspense>
         </div>
 
         {/* Galería CV a ancho completo */}
