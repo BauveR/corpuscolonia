@@ -23,9 +23,11 @@ export function CVSection({ sectionRef }: Props) {
     >
       <div className="relative w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[7.8rem]">
 
-        {/* Panel de vidrio — solo texto, overflow:hidden para que funcione el blur */}
-        <div className="px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-full min-w-0 overflow-hidden">
-          <div className="flex flex-col justify-center items-center px-4 lg:w-[55%]">
+        {/* Panel de vidrio — grid responsive: columna texto + columna 3D */}
+        <div className="grid grid-cols-1 md:grid-cols-[55%_45%] px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-full min-w-0 overflow-hidden">
+
+          {/* Columna izquierda: texto */}
+          <div className="flex flex-col justify-center items-center px-4">
             <div className="flex flex-col gap-10 text-stone-300 w-full sm:w-[70%] text-center">
               <ScrollReveal
                 textClassName="font-anton text-[1.685rem] sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-center text-[#D5C5B0] leading-snug"
@@ -73,20 +75,14 @@ export function CVSection({ sectionRef }: Props) {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Modelo 3D — anclado al wrapper externo, libre de crecer */}
-        <div className="hidden lg:block" style={{
-          position: "absolute",
-          top: "30%",
-          right: "180px",
-          transform: "translateY(-50%)",
-          pointerEvents: "none",
-          zIndex: 10,
-        }}>
-          <Suspense fallback={null}>
-            <ObjViewer3D />
-          </Suspense>
+          {/* Columna derecha: modelo 3D — oculto en mobile, visible desde md: */}
+          <div className="hidden md:flex items-center justify-center md:h-[420px] lg:h-[580px]">
+            <Suspense fallback={null}>
+              <ObjViewer3D />
+            </Suspense>
+          </div>
+
         </div>
 
         {/* Galería CV a ancho completo */}

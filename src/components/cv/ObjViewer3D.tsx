@@ -6,19 +6,19 @@ import * as THREE from "three";
 // ─── AJUSTES FÁCILES ────────────────────────────────────────────────────────
 const CONFIG = {
   // Tamaño del modelo en unidades Three.js
-  modelScale: 18,
+  modelScale: 5,
 
   // Desplazamiento del modelo en el canvas (X: izquierda/derecha, Y: arriba/abajo)
   offsetX: 0,
   offsetY: 0.0,
 
   // Cámara — posición inicial (lejos) y final (cerca) al hacer scroll
-  cameraZStart: 1.3,
-  cameraZEnd: 1.7,
-  cameraY: 1.36, // sube la cámara para que mire hacia abajo
+  cameraZStart: 1,
+  cameraZEnd: 1,
+  cameraY: 1.6, // sube la cámara para que mire hacia abajo
 
   // Cuántos px de scroll cubre el zoom completo inicio→fin
-  cameraZoomScrollRange: 1500,
+  cameraZoomScrollRange: 1900,
 
   cameraFov: 30,
 
@@ -119,7 +119,7 @@ function Model({ scrollY }: { scrollY: number }) {
   return <primitive ref={groupRef} object={obj} />;
 }
 
-export default function ObjViewer3D() {
+export default function ObjViewer3D({ width, height }: { width?: number; height?: number } = {}) {
   const [scrollY, setScrollY] = useState(0);
   const invalidateRef = useRef<(() => void) | null>(null);
   const sectionOffsetRef = useRef(0);
@@ -140,7 +140,7 @@ export default function ObjViewer3D() {
   }, []);
 
   return (
-    <div style={{ width: CONFIG.canvasWidth, height: CONFIG.canvasHeight, position: "relative", flexShrink: 0 }}>
+    <div style={{ width: width ?? CONFIG.canvasWidth, height: height ?? CONFIG.canvasHeight, position: "relative", flexShrink: 0 }}>
       <Canvas
         frameloop="demand"
         camera={{ position: [0, CONFIG.cameraY, CONFIG.cameraZStart], fov: CONFIG.cameraFov, near: 0.1, far: 100 }}
