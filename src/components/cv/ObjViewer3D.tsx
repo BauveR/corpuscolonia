@@ -6,19 +6,19 @@ import * as THREE from "three";
 // ─── AJUSTES FÁCILES ────────────────────────────────────────────────────────
 const CONFIG = {
   // Tamaño del modelo en unidades Three.js
-  modelScale: 13,
+  modelScale: 18,
 
   // Desplazamiento del modelo en el canvas (X: izquierda/derecha, Y: arriba/abajo)
   offsetX: 0,
   offsetY: 0.0,
 
   // Cámara — posición inicial (lejos) y final (cerca) al hacer scroll
-  cameraZStart: 1.4,
-  cameraZEnd: 2.7,
-  cameraY: 0.4, // sube la cámara para que mire hacia abajo
+  cameraZStart: 1.2,
+  cameraZEnd: 2.5,
+  cameraY: 0.6, // sube la cámara para que mire hacia abajo
 
   // Cuántos px de scroll cubre el zoom completo inicio→fin
-  cameraZoomScrollRange: 1000,
+  cameraZoomScrollRange: 900,
 
   cameraFov: 45,
 
