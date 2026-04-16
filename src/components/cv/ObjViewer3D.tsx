@@ -13,26 +13,29 @@ const CONFIG = {
   offsetY: 0.0,
 
   // Cámara — posición inicial (lejos) y final (cerca) al hacer scroll
-  cameraZStart: 1.2,
-  cameraZEnd: 2.5,
-  cameraY: 0.6, // sube la cámara para que mire hacia abajo
+  cameraZStart: 1.3,
+  cameraZEnd: 1.7,
+  cameraY: 1.36, // sube la cámara para que mire hacia abajo
 
   // Cuántos px de scroll cubre el zoom completo inicio→fin
-  cameraZoomScrollRange: 900,
+  cameraZoomScrollRange: 1500,
 
-  cameraFov: 45,
+  cameraFov: 30,
 
   // Scroll: cuántos px hacen una rotación completa
   scrollPerRotation: 1800,
 
   // Efecto de escala al hacer scroll: 0 = sin efecto, 0.18 = sutil
-  scrollScaleEffect: 0.18,
+  scrollScaleEffect: 0,
 
   // Rotación inicial del modelo en X (en radianes: Math.PI/6 = 30°, Math.PI/4 = 45°)
-  initialRotX: Math.PI / 12,
+  initialRotX: 0,
 
   // Giro sutil en X al hacer scroll (en radianes, 0.0003 = muy sutil)
   scrollTiltX: 0.00008,
+
+  // Offset de inicio del scroll (negativo = arranca antes de la sección)
+  scrollStartOffset: -100,
 
   // Canvas
   canvasWidth: 700,
@@ -124,7 +127,7 @@ export default function ObjViewer3D() {
   useEffect(() => {
     // Calcular el offset de la sección #cv al montar
     const section = document.getElementById("cv");
-    if (section) sectionOffsetRef.current = section.offsetTop;
+    if (section) sectionOffsetRef.current = section.offsetTop + CONFIG.scrollStartOffset;
 
     const onScroll = () => {
       // Scroll relativo al inicio de la sección #cv, mínimo 0
