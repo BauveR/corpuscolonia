@@ -1,29 +1,46 @@
 import { useRef, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import * as THREE from "three";
 
 // ─── AJUSTES FÁCILES ────────────────────────────────────────────────────────
 const CONFIG = {
   // Tamaño del modelo en unidades Three.js
-  modelScale: 5,
+  modelScale: 9,
 
   // Desplazamiento del modelo en el canvas (X: izquierda/derecha, Y: arriba/abajo)
   offsetX: 0,
-  offsetY: -1,
+  offsetY: 0,
 
   // Cámara — posición inicial (lejos) y final (cerca) al hacer scroll
-  cameraZStart: 1.1,
-  cameraZEnd: 1,
-  cameraY: 1.4, // sube la cámara para que mire hacia abajo
+  cameraZStart: 1.3,
+  cameraZEnd: 3,
+  cameraY: 1, // altura de la cámara (0 = a nivel del modelo)
+
+  // Punto que queda en el CENTRO EXACTO del canvas (no mueve el modelo, no rompe la rotación)
+  // Y: positivo → modelo baja | negativo → modelo sube
+  // X: positivo → modelo va a la izquierda | negativo → modelo va a la derecha
+  cameraLookAtY: 0.28,
+  cameraLookAtX: 0.09,
+
+  // Versión mobile (< 768px) — misma lógica, valores independientes
+  mobile: {
+    cameraLookAtY: 0.25,
+    cameraLookAtX: -0.015,
+    scrollStartOffset: 0,
+    cameraZStart: 1.2,
+    cameraZEnd: 2,
+    cameraY: 1,
+  },
 
   // Cuántos px de scroll cubre el zoom completo inicio→fin
-  cameraZoomScrollRange: 1900,
+  cameraZoomScrollRange: 1700,
 
   cameraFov: 30,
 
   // Scroll: cuántos px hacen una rotación completa
-  scrollPerRotation: 1800,
+  scrollPerRotation: 1300,
 
   // Efecto de escala al hacer scroll: 0 = sin efecto, 0.18 = sutil
   scrollScaleEffect: 0,
@@ -35,7 +52,7 @@ const CONFIG = {
   scrollTiltX: 0.00008,
 
   // Offset de inicio del scroll (negativo = arranca antes de la sección)
-  scrollStartOffset: -100,
+  scrollStartOffset: -200,
 
   // Canvas
   canvasWidth: 700,
@@ -43,19 +60,21 @@ const CONFIG = {
 };
 // ────────────────────────────────────────────────────────────────────────────
 
-const OBJ_URL =
-  "https://res.cloudinary.com/dmweipuof/raw/upload/v1775742371/25_3_2026_hstho0.obj";
+const MODEL_URL =
+  "https://res.cloudinary.com/dmweipuof/image/upload/v1776865262/modelo_compressed_gxx1rm.glb";
 
-function CameraController({ scrollY }: { scrollY: number }) {
+function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: boolean }) {
   const { camera, invalidate } = useThree();
   const camZ = useRef(CONFIG.cameraZStart);
 
   useFrame((_, delta) => {
+    const cfg = isMobile ? CONFIG.mobile : CONFIG;
     const t = Math.min(scrollY / CONFIG.cameraZoomScrollRange, 1);
-    const targetZ = THREE.MathUtils.lerp(CONFIG.cameraZStart, CONFIG.cameraZEnd, t);
+    const targetZ = THREE.MathUtils.lerp(cfg.cameraZStart, cfg.cameraZEnd, t);
     camZ.current = THREE.MathUtils.lerp(camZ.current, targetZ, 1 - Math.pow(0.02, delta));
     camera.position.z = camZ.current;
-    camera.position.y = CONFIG.cameraY;
+    camera.position.y = cfg.cameraY;
+    camera.lookAt(cfg.cameraLookAtX, cfg.cameraLookAtY, 0);
     invalidate();
   });
 
@@ -63,7 +82,11 @@ function CameraController({ scrollY }: { scrollY: number }) {
 }
 
 function Model({ scrollY }: { scrollY: number }) {
-  const obj = useLoader(OBJLoader, OBJ_URL);
+  const { scene } = useLoader(GLTFLoader, MODEL_URL, (loader) => {
+    const draco = new DRACOLoader();
+    draco.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
+    (loader as GLTFLoader).setDRACOLoader(draco);
+  });
   const groupRef = useRef<THREE.Group>(null);
   const { invalidate } = useThree();
 
@@ -72,24 +95,24 @@ function Model({ scrollY }: { scrollY: number }) {
   const scaleVal = useRef(1);
 
   useEffect(() => {
-    if (!obj) return;
-    const box = new THREE.Box3().setFromObject(obj);
+    if (!scene) return;
+    const box = new THREE.Box3().setFromObject(scene);
     const center = box.getCenter(new THREE.Vector3());
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
     const s = CONFIG.modelScale / maxDim;
 
-    obj.scale.setScalar(s);
-    obj.position.set(
+    scene.scale.setScalar(s);
+    scene.position.set(
       -center.x * s + CONFIG.offsetX,
       -center.y * s + CONFIG.offsetY,
       -center.z * s
     );
 
-    obj.traverse((child) => {
+    scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         (child as THREE.Mesh).material = new THREE.MeshStandardMaterial({
-          color: new THREE.Color("#c8b89a"),
+          color: new THREE.Color("#cec6ba"),
           metalness: 0.1,
           roughness: 0.7,
         });
@@ -97,7 +120,7 @@ function Model({ scrollY }: { scrollY: number }) {
     });
 
     invalidate();
-  }, [obj, invalidate]);
+  }, [scene, invalidate]);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
@@ -116,27 +139,35 @@ function Model({ scrollY }: { scrollY: number }) {
     groupRef.current.scale.setScalar(scaleVal.current);
   });
 
-  return <primitive ref={groupRef} object={obj} />;
+  return <primitive ref={groupRef} object={scene} />;
 }
 
 export default function ObjViewer3D({ width, height, fill }: { width?: number; height?: number; fill?: boolean } = {}) {
   const [scrollY, setScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
   const invalidateRef = useRef<(() => void) | null>(null);
   const sectionOffsetRef = useRef(0);
 
   useEffect(() => {
     // Calcular el offset de la sección #cv al montar
     const section = document.getElementById("cv");
-    if (section) sectionOffsetRef.current = section.offsetTop + CONFIG.scrollStartOffset;
+    if (section) {
+      const offset = window.innerWidth < 768 ? CONFIG.mobile.scrollStartOffset : CONFIG.scrollStartOffset;
+      sectionOffsetRef.current = section.offsetTop + offset;
+    }
 
     const onScroll = () => {
-      // Scroll relativo al inicio de la sección #cv, mínimo 0
       const relative = Math.max(0, window.scrollY - sectionOffsetRef.current);
       setScrollY(relative);
       invalidateRef.current?.();
     };
+    const onResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   return (
@@ -146,7 +177,7 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
     }>
       <Canvas
         frameloop="demand"
-        camera={{ position: [0, CONFIG.cameraY, CONFIG.cameraZStart], fov: CONFIG.cameraFov, near: 0.1, far: 100 }}
+        camera={{ position: [0, CONFIG.cameraY, CONFIG.cameraZStart], fov: CONFIG.cameraFov, near: 0.1, far: 100, up: [0, 1, 0] }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true, powerPreference: "default", preserveDrawingBuffer: false }}
         style={{ background: "transparent" }}
@@ -157,7 +188,7 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
         <directionalLight position={[-4, -2, 2]} intensity={0.5} color="#d4c4a8" />
         <directionalLight position={[-2, 3, -5]} intensity={0.3} color="#e8ddd0" />
         <Suspense fallback={null}>
-          <CameraController scrollY={scrollY} />
+          <CameraController scrollY={scrollY} isMobile={isMobile} />
           <Model scrollY={scrollY} />
         </Suspense>
       </Canvas>

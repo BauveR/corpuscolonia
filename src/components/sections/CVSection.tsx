@@ -21,10 +21,10 @@ export function CVSection({ sectionRef }: Props) {
       viewportAmount={0.01}
       minHeight="auto"
     >
-      <div className="relative w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[7.8rem]">
+      <div className="relative w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[3rem]">
 
         {/* Panel de vidrio — grid responsive: columna texto + columna 3D */}
-        <div className="grid grid-cols-1 md:grid-cols-[55%_45%] px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-full min-w-0 overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-[55%_45%] md:items-start px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-[1632px] min-w-0 overflow-hidden">
 
           {/* Columna izquierda: texto */}
           <div className="flex flex-col justify-center items-center px-4">
@@ -53,11 +53,11 @@ export function CVSection({ sectionRef }: Props) {
                 {t("cv.text")}
               </ScrollReveal>
 
-              <div className="mt-2 sm:mt-6">
+              <div className="mt-2 sm:mt-2">
                 <img
                   src={figure5}
                   alt="Redes atlánticas de intercambio"
-                  className="w-full rounded-lg mb-3"
+                  className="w-full rounded-lg mb-3 md:w-auto md:max-h-[280px] md:mx-auto"
                   loading="lazy"
                   decoding="async"
                 />
@@ -76,8 +76,8 @@ export function CVSection({ sectionRef }: Props) {
             </div>
           </div>
 
-          {/* Columna 3D — mobile: min-h fija / md+: se estira al alto del texto */}
-          <div className="min-h-[300px] sm:min-h-[360px] md:min-h-0">
+          {/* Columna 3D — mobile: min-h fija / md+: altura fija, no se estira con el texto */}
+          <div className="min-h-[300px] sm:min-h-[360px] md:h-[560px] md:self-start">
             <Suspense fallback={null}>
               <ObjViewer3D fill />
             </Suspense>

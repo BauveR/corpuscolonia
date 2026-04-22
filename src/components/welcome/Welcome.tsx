@@ -79,7 +79,7 @@ export const Welcome = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.4 }}
-          className="flex items-center justify-center gap-6 sm:gap-8 px-4 mt-8 w-full"
+          className="flex items-center justify-center gap-6 sm:gap-8 px-4 mt-4 w-full"
         >
           <img
             src={leidenLogo}

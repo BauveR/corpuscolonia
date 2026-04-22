@@ -9,7 +9,7 @@ export const Footer = () => {
       className="relative z-40 w-full bg-gradient-to-t from-orange-950 to-transparent"
       role="contentinfo"
     >
-      <div className="w-full px-4 md:px-32 pt-6 pb-24 sm:py-30">
+      <div className="w-full max-w-[1632px] mx-auto px-4 md:px-8 pt-6 pb-24 sm:py-30">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Texto */}
           <div className="flex-1 w-full md:w-auto mr-0 md:mr-60">
@@ -19,7 +19,7 @@ export const Footer = () => {
           </div>
 
           {/* Logos a la derecha */}
-          <div className="flex items-center gap-4 -mt-4 sm:mt-0">
+          <div className="flex items-center gap-4 mt-0 sm:mt-0">
             <img
               src={leidenLogo}
               alt="Universiteit Leiden"
