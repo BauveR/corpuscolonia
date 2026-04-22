@@ -23,11 +23,11 @@ export function CVSection({ sectionRef }: Props) {
     >
       <div className="relative w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[3rem]">
 
-        {/* Panel de vidrio — grid responsive: columna texto + columna 3D */}
-        <div className="grid grid-cols-1 md:grid-cols-[55%_45%] md:items-start px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-[1632px] min-w-0 overflow-hidden">
+        {/* Grid layout — sin glass en el wrapper para no interferir con WebGL */}
+        <div className="grid grid-cols-1 md:grid-cols-[55%_45%] md:items-start mx-auto w-[90%] max-w-[1632px] min-w-0">
 
-          {/* Columna izquierda: texto */}
-          <div className="flex flex-col justify-center items-center px-4">
+          {/* Columna izquierda: texto con glass */}
+          <div className="flex flex-col justify-center items-center px-4 sm:px-8 py-10 sm:py-16 rounded-3xl bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5">
             <div className="flex flex-col gap-10 text-stone-300 w-full sm:w-[70%] text-center">
               <ScrollReveal
                 textClassName="font-anton text-[1.685rem] sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-center text-[#D5C5B0] leading-snug"
@@ -76,7 +76,7 @@ export function CVSection({ sectionRef }: Props) {
             </div>
           </div>
 
-          {/* Columna 3D — mobile: min-h fija / md+: altura fija, no se estira con el texto */}
+          {/* Columna 3D — sin glass ni overflow */}
           <div className="min-h-[300px] sm:min-h-[360px] md:h-[560px] md:self-start">
             <Suspense fallback={null}>
               <ObjViewer3D fill />
