@@ -61,7 +61,7 @@ const CONFIG = {
 // ────────────────────────────────────────────────────────────────────────────
 
 const MODEL_URL =
-  "https://res.cloudinary.com/dmweipuof/image/upload/v1776865262/modelo_compressed_gxx1rm.glb";
+  "https://res.cloudinary.com/dmweipuof/raw/upload/v1776865262/modelo_compressed_gxx1rm.glb";
 
 function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: boolean }) {
   const { camera, invalidate } = useThree();
