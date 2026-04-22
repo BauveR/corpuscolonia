@@ -152,7 +152,7 @@ function Model({ scrollY }: { scrollY: number }) {
 export default function ObjViewer3D({ width, height, fill }: { width?: number; height?: number; fill?: boolean } = {}) {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
-  const invalidateRef = useRef<(() => void) | null>(null);
+  const invalidateRef = useRef<(() => void) | null>(null); // kept for scroll trigger
   const sectionOffsetRef = useRef(0);
 
   useEffect(() => {
@@ -183,12 +183,13 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
       : { width: width ?? CONFIG.canvasWidth, height: height ?? CONFIG.canvasHeight, position: "relative", flexShrink: 0 }
     }>
       <Canvas
-        frameloop="demand"
+        frameloop="always"
         camera={{ position: [0, CONFIG.cameraY, CONFIG.cameraZStart], fov: CONFIG.cameraFov, near: 0.1, far: 100, up: [0, 1, 0] }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true, powerPreference: "default", preserveDrawingBuffer: false }}
         style={{ background: "transparent" }}
         onCreated={({ invalidate }) => { invalidateRef.current = invalidate; }}
+
       >
         <ambientLight intensity={0.35} color="#f5e9d8" />
         <directionalLight position={[6, 5, 3]} intensity={2.2} color="#fff4e0" />
