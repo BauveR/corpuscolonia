@@ -88,10 +88,10 @@ function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: bo
   return null;
 }
 
-function Model({ scrollY }: { scrollY: number }) {
+function Model({ scrollY, onLoaded }: { scrollY: number; onLoaded?: () => void }) {
   const { scene } = useLoader(GLTFLoader, MODEL_URL, (loader) => {
     const draco = new DRACOLoader();
-    draco.setDecoderPath("/draco/");
+    draco.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
     (loader as GLTFLoader).setDRACOLoader(draco);
   });
   const groupRef = useRef<THREE.Group>(null);
@@ -126,8 +126,9 @@ function Model({ scrollY }: { scrollY: number }) {
       }
     });
 
+    onLoaded?.();
     invalidate();
-  }, [scene, invalidate]);
+  }, [scene, invalidate, onLoaded]);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
@@ -149,18 +150,35 @@ function Model({ scrollY }: { scrollY: number }) {
   return <primitive ref={groupRef} object={scene} />;
 }
 
+function DebugSphere() {
+  return (
+    <mesh position={[0, 0, 0]}>
+      <sphereGeometry args={[0.4, 16, 16]} />
+      <meshBasicMaterial color="hotpink" />
+    </mesh>
+  );
+}
+
 export default function ObjViewer3D({ width, height, fill }: { width?: number; height?: number; fill?: boolean } = {}) {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
-  const invalidateRef = useRef<(() => void) | null>(null); // kept for scroll trigger
+  const [dbg, setDbg] = useState({ w: 0, h: 0, canvasOk: false, modelOk: false });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const invalidateRef = useRef<(() => void) | null>(null);
   const sectionOffsetRef = useRef(0);
 
   useEffect(() => {
-    // Calcular el offset de la sección #cv al montar
     const section = document.getElementById("cv");
     if (section) {
       const offset = window.innerWidth < 768 ? CONFIG.mobile.scrollStartOffset : CONFIG.scrollStartOffset;
       sectionOffsetRef.current = section.offsetTop + offset;
+    }
+
+    // Reportar dimensiones del container
+    if (containerRef.current) {
+      const r = containerRef.current.getBoundingClientRect();
+      console.log("[3D] container:", Math.round(r.width), "x", Math.round(r.height));
+      setDbg(d => ({ ...d, w: Math.round(r.width), h: Math.round(r.height) }));
     }
 
     const onScroll = () => {
@@ -178,19 +196,35 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
   }, []);
 
   return (
-    <div style={fill
-      ? { width: "100%", height: "100%", position: "relative" }
-      : { width: width ?? CONFIG.canvasWidth, height: height ?? CONFIG.canvasHeight, position: "relative", flexShrink: 0 }
-    }>
+    <div
+      ref={containerRef}
+      style={fill
+        ? { width: "100%", height: "100%", position: "relative" }
+        : { width: width ?? CONFIG.canvasWidth, height: height ?? CONFIG.canvasHeight, position: "relative", flexShrink: 0 }
+      }
+    >
+      {/* Diagnóstico visible — quitar después */}
+      <div style={{ position: "absolute", top: 4, left: 4, zIndex: 99, fontSize: 10, color: "lime", background: "rgba(0,0,0,0.6)", padding: "2px 6px", borderRadius: 4, pointerEvents: "none", lineHeight: 1.6 }}>
+        container: {dbg.w}×{dbg.h}px<br />
+        canvas: {dbg.canvasOk ? "✓" : "✗"}<br />
+        model: {dbg.modelOk ? "✓" : "cargando…"}
+      </div>
+
       <Canvas
         frameloop="always"
         camera={{ position: [0, CONFIG.cameraY, CONFIG.cameraZStart], fov: CONFIG.cameraFov, near: 0.1, far: 100, up: [0, 1, 0] }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true, powerPreference: "default", preserveDrawingBuffer: false }}
         style={{ background: "transparent" }}
-        onCreated={({ invalidate }) => { invalidateRef.current = invalidate; }}
-
+        onCreated={({ invalidate }) => {
+          invalidateRef.current = invalidate;
+          console.log("[3D] Canvas creado ✓");
+          setDbg(d => ({ ...d, canvasOk: true }));
+        }}
       >
+        {/* Esfera de prueba — siempre visible si WebGL funciona */}
+        <DebugSphere />
+
         <ambientLight intensity={0.35} color="#f5e9d8" />
         <directionalLight position={[6, 5, 3]} intensity={2.2} color="#fff4e0" />
         <directionalLight position={[-4, -2, 2]} intensity={0.5} color="#d4c4a8" />
@@ -198,7 +232,10 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
         <ErrorBoundary>
           <Suspense fallback={null}>
             <CameraController scrollY={scrollY} isMobile={isMobile} />
-            <Model scrollY={scrollY} />
+            <Model scrollY={scrollY} onLoaded={() => {
+              console.log("[3D] modelo cargado ✓");
+              setDbg(d => ({ ...d, modelOk: true }));
+            }} />
           </Suspense>
         </ErrorBoundary>
       </Canvas>
