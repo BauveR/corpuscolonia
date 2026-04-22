@@ -7,6 +7,7 @@ import * as THREE from "three";
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
   state = { error: false };
   static getDerivedStateFromError() { return { error: true }; }
+  componentDidCatch(e: Error) { console.error("[ObjViewer3D error]", e.message, e.stack); }
   render() { return this.state.error ? null : this.props.children; }
 }
 
