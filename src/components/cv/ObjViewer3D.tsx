@@ -128,7 +128,8 @@ function Model({ scrollY, onLoaded }: { scrollY: number; onLoaded?: () => void }
 
     onLoaded?.();
     invalidate();
-  }, [scene, invalidate, onLoaded]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scene, invalidate]);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
