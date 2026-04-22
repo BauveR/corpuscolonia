@@ -56,8 +56,15 @@ export const TypingText = ({
   const words = textContent.split(" ");
   let globalCharIndex = 0;
 
+  const Tag = Component as React.ComponentType<{
+    className?: string;
+    "aria-label"?: string;
+    role?: string;
+    children?: ReactNode;
+  }>;
+
   return (
-    <Component
+    <Tag
       className={cn("block break-words", className)}
       aria-label={textContent}
       role="text"
@@ -88,7 +95,7 @@ export const TypingText = ({
           </React.Fragment>
         );
       })}
-    </Component>
+    </Tag>
   );
 };
 

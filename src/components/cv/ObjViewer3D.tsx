@@ -10,12 +10,12 @@ const CONFIG = {
 
   // Desplazamiento del modelo en el canvas (X: izquierda/derecha, Y: arriba/abajo)
   offsetX: 0,
-  offsetY: 0.0,
+  offsetY: -1,
 
   // Cámara — posición inicial (lejos) y final (cerca) al hacer scroll
-  cameraZStart: 1,
+  cameraZStart: 1.1,
   cameraZEnd: 1,
-  cameraY: 1.6, // sube la cámara para que mire hacia abajo
+  cameraY: 1.4, // sube la cámara para que mire hacia abajo
 
   // Cuántos px de scroll cubre el zoom completo inicio→fin
   cameraZoomScrollRange: 1900,
@@ -39,7 +39,7 @@ const CONFIG = {
 
   // Canvas
   canvasWidth: 700,
-  canvasHeight: 700,
+  canvasHeight: 1200,
 };
 // ────────────────────────────────────────────────────────────────────────────
 
@@ -119,7 +119,7 @@ function Model({ scrollY }: { scrollY: number }) {
   return <primitive ref={groupRef} object={obj} />;
 }
 
-export default function ObjViewer3D({ width, height }: { width?: number; height?: number } = {}) {
+export default function ObjViewer3D({ width, height, fill }: { width?: number; height?: number; fill?: boolean } = {}) {
   const [scrollY, setScrollY] = useState(0);
   const invalidateRef = useRef<(() => void) | null>(null);
   const sectionOffsetRef = useRef(0);
@@ -140,7 +140,10 @@ export default function ObjViewer3D({ width, height }: { width?: number; height?
   }, []);
 
   return (
-    <div style={{ width: width ?? CONFIG.canvasWidth, height: height ?? CONFIG.canvasHeight, position: "relative", flexShrink: 0 }}>
+    <div style={fill
+      ? { width: "100%", height: "100%", position: "relative" }
+      : { width: width ?? CONFIG.canvasWidth, height: height ?? CONFIG.canvasHeight, position: "relative", flexShrink: 0 }
+    }>
       <Canvas
         frameloop="demand"
         camera={{ position: [0, CONFIG.cameraY, CONFIG.cameraZStart], fov: CONFIG.cameraFov, near: 0.1, far: 100 }}

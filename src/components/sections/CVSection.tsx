@@ -76,10 +76,10 @@ export function CVSection({ sectionRef }: Props) {
             </div>
           </div>
 
-          {/* Columna derecha: modelo 3D — oculto en mobile, visible desde md: */}
-          <div className="hidden md:flex items-center justify-center md:h-[420px] lg:h-[580px]">
+          {/* Columna 3D — mobile: min-h fija / md+: se estira al alto del texto */}
+          <div className="min-h-[300px] sm:min-h-[360px] md:min-h-0">
             <Suspense fallback={null}>
-              <ObjViewer3D />
+              <ObjViewer3D fill />
             </Suspense>
           </div>
 
