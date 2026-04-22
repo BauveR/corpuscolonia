@@ -90,7 +90,7 @@ function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: bo
 function Model({ scrollY }: { scrollY: number }) {
   const { scene } = useLoader(GLTFLoader, MODEL_URL, (loader) => {
     const draco = new DRACOLoader();
-    draco.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
+    draco.setDecoderPath("/draco/");
     (loader as GLTFLoader).setDRACOLoader(draco);
   });
   const groupRef = useRef<THREE.Group>(null);
