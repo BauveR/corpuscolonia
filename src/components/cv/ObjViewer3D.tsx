@@ -1,8 +1,14 @@
-import { useRef, useEffect, useState, Suspense } from "react";
+import { useRef, useEffect, useState, Suspense, Component, ReactNode } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import * as THREE from "three";
+
+class ErrorBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
+  state = { error: false };
+  static getDerivedStateFromError() { return { error: true }; }
+  render() { return this.state.error ? null : this.props.children; }
+}
 
 // ─── AJUSTES FÁCILES ────────────────────────────────────────────────────────
 const CONFIG = {
@@ -61,7 +67,7 @@ const CONFIG = {
 // ────────────────────────────────────────────────────────────────────────────
 
 const MODEL_URL =
-  "https://res.cloudinary.com/dmweipuof/raw/upload/v1776865262/modelo_compressed_gxx1rm.glb";
+  "https://res.cloudinary.com/dmweipuof/image/upload/v1776865262/modelo_compressed_gxx1rm.glb";
 
 function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: boolean }) {
   const { camera, invalidate } = useThree();
@@ -187,10 +193,12 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
         <directionalLight position={[6, 5, 3]} intensity={2.2} color="#fff4e0" />
         <directionalLight position={[-4, -2, 2]} intensity={0.5} color="#d4c4a8" />
         <directionalLight position={[-2, 3, -5]} intensity={0.3} color="#e8ddd0" />
-        <Suspense fallback={null}>
-          <CameraController scrollY={scrollY} isMobile={isMobile} />
-          <Model scrollY={scrollY} />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <CameraController scrollY={scrollY} isMobile={isMobile} />
+            <Model scrollY={scrollY} />
+          </Suspense>
+        </ErrorBoundary>
       </Canvas>
     </div>
   );
