@@ -1,14 +1,8 @@
-import { useRef, useEffect, useState, Suspense, Component, ReactNode } from "react";
+import { useRef, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import * as THREE from "three";
-
-class ErrorBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
-  state = { error: false };
-  static getDerivedStateFromError() { return { error: true }; }
-  componentDidCatch(e: Error) { console.error("[ObjViewer3D error]", e.message, e.stack); }
-  render() { return this.state.error ? null : this.props.children; }
-}
 
 // ─── AJUSTES FÁCILES ────────────────────────────────────────────────────────
 const CONFIG = {
@@ -67,7 +61,7 @@ const CONFIG = {
 // ────────────────────────────────────────────────────────────────────────────
 
 const MODEL_URL =
-  "https://res.cloudinary.com/dmweipuof/raw/upload/v1776879314/25_3_2026_dnn2zx.obj";
+  "https://res.cloudinary.com/dmweipuof/image/upload/v1776865262/modelo_compressed_gxx1rm.glb";
 
 function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: boolean }) {
   const { camera, invalidate } = useThree();
@@ -87,33 +81,35 @@ function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: bo
   return null;
 }
 
-function Model({ scrollY, onLoaded }: { scrollY: number; onLoaded?: () => void }) {
-  const group = useLoader(OBJLoader, MODEL_URL);
+function Model({ scrollY }: { scrollY: number }) {
+  const { scene } = useLoader(GLTFLoader, MODEL_URL, (loader) => {
+    const draco = new DRACOLoader();
+    draco.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
+    (loader as GLTFLoader).setDRACOLoader(draco);
+  });
   const groupRef = useRef<THREE.Group>(null);
   const { invalidate } = useThree();
 
   const rotY = useRef(0);
   const rotX = useRef(CONFIG.initialRotX);
   const scaleVal = useRef(1);
-  const baseScale = useRef(1);
 
   useEffect(() => {
-    if (!group) return;
-    const box = new THREE.Box3().setFromObject(group);
+    if (!scene) return;
+    const box = new THREE.Box3().setFromObject(scene);
     const center = box.getCenter(new THREE.Vector3());
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
     const s = CONFIG.modelScale / maxDim;
-    baseScale.current = s;
 
-    group.scale.setScalar(s);
-    group.position.set(
+    scene.scale.setScalar(s);
+    scene.position.set(
       -center.x * s + CONFIG.offsetX,
       -center.y * s + CONFIG.offsetY,
       -center.z * s
     );
 
-    group.traverse((child) => {
+    scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         (child as THREE.Mesh).material = new THREE.MeshStandardMaterial({
           color: new THREE.Color("#cec6ba"),
@@ -123,10 +119,8 @@ function Model({ scrollY, onLoaded }: { scrollY: number; onLoaded?: () => void }
       }
     });
 
-    onLoaded?.();
     invalidate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [group, invalidate]);
+  }, [scene, invalidate]);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
@@ -142,40 +136,24 @@ function Model({ scrollY, onLoaded }: { scrollY: number; onLoaded?: () => void }
 
     groupRef.current.rotation.y = rotY.current;
     groupRef.current.rotation.x = rotX.current;
-    groupRef.current.scale.setScalar(baseScale.current * scaleVal.current);
+    groupRef.current.scale.setScalar(scaleVal.current);
   });
 
-  return <primitive ref={groupRef} object={group} />;
-}
-
-function DebugSphere() {
-  return (
-    <mesh position={[0, 0, 0]}>
-      <sphereGeometry args={[0.4, 16, 16]} />
-      <meshBasicMaterial color="hotpink" />
-    </mesh>
-  );
+  return <primitive ref={groupRef} object={scene} />;
 }
 
 export default function ObjViewer3D({ width, height, fill }: { width?: number; height?: number; fill?: boolean } = {}) {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
-  const [dbg, setDbg] = useState({ w: 0, h: 0, canvasOk: false, modelOk: false });
-  const containerRef = useRef<HTMLDivElement>(null);
   const invalidateRef = useRef<(() => void) | null>(null);
   const sectionOffsetRef = useRef(0);
 
   useEffect(() => {
+    // Calcular el offset de la sección #cv al montar
     const section = document.getElementById("cv");
     if (section) {
       const offset = window.innerWidth < 768 ? CONFIG.mobile.scrollStartOffset : CONFIG.scrollStartOffset;
       sectionOffsetRef.current = section.offsetTop + offset;
-    }
-
-    if (containerRef.current) {
-      const r = containerRef.current.getBoundingClientRect();
-      console.log("[3D] container:", Math.round(r.width), "x", Math.round(r.height));
-      setDbg(d => ({ ...d, w: Math.round(r.width), h: Math.round(r.height) }));
     }
 
     const onScroll = () => {
@@ -193,48 +171,26 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      style={fill
-        ? { width: "100%", height: "100%", position: "relative" }
-        : { width: width ?? CONFIG.canvasWidth, height: height ?? CONFIG.canvasHeight, position: "relative", flexShrink: 0 }
-      }
-    >
-      {/* Diagnóstico visible — quitar después */}
-      <div style={{ position: "absolute", top: 4, left: 4, zIndex: 99, fontSize: 10, color: "lime", background: "rgba(0,0,0,0.6)", padding: "2px 6px", borderRadius: 4, pointerEvents: "none", lineHeight: 1.6 }}>
-        container: {dbg.w}×{dbg.h}px<br />
-        canvas: {dbg.canvasOk ? "✓" : "✗"}<br />
-        model: {dbg.modelOk ? "✓" : "cargando…"}
-      </div>
-
+    <div style={fill
+      ? { width: "100%", height: "100%", position: "relative" }
+      : { width: width ?? CONFIG.canvasWidth, height: height ?? CONFIG.canvasHeight, position: "relative", flexShrink: 0 }
+    }>
       <Canvas
-        frameloop="always"
+        frameloop="demand"
         camera={{ position: [0, CONFIG.cameraY, CONFIG.cameraZStart], fov: CONFIG.cameraFov, near: 0.1, far: 100, up: [0, 1, 0] }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true, powerPreference: "default", preserveDrawingBuffer: false }}
         style={{ background: "transparent" }}
-        onCreated={({ invalidate }) => {
-          invalidateRef.current = invalidate;
-          console.log("[3D] Canvas creado ✓");
-          setDbg(d => ({ ...d, canvasOk: true }));
-        }}
+        onCreated={({ invalidate }) => { invalidateRef.current = invalidate; }}
       >
-        {/* Esfera de prueba — siempre visible si WebGL funciona */}
-        <DebugSphere />
-
         <ambientLight intensity={0.35} color="#f5e9d8" />
         <directionalLight position={[6, 5, 3]} intensity={2.2} color="#fff4e0" />
         <directionalLight position={[-4, -2, 2]} intensity={0.5} color="#d4c4a8" />
         <directionalLight position={[-2, 3, -5]} intensity={0.3} color="#e8ddd0" />
-        <ErrorBoundary>
-          <Suspense fallback={null}>
-            <CameraController scrollY={scrollY} isMobile={isMobile} />
-            <Model scrollY={scrollY} onLoaded={() => {
-              console.log("[3D] modelo cargado ✓");
-              setDbg(d => ({ ...d, modelOk: true }));
-            }} />
-          </Suspense>
-        </ErrorBoundary>
+        <Suspense fallback={null}>
+          <CameraController scrollY={scrollY} isMobile={isMobile} />
+          <Model scrollY={scrollY} />
+        </Suspense>
       </Canvas>
     </div>
   );
