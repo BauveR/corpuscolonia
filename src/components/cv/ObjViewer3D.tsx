@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState, Suspense, Component, ReactNode } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import * as THREE from "three";
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
@@ -68,7 +67,7 @@ const CONFIG = {
 // ────────────────────────────────────────────────────────────────────────────
 
 const MODEL_URL =
-  "https://res.cloudinary.com/dmweipuof/image/upload/v1776865262/modelo_compressed_gxx1rm.glb";
+  "https://res.cloudinary.com/dmweipuof/raw/upload/v1776879314/25_3_2026_dnn2zx.obj";
 
 function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: boolean }) {
   const { camera, invalidate } = useThree();
@@ -89,34 +88,32 @@ function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: bo
 }
 
 function Model({ scrollY, onLoaded }: { scrollY: number; onLoaded?: () => void }) {
-  const { scene } = useLoader(GLTFLoader, MODEL_URL, (loader) => {
-    const draco = new DRACOLoader();
-    draco.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
-    (loader as GLTFLoader).setDRACOLoader(draco);
-  });
+  const group = useLoader(OBJLoader, MODEL_URL);
   const groupRef = useRef<THREE.Group>(null);
   const { invalidate } = useThree();
 
   const rotY = useRef(0);
   const rotX = useRef(CONFIG.initialRotX);
   const scaleVal = useRef(1);
+  const baseScale = useRef(1);
 
   useEffect(() => {
-    if (!scene) return;
-    const box = new THREE.Box3().setFromObject(scene);
+    if (!group) return;
+    const box = new THREE.Box3().setFromObject(group);
     const center = box.getCenter(new THREE.Vector3());
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
     const s = CONFIG.modelScale / maxDim;
+    baseScale.current = s;
 
-    scene.scale.setScalar(s);
-    scene.position.set(
+    group.scale.setScalar(s);
+    group.position.set(
       -center.x * s + CONFIG.offsetX,
       -center.y * s + CONFIG.offsetY,
       -center.z * s
     );
 
-    scene.traverse((child) => {
+    group.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         (child as THREE.Mesh).material = new THREE.MeshStandardMaterial({
           color: new THREE.Color("#cec6ba"),
@@ -129,7 +126,7 @@ function Model({ scrollY, onLoaded }: { scrollY: number; onLoaded?: () => void }
     onLoaded?.();
     invalidate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scene, invalidate]);
+  }, [group, invalidate]);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
@@ -145,10 +142,10 @@ function Model({ scrollY, onLoaded }: { scrollY: number; onLoaded?: () => void }
 
     groupRef.current.rotation.y = rotY.current;
     groupRef.current.rotation.x = rotX.current;
-    groupRef.current.scale.setScalar(scaleVal.current);
+    groupRef.current.scale.setScalar(baseScale.current * scaleVal.current);
   });
 
-  return <primitive ref={groupRef} object={scene} />;
+  return <primitive ref={groupRef} object={group} />;
 }
 
 function DebugSphere() {
@@ -175,7 +172,6 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
       sectionOffsetRef.current = section.offsetTop + offset;
     }
 
-    // Reportar dimensiones del container
     if (containerRef.current) {
       const r = containerRef.current.getBoundingClientRect();
       console.log("[3D] container:", Math.round(r.width), "x", Math.round(r.height));
