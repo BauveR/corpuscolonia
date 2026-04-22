@@ -203,7 +203,7 @@ export default function NavbarSections({ active, onGo }: Props) {
               onClick={() => setMobileOpen(false)}
             />
             <motion.aside
-              className="fixed left-0 top-0 z-50 h-screen w-[86vw] max-w-[270px] bg-stone-500/50 text-stone-200 shadow-xl p-4"
+              className="fixed left-0 top-0 z-50 h-screen w-[86vw] max-w-[270px] bg-gradient-to-r from-[oklch(40.8%_0.123_38.172/0.8)] to-transparent text-stone-200 shadow-xl p-4"
               initial={{ x: -24, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -24, opacity: 0 }}

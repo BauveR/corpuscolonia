@@ -44,7 +44,7 @@ export function CollaboratorsPage() {
       />
       <NavbarSections active={null} onGo={() => {}} />
 
-      <main className="flex-1 pt-[120px] pb-20 px-6 md:px-16 lg:px-24 max-w-[1680px] mx-auto w-full">
+      <main className="flex-1 pt-[120px] pb-20 px-3 md:px-16 lg:px-24 max-w-[1680px] mx-auto w-full">
         <TypingText
           as="h1"
           className="font-anton text-xl sm:text-2xl md:text-[2rem] lg:text-[2.8rem] text-[#F79A2B] tracking-wide mb-10"
@@ -54,7 +54,7 @@ export function CollaboratorsPage() {
           {t("collaborators.title")}
         </TypingText>
 
-        <GlowingCards containerClassName="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <GlowingCards containerClassName="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           {teamMembers.map((member, i) => (
             <GlowingCard
               key={member.id}
