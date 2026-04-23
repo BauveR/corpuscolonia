@@ -152,7 +152,7 @@ const MetaBalls = ({
     mesh.setParent(scene);
 
     const effectiveBallCount = Math.min(ballCount, 50);
-    const ballParams = [];
+    const ballParams: { st: number; dtFactor: number; baseScale: number; toggle: number; radius: number }[] = [];
     for (let i = 0; i < effectiveBallCount; i++) {
       const idx = i + 1;
       const h1 = hash31(idx);
@@ -172,6 +172,7 @@ const MetaBalls = ({
     let pointerInside = false;
 
     function resize() {
+      if (!container) return;
       const width = container.clientWidth;
       const height = container.clientHeight;
       renderer.setSize(width * dpr, height * dpr);
@@ -184,7 +185,7 @@ const MetaBalls = ({
 
     // Listen on document so pointer-events:none on container doesn't block tracking
     function onPointerMove(e: PointerEvent) {
-      if (!enableMouseInteraction) return;
+      if (!enableMouseInteraction || !container) return;
       const rect = container.getBoundingClientRect();
       const px = e.clientX - rect.left;
       const py = e.clientY - rect.top;
