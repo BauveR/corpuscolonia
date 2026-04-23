@@ -26,7 +26,7 @@ const SparkleNavbar: React.FC<SparkleNavbarProps> = ({
           <button
             key={item.key}
             onClick={() => onItemClick(index)}
-            className="relative tracking-wide text-sm transition-all duration-300 pb-1"
+            className="relative tracking-wide text-sm transition-all duration-300 pb-1 whitespace-nowrap"
             style={{
               color: isActive ? "#ffffff" : "rgb(214 211 209)",
               fontWeight: isActive ? 600 : 400,

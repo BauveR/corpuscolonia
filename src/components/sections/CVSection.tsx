@@ -1,4 +1,5 @@
-import { RefObject, lazy, Suspense } from "react";
+import { RefObject, lazy, Suspense, useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { AnimatedSection } from "../common/AnimatedSection";
 import { ScrollReveal } from "../common/ScrollReveal";
 import { CVGallery } from "../cv/CVGallery";
@@ -14,6 +15,12 @@ type Props = {
 
 export function CVSection({ sectionRef }: Props) {
   const { t } = useTranslation();
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
   return (
     <AnimatedSection
       id="cv"
@@ -77,11 +84,17 @@ export function CVSection({ sectionRef }: Props) {
           </div>
 
           {/* Columna 3D */}
-          <div className="min-h-[300px] sm:min-h-[360px] md:h-[560px] md:self-start">
+          <motion.div
+            className="min-h-[300px] sm:min-h-[360px] md:h-[560px] md:self-start"
+            initial={isMobile ? false : { opacity: 0, x: 500 }}
+            whileInView={isMobile ? undefined : { opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+          >
             <Suspense fallback={null}>
               <ObjViewer3D fill />
             </Suspense>
-          </div>
+          </motion.div>
 
         </div>
 
