@@ -21,7 +21,7 @@ const CONFIG = {
   // Punto que queda en el CENTRO EXACTO del canvas (no mueve el modelo, no rompe la rotación)
   // Y: positivo → modelo baja | negativo → modelo sube
   // X: positivo → modelo va a la izquierda | negativo → modelo va a la derecha
-  cameraLookAtY: 0.28,
+  cameraLookAtY: 0.0,
   cameraLookAtX: 0.09,
 
   // Versión mobile (< 768px) — misma lógica, valores independientes
