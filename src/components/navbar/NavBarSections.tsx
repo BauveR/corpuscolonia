@@ -17,9 +17,10 @@ let globalPending: SectionId | null = null;
 type Props = {
   active: SectionId | null;
   onGo: (id: SectionId) => void;
+  gradientColor?: string;
 };
 
-export default function NavbarSections({ active, onGo }: Props) {
+export default function NavbarSections({ active, onGo, gradientColor }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
   const { t, i18n } = useTranslation();
@@ -30,6 +31,7 @@ export default function NavbarSections({ active, onGo }: Props) {
     { kind: "scroll", id: "documentos", label: t("nav.events") },
     { kind: "scroll", id: "redes", label: t("nav.networks") },
     { kind: "link", href: "/collaborators", label: t("nav.collaborators") },
+    { kind: "link", href: "/3d", label: t("nav.threeD") },
   ];
 
   const toggleLang = () => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es");
@@ -119,10 +121,15 @@ export default function NavbarSections({ active, onGo }: Props) {
       <header
   className={[
     "fixed top-0 left-0 right-0 z-50 transition-colors pb-8",
-    scrolled
-      ? "bg-gradient-to-b from-orange-950/80 via-orange-900/40 to-transparent "
-      : "bg-gradient-to-b from-orange-900/40 via-orange-900/15 to-transparent ",
-  ].join(" ")}
+    !gradientColor && (scrolled
+      ? "bg-gradient-to-b from-orange-950/80 via-orange-900/40 to-transparent"
+      : "bg-gradient-to-b from-orange-900/40 via-orange-900/15 to-transparent"),
+  ].filter(Boolean).join(" ")}
+  style={gradientColor ? {
+    background: scrolled
+      ? `linear-gradient(to bottom, ${gradientColor}cc, ${gradientColor}66, transparent)`
+      : `linear-gradient(to bottom, ${gradientColor}66, ${gradientColor}26, transparent)`
+  } : undefined}
   role="banner"
 >
 

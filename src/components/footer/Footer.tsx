@@ -2,11 +2,12 @@ import { useTranslation } from "react-i18next";
 import leidenLogo from "../../assets/UniversiteitLeidenLogo.png";
 import ullLogo from "../../assets/logo-ull-nuevo-blanco.png";
 
-export const Footer = () => {
+export const Footer = ({ gradientColor }: { gradientColor?: string } = {}) => {
   const { t } = useTranslation();
   return (
     <footer
       className="relative z-40 w-full bg-gradient-to-t from-orange-950 to-transparent"
+      style={gradientColor ? { background: `linear-gradient(to top, ${gradientColor}, transparent)` } : undefined}
       role="contentinfo"
     >
       <div className="w-full max-w-[1632px] mx-auto px-4 md:px-8 pt-6 pb-24 sm:py-30">
