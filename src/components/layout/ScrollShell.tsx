@@ -32,7 +32,7 @@ export function ScrollShell() {
     []
   );
 
-  const [showPortfolio, setShowPortfolio] = useState(false);
+  const [showPortfolio, setShowPortfolio] = useState(true);
 
   // Hooks personalizados para manejar scroll
   const activeSection = useScrollSections({ sectionIds: SECTION_IDS, sectionRefs: refs });
