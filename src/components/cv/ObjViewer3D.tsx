@@ -14,7 +14,7 @@ const CONFIG = {
   offsetY: 0,
 
   // Cámara — posición inicial (lejos) y final (cerca) al hacer scroll
-  cameraZStart: 1.3,
+  cameraZStart: 1.25,
   cameraZEnd: 3,
   cameraY: 1, // altura de la cámara (0 = a nivel del modelo)
 
@@ -26,7 +26,7 @@ const CONFIG = {
 
   // Versión mobile (< 768px) — misma lógica, valores independientes
   mobile: {
-    cameraLookAtY: 0.25,
+    cameraLookAtY: 0.0,
     cameraLookAtX: -0.015,
     scrollStartOffset: 0,
     cameraZStart: 1.2,
