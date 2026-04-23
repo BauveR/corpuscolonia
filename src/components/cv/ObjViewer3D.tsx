@@ -92,21 +92,19 @@ function Model({ scrollY }: { scrollY: number }) {
 
   const rotY = useRef(0);
   const rotX = useRef(CONFIG.initialRotX);
-  const scaleVal = useRef(1);
 
   useEffect(() => {
     if (!scene) return;
+    // Reset antes de calcular bbox para que dev (StrictMode) y prod sean idénticos
+    scene.scale.set(1, 1, 1);
+    scene.position.set(0, 0, 0);
     const box = new THREE.Box3().setFromObject(scene);
     const center = box.getCenter(new THREE.Vector3());
-    const size = box.getSize(new THREE.Vector3());
-    const maxDim = Math.max(size.x, size.y, size.z);
-    const s = CONFIG.modelScale / maxDim;
 
-    scene.scale.setScalar(s);
     scene.position.set(
-      -center.x * s + CONFIG.offsetX,
-      -center.y * s + CONFIG.offsetY,
-      -center.z * s
+      -center.x + CONFIG.offsetX,
+      -center.y + CONFIG.offsetY,
+      -center.z
     );
 
     scene.traverse((child) => {
@@ -128,15 +126,11 @@ function Model({ scrollY }: { scrollY: number }) {
     const targetRotY = -(scrollY / CONFIG.scrollPerRotation) * Math.PI * 2;
     rotY.current = THREE.MathUtils.lerp(rotY.current, targetRotY, 1 - Math.pow(0.015, delta));
 
-    const targetScale = 1 + Math.sin(scrollY * 0.003) * CONFIG.scrollScaleEffect;
-    scaleVal.current = THREE.MathUtils.lerp(scaleVal.current, targetScale, 1 - Math.pow(0.05, delta));
-
     const targetRotX = CONFIG.initialRotX + scrollY * CONFIG.scrollTiltX;
     rotX.current = THREE.MathUtils.lerp(rotX.current, targetRotX, 1 - Math.pow(0.03, delta));
 
     groupRef.current.rotation.y = rotY.current;
     groupRef.current.rotation.x = rotX.current;
-    groupRef.current.scale.setScalar(scaleVal.current);
   });
 
   return <primitive ref={groupRef} object={scene} />;
