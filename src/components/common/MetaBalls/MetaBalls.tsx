@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle, Transform, Vec3, Camera } from 'ogl';
 import './MetaBalls.css';
 
@@ -89,6 +89,7 @@ interface MetaBallsProps {
   clumpFactor?: number;
   speed?: number;
   opacity?: number;
+  style?: React.CSSProperties;
 }
 
 const MetaBalls = ({
@@ -104,6 +105,7 @@ const MetaBalls = ({
   clumpFactor = 1,
   speed = 0.3,
   opacity = 1,
+  style,
 }: MetaBallsProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -240,7 +242,7 @@ const MetaBalls = ({
     };
   }, [color, cursorBallColor, speed, enableMouseInteraction, hoverSmoothness, animationSize, ballCount, clumpFactor, cursorBallSize, enableTransparency]);
 
-  return <div ref={containerRef} className={`metaballs-container${className ? ' ' + className : ''}`} style={{ opacity }} />;
+  return <div ref={containerRef} className={`metaballs-container${className ? ' ' + className : ''}`} style={{ opacity, ...style }} />;
 };
 
 export default MetaBalls;

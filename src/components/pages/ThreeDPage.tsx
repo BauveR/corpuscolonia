@@ -25,7 +25,7 @@ export function ThreeDPage() {
 
   return (
     <div
-      className="flex flex-col h-screen overflow-hidden max-w-full"
+      className="flex flex-col min-h-screen md:h-screen overflow-x-hidden md:overflow-hidden max-w-full"
       style={{ backgroundColor: "#252d3f" }}
     >
       <PageSEO
@@ -41,43 +41,49 @@ export function ThreeDPage() {
       <NavbarSections active="cv" onGo={() => {}} gradientColor="#778ed8" />
 
 
-      {/* Grid ocupa todo el espacio restante */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 min-h-0 relative pt-20">
-        {/* Mandíbula */}
-        <motion.div
-          className="h-[50vh] md:h-full relative z-10"
-          initial={{ opacity: 0, x: "-100vw" }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-        >
-          <Model3DInteractive
-            url={MANDIBULA_URL}
-            normalizedSize={1}
-            config={{
-              cameraZ: 2.5,
-              cameraY: 0.3,
-              cameraFov: 35,
-              autoRotateSpeed: 1.5,
-              initialRotY: 2.3,
-              initialRotX: -8,
-            }}
-          />
-        </motion.div>
+      {/* Wrapper ocupa espacio restante — full width para MetaBalls */}
+      <div className="flex-1 relative min-h-0 pt-20">
 
-        {/* Cráneo */}
-        <motion.div
-          className="h-[50vh] md:h-full relative z-10"
-          initial={{ opacity: 0, x: "100vw" }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-        >
-          <Model3DInteractive
-            url={MODEL_URL}
-            normalizedSize={1}
-            config={{ cameraZ: 2.5, cameraY: 0.5, cameraFov: 35, autoRotateSpeed: 1.5 }}
-          />
-        </motion.div>
-        {/* MetaBalls overlay — pointer-events:none en CSS, mouse tracked via document */}
+        {/* Grid limitado al mismo ancho que las secciones del home */}
+        <div className="grid grid-cols-1 md:grid-cols-2 md:h-full max-w-[1632px] mx-auto w-full px-3 md:px-16 lg:px-24">
+
+          {/* Mandíbula */}
+          <motion.div
+            className="h-[50vh] md:h-full relative z-10"
+            initial={{ opacity: 0, x: "-100vw" }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            <Model3DInteractive
+              url={MANDIBULA_URL}
+              normalizedSize={1}
+              config={{
+                cameraZ: 2.5,
+                cameraY: 0.3,
+                cameraFov: 35,
+                autoRotateSpeed: 1.5,
+                initialRotY: 2.3,
+                initialRotX: -8,
+              }}
+            />
+          </motion.div>
+
+          {/* Cráneo */}
+          <motion.div
+            className="h-[50vh] md:h-full relative z-10"
+            initial={{ opacity: 0, x: "100vw" }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            <Model3DInteractive
+              url={MODEL_URL}
+              normalizedSize={1}
+              config={{ cameraZ: 2.5, cameraY: 0.5, cameraFov: 35, autoRotateSpeed: 1.5 }}
+            />
+          </motion.div>
+        </div>
+
+        {/* MetaBalls — cubre todo el wrapper, pointer-events:none en CSS */}
         <MetaBalls
           color="#cec6ba"
           cursorBallColor="#F79A2B"
@@ -90,6 +96,7 @@ export function ThreeDPage() {
           clumpFactor={1}
           speed={0.3}
           opacity={0.8}
+          style={{ top: "28%" }}
         />
       </div>
 
