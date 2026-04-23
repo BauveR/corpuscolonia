@@ -30,7 +30,7 @@ const CONFIG = {
     cameraLookAtX: -0.015,
     scrollStartOffset: 0,
     cameraZStart: 1.2,
-    cameraZEnd: 2,
+    cameraZEnd: 3,
     cameraY: 1,
   },
 
