@@ -44,6 +44,7 @@ export const Welcome = () => {
   return (
     <section
       className="relative w-full max-w-full h-[100svh] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden isolate bg-black"
+      aria-labelledby="site-heading"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
@@ -55,6 +56,10 @@ export const Welcome = () => {
         transition: 'opacity 1s ease-out, filter 1s ease-out'
       }}
     >
+      <h1 id="site-heading" className="sr-only">
+        Corpus Colonia — CORPUSCOLONIA: Investigación sobre colonialismo corpóreo en el Atlántico
+      </h1>
+
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
