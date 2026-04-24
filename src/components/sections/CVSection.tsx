@@ -15,9 +15,9 @@ type Props = {
 
 export function CVSection({ sectionRef }: Props) {
   const { t } = useTranslation();
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1024);
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
+    const onResize = () => setIsMobile(window.innerWidth < 1024);
     window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -31,7 +31,7 @@ export function CVSection({ sectionRef }: Props) {
       <div className="relative w-full flex flex-col py-8 sm:py-20 bg-transparent gap-[3rem]">
 
         {/* Panel de vidrio — grid responsive: columna texto + columna 3D */}
-        <div className="grid grid-cols-1 md:grid-cols-[55%_45%] md:items-start px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-[1632px] min-w-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] lg:items-start px-3 sm:px-8 rounded-3xl py-10 sm:py-16 bg-slate-900/30 backdrop-blur-2xl shadow-xl shadow-black/20 border border-white/10 ring-1 ring-white/5 mx-auto w-[90%] max-w-[1632px] min-w-0">
 
           {/* Columna izquierda: texto */}
           <div className="flex flex-col justify-center items-center px-4">
@@ -64,7 +64,7 @@ export function CVSection({ sectionRef }: Props) {
                 <img
                   src={figure5}
                   alt="Redes atlánticas de intercambio"
-                  className="w-full rounded-lg mb-3 md:w-auto md:max-h-[280px] md:mx-auto"
+                  className="w-full rounded-lg mb-3 lg:w-auto lg:max-h-[280px] lg:mx-auto"
                   loading="lazy"
                   decoding="async"
                 />
@@ -85,7 +85,7 @@ export function CVSection({ sectionRef }: Props) {
 
           {/* Columna 3D */}
           <motion.div
-            className="min-h-[300px] sm:min-h-[360px] md:h-[560px] md:self-start"
+            className="min-h-[300px] sm:min-h-[420px] lg:h-[560px] lg:self-start"
             initial={isMobile ? false : { opacity: 0, x: 500 }}
             whileInView={isMobile ? undefined : { opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.15 }}

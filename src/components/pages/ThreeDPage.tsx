@@ -18,9 +18,14 @@ export function ThreeDPage() {
   const { i18n } = useTranslation();
   const isEN = i18n.language.startsWith("en");
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [isTablet, setIsTablet] = useState(() => window.innerWidth >= 768 && window.innerWidth < 1024);
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
+    const onResize = () => {
+      const w = window.innerWidth;
+      setIsMobile(w < 768);
+      setIsTablet(w >= 768 && w < 1024);
+    };
     window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -49,14 +54,14 @@ export function ThreeDPage() {
 
 
       {/* Wrapper ocupa espacio restante — full width para MetaBalls */}
-      <div className="flex-1 relative min-h-0 pt-20">
+      <div className="flex-1 relative min-h-0 pt-20 md:pt-44 lg:pt-20">
 
         {/* Grid limitado al mismo ancho que las secciones del home */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:h-full max-w-[1632px] mx-auto w-full px-3 md:px-16 lg:px-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:h-full max-w-[1632px] mx-auto w-full px-3 md:px-10 lg:px-24 md:gap-x-6 lg:gap-x-0">
 
           {/* Mandíbula */}
           <motion.div
-            className="h-[40vh] md:h-full relative z-10"
+            className="h-[40vh] md:h-[42vh] lg:h-full relative z-10"
             initial={{ opacity: 0, x: "-100vw" }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -77,7 +82,7 @@ export function ThreeDPage() {
 
           {/* Cráneo */}
           <motion.div
-            className="h-[40vh] md:h-full relative z-10"
+            className="h-[40vh] md:h-[42vh] lg:h-full relative z-10"
             initial={{ opacity: 0, x: "100vw" }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -103,7 +108,7 @@ export function ThreeDPage() {
           clumpFactor={1}
           speed={0.3}
           opacity={0.8}
-          style={{ top: isMobile ? "8%" : "28%" }}
+          style={{ top: isMobile ? "8%" : isTablet ? "10%" : "28%" }}
         />
       </div>
 

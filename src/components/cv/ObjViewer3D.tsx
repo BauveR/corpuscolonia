@@ -24,6 +24,16 @@ const CONFIG = {
   cameraLookAtY: 0.0,
   cameraLookAtX: 0.09,
 
+  // Versión tablet (768px – 1023px) — misma lógica, valores independientes
+  tablet: {
+    cameraLookAtY: 0.0,   // positivo → baja | negativo → sube
+    cameraLookAtX: -0.0,   // positivo → izquierda | negativo → derecha
+    scrollStartOffset: 0,
+    cameraZStart: 1.25,
+    cameraZEnd: 3,
+    cameraY: 1,
+  },
+
   // Versión mobile (< 768px) — misma lógica, valores independientes
   mobile: {
     cameraLookAtY: 0.0,
@@ -58,17 +68,25 @@ const CONFIG = {
   canvasWidth: 700,
   canvasHeight: 1200,
 };
+
+type ViewportConfig = typeof CONFIG.mobile;
+function getViewportConfig(): ViewportConfig {
+  const w = window.innerWidth;
+  if (w < 768) return CONFIG.mobile;
+  if (w < 1024) return CONFIG.tablet;
+  return CONFIG;
+}
 // ────────────────────────────────────────────────────────────────────────────
 
 const MODEL_URL =
   "https://res.cloudinary.com/dmweipuof/image/upload/v1776865262/modelo_compressed_gxx1rm.glb";
 
-function CameraController({ scrollY, isMobile }: { scrollY: number; isMobile: boolean }) {
+function CameraController({ scrollY, viewCfg }: { scrollY: number; viewCfg: ViewportConfig }) {
   const { camera, invalidate } = useThree();
   const camZ = useRef(CONFIG.cameraZStart);
 
   useFrame((_, delta) => {
-    const cfg = isMobile ? CONFIG.mobile : CONFIG;
+    const cfg = viewCfg;
     const t = Math.min(scrollY / CONFIG.cameraZoomScrollRange, 1);
     const targetZ = THREE.MathUtils.lerp(cfg.cameraZStart, cfg.cameraZEnd, t);
     camZ.current = THREE.MathUtils.lerp(camZ.current, targetZ, 1 - Math.pow(0.02, delta));
@@ -138,7 +156,7 @@ function Model({ scrollY }: { scrollY: number }) {
 
 export default function ObjViewer3D({ width, height, fill }: { width?: number; height?: number; fill?: boolean } = {}) {
   const [scrollY, setScrollY] = useState(0);
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [viewCfg, setViewCfg] = useState<ViewportConfig>(() => getViewportConfig());
   const invalidateRef = useRef<(() => void) | null>(null);
   const sectionOffsetRef = useRef(0);
 
@@ -146,8 +164,7 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
     // Calcular el offset de la sección #cv al montar
     const section = document.getElementById("cv");
     if (section) {
-      const offset = window.innerWidth < 768 ? CONFIG.mobile.scrollStartOffset : CONFIG.scrollStartOffset;
-      sectionOffsetRef.current = section.offsetTop + offset;
+      sectionOffsetRef.current = section.offsetTop + getViewportConfig().scrollStartOffset;
     }
 
     const onScroll = () => {
@@ -155,7 +172,7 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
       setScrollY(relative);
       invalidateRef.current?.();
     };
-    const onResize = () => setIsMobile(window.innerWidth < 768);
+    const onResize = () => setViewCfg(getViewportConfig());
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize, { passive: true });
     return () => {
@@ -182,7 +199,7 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
         <directionalLight position={[-4, -2, 2]} intensity={0.5} color="#d4c4a8" />
         <directionalLight position={[-2, 3, -5]} intensity={0.3} color="#e8ddd0" />
         <Suspense fallback={null}>
-          <CameraController scrollY={scrollY} isMobile={isMobile} />
+          <CameraController scrollY={scrollY} viewCfg={viewCfg} />
           <Model scrollY={scrollY} />
         </Suspense>
       </Canvas>

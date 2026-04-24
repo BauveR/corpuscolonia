@@ -13,7 +13,7 @@ export const Footer = ({ gradientColor }: { gradientColor?: string } = {}) => {
       <div className="w-full max-w-[1632px] mx-auto px-4 md:px-8 pt-6 pb-24 sm:py-30">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Texto */}
-          <div className="flex-1 w-full md:w-auto mr-0 md:mr-60">
+          <div className="flex-1 w-full md:w-auto mr-0 lg:mr-60">
             <p className="text-xs md:text-sm text-stone-200 leading-relaxed text-center md:text-left">
               {t("footer.text")}
             </p>
