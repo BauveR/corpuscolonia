@@ -14,21 +14,60 @@ const MANDIBULA_URL =
   "https://res.cloudinary.com/dmweipuof/image/upload/v1776929777/mandibula_compressed_o7uxrt.glb";
 
 
+// ── Mapa de breakpoints ──────────────────────────────────────────────────────
+// Añade o edita filas para ajustar cada modelo en puntos de píxeles concretos.
+// Los valores se interpolan automáticamente entre breakpoints adyacentes.
+const MANDIBULA_BREAKPOINTS = [
+  { w: 768,  cameraZ: 3.2, cameraY: 0.3, cameraFov: 35, normalizedSize: 1,   initialRotX: -8,  initialRotY: 2.3 },
+  { w: 1280, cameraZ: 3.1, cameraY: 0.3, cameraFov: 35, normalizedSize: 1,   initialRotX: -8,  initialRotY: 2.3 },
+  { w: 1366, cameraZ: 3.2, cameraY: 0.3, cameraFov: 35, normalizedSize: 1,   initialRotX: -8,  initialRotY: 2.3 },
+  { w: 1920, cameraZ: 3.2, cameraY: 0.3, cameraFov: 35, normalizedSize: 1,   initialRotX: -8,  initialRotY: 2.3 },
+];
+
+const CRANEO_BREAKPOINTS = [
+  { w: 768,  cameraZ: 2.9, cameraY: 0.5, cameraFov: 35, normalizedSize: 1 },
+  { w: 1280, cameraZ: 2.9, cameraY: 0.5, cameraFov: 35, normalizedSize: 1 },
+  { w: 1366, cameraZ: 2.9, cameraY: 0.5, cameraFov: 35, normalizedSize: 1 },
+  { w: 1920, cameraZ: 2.9, cameraY: 0.5, cameraFov: 35, normalizedSize: 1 },
+];
+
+type BpEntry = Record<string, number> & { w: number };
+function resolveConfig<T extends BpEntry>(breakpoints: T[], width: number): Omit<T, "w"> {
+  const sorted = [...breakpoints].sort((a, b) => a.w - b.w);
+  if (width <= sorted[0].w) return sorted[0];
+  if (width >= sorted[sorted.length - 1].w) return sorted[sorted.length - 1];
+  const hi = sorted.findIndex((bp) => bp.w >= width);
+  const lo = hi - 1;
+  const t = (width - sorted[lo].w) / (sorted[hi].w - sorted[lo].w);
+  const result: Record<string, number> = {};
+  for (const key of Object.keys(sorted[lo])) {
+    if (key === "w") continue;
+    result[key] = sorted[lo][key] + (sorted[hi][key] - sorted[lo][key]) * t;
+  }
+  return result as Omit<T, "w">;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function ThreeDPage() {
   const { i18n } = useTranslation();
   const isEN = i18n.language.startsWith("en");
+  const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
   const [isTablet, setIsTablet] = useState(() => window.innerWidth >= 768 && window.innerWidth < 1280);
 
   useEffect(() => {
     const onResize = () => {
       const w = window.innerWidth;
+      setWindowWidth(w);
       setIsMobile(w < 768);
       setIsTablet(w >= 768 && w < 1280);
     };
     window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
   }, []);
+
+  const mandibulaCfg = resolveConfig(MANDIBULA_BREAKPOINTS, windowWidth);
+  const craneoCfg    = resolveConfig(CRANEO_BREAKPOINTS,    windowWidth);
 
   useLayoutEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -68,14 +107,14 @@ export function ThreeDPage() {
           >
             <Model3DInteractive
               url={MANDIBULA_URL}
-              normalizedSize={isTablet ? 1 : 1}
+              normalizedSize={mandibulaCfg.normalizedSize}
               config={{
-                cameraZ: isTablet ? 3.2 : 3.2,
-                cameraY: isTablet ? 0.3 : 0.3,
-                cameraFov: isTablet ? 35 : 35,
+                cameraZ: mandibulaCfg.cameraZ,
+                cameraY: mandibulaCfg.cameraY,
+                cameraFov: mandibulaCfg.cameraFov,
                 autoRotateSpeed: 1.5,
-                initialRotY: 2.3,
-                initialRotX: isTablet ? -8 : -8,
+                initialRotY: mandibulaCfg.initialRotY,
+                initialRotX: mandibulaCfg.initialRotX,
               }}
             />
           </motion.div>
@@ -89,11 +128,11 @@ export function ThreeDPage() {
           >
             <Model3DInteractive
               url={MODEL_URL}
-              normalizedSize={isTablet ? 1 : 1}
+              normalizedSize={craneoCfg.normalizedSize}
               config={{
-                cameraZ: isTablet ? 2.9 : 2.9,
-                cameraY: isTablet ? 0.5 : 0.5,
-                cameraFov: isTablet ? 35 : 35,
+                cameraZ: craneoCfg.cameraZ,
+                cameraY: craneoCfg.cameraY,
+                cameraFov: craneoCfg.cameraFov,
                 autoRotateSpeed: 1.5,
               }}
             />

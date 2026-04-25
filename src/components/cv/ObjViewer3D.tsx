@@ -69,14 +69,37 @@ const CONFIG = {
   canvasHeight: 1200,
 };
 
+// ─── Mapa de breakpoints ─────────────────────────────────────────────────────
+// Edita los valores de cada fila para ajustar el modelo en ese ancho exacto.
+// Los valores intermedios se interpolan automáticamente.
+const BREAKPOINTS = [
+  { w: 375,  cameraZStart: 1.35,  cameraZEnd: 3, cameraY: 1, cameraLookAtX: -0.015, cameraLookAtY: 0.0, scrollStartOffset: 0   },
+  { w: 768,  cameraZStart: 1.25, cameraZEnd: 3, cameraY: 1, cameraLookAtX: -0.0,   cameraLookAtY: 0.0, scrollStartOffset: 0   },
+  { w: 1024, cameraZStart: 1.25, cameraZEnd: 3, cameraY: 1, cameraLookAtX: 0.09,   cameraLookAtY: 0.0, scrollStartOffset: -200 },
+  { w: 1366, cameraZStart: 1.25, cameraZEnd: 3, cameraY: 1, cameraLookAtX: 0.00,   cameraLookAtY: 0.0, scrollStartOffset: -200 },
+  { w: 1920, cameraZStart: 1.25, cameraZEnd: 3, cameraY: 1, cameraLookAtX: 0.09,   cameraLookAtY: 0.0, scrollStartOffset: -200 },
+];
+
 type ViewportConfig = typeof CONFIG.mobile;
 function getViewportConfig(): ViewportConfig {
   const w = window.innerWidth;
-  if (w < 768) return CONFIG.mobile;
-  if (w < 1024) return CONFIG.tablet;
-  return CONFIG;
+  const sorted = BREAKPOINTS;
+  if (w <= sorted[0].w) return sorted[0];
+  if (w >= sorted[sorted.length - 1].w) return sorted[sorted.length - 1];
+  const hi = sorted.findIndex((bp) => bp.w >= w);
+  const lo = hi - 1;
+  const t = (w - sorted[lo].w) / (sorted[hi].w - sorted[lo].w);
+  const lerp = (a: number, b: number) => a + (b - a) * t;
+  return {
+    cameraZStart:      lerp(sorted[lo].cameraZStart,      sorted[hi].cameraZStart),
+    cameraZEnd:        lerp(sorted[lo].cameraZEnd,        sorted[hi].cameraZEnd),
+    cameraY:           lerp(sorted[lo].cameraY,           sorted[hi].cameraY),
+    cameraLookAtX:     lerp(sorted[lo].cameraLookAtX,     sorted[hi].cameraLookAtX),
+    cameraLookAtY:     lerp(sorted[lo].cameraLookAtY,     sorted[hi].cameraLookAtY),
+    scrollStartOffset: lerp(sorted[lo].scrollStartOffset, sorted[hi].scrollStartOffset),
+  };
 }
-// ────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
 
 const MODEL_URL =
   "https://res.cloudinary.com/dmweipuof/image/upload/v1776865262/modelo_compressed_gxx1rm.glb";
