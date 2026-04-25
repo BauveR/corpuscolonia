@@ -113,7 +113,7 @@ export function ThreeDPage() {
           clumpFactor={1}
           speed={0.3}
           opacity={0.8}
-          style={{ top: isMobile ? "8%" : isTablet ? "10%" : "28%" }}
+          style={{ top: isMobile ? "8%" : isTablet ? "0%" : "28%" }}
         />
       </div>
 
