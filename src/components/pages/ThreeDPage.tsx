@@ -54,14 +54,14 @@ export function ThreeDPage() {
 
 
       {/* Wrapper ocupa espacio restante — full width para MetaBalls */}
-      <div className="flex-1 relative min-h-0 pt-20 md:pt-28 lg:pt-20">
+      <div className="flex-1 relative min-h-0 pt-20 md:pt-28 md:landscape:pt-16 lg:pt-20">
 
         {/* Grid limitado al mismo ancho que las secciones del home */}
         <div className="grid grid-cols-1 xl:grid-cols-2 xl:h-full max-w-[1632px] mx-auto w-full px-3 md:px-10 lg:px-24 xl:gap-x-0">
 
           {/* Mandíbula */}
           <motion.div
-            className="h-[40vh] md:h-[45vh] xl:h-full relative z-10"
+            className="h-[40vh] md:h-[45vh] md:landscape:h-[65vh] xl:h-full relative z-10"
             initial={{ opacity: 0, x: "-100vw" }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -82,7 +82,7 @@ export function ThreeDPage() {
 
           {/* Cráneo */}
           <motion.div
-            className="h-[40vh] md:h-[45vh] xl:h-full relative z-10"
+            className="h-[40vh] md:h-[45vh] md:landscape:h-[65vh] xl:h-full relative z-10"
             initial={{ opacity: 0, x: "100vw" }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
