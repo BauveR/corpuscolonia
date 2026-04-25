@@ -140,7 +140,7 @@ export default function NavbarSections({ active, onGo, gradientColor }: Props) {
             <div className="flex items-center gap-3">
               {/* Burger */}
               <button
-                className="lg:hidden p-2 rounded-md hover:bg-white/10 text-white"
+                className="xl:hidden p-2 rounded-md hover:bg-white/10 text-white"
                 aria-label="Abrir menú"
                 aria-expanded={mobileOpen}
                 onClick={() => setMobileOpen(true)}
@@ -171,7 +171,7 @@ export default function NavbarSections({ active, onGo, gradientColor }: Props) {
             </div>
 
             {/* RIGHT: Links (desktop) con SparkleNavbar + lang switcher */}
-            <div className="hidden lg:flex items-center justify-end pr-16 gap-4">
+            <div className="hidden xl:flex items-center justify-end pr-16 gap-4">
               <SparkleNavbar
                 items={routes.map((r) => ({
                   label: r.label,
