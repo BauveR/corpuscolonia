@@ -85,7 +85,7 @@ export function CVSection({ sectionRef }: Props) {
 
           {/* Columna 3D */}
           <motion.div
-            className="min-h-[300px] sm:min-h-[420px] lg:h-[560px] lg:self-start"
+            className="min-h-[300px] sm:min-h-[420px] md:h-[520px] lg:h-[560px] lg:self-start"
             initial={isMobile ? false : { opacity: 0, x: 500 }}
             whileInView={isMobile ? undefined : { opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.15 }}

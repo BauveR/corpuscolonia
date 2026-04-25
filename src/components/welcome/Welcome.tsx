@@ -12,16 +12,14 @@ const mobileImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_
 export const Welcome = () => {
   const { t } = useTranslation();
   const [backgroundImage, setBackgroundImage] = useState(desktopImage);
-  const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   useEffect(() => {
     const updateBackground = () => {
-      const mobile = window.innerWidth < 640;
-      setIsDesktop(window.innerWidth >= 1024);
-      if (mobile) {
+      const w = window.innerWidth;
+      if (w < 640) {
         setBackgroundImage(mobileImage);
-      } else if (window.innerWidth < 1024) {
+      } else if (w < 1024) {
         setBackgroundImage(tabletImage);
       } else {
         setBackgroundImage(desktopImage);
@@ -34,10 +32,7 @@ export const Welcome = () => {
   }, []);
 
   useEffect(() => {
-    // Remover el efecto de difuminado después de la carga inicial
-    const timer = setTimeout(() => {
-      setIsInitialLoad(false);
-    }, 100);
+    const timer = setTimeout(() => setIsInitialLoad(false), 100);
     return () => clearTimeout(timer);
   }, []);
 
@@ -45,17 +40,18 @@ export const Welcome = () => {
     <section
       className="relative w-full max-w-full h-[100svh] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden isolate bg-black"
       aria-labelledby="site-heading"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: isDesktop ? 'fixed' : 'scroll',
-        opacity: isInitialLoad ? 0 : 1,
-        filter: isInitialLoad ? 'blur(8px)' : 'blur(0px)',
-        transition: 'opacity 1s ease-out, filter 1s ease-out'
-      }}
     >
+      <img
+        src={backgroundImage}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover object-center"
+        style={{
+          opacity: isInitialLoad ? 0 : 1,
+          filter: isInitialLoad ? 'blur(8px)' : 'blur(0px)',
+          transition: 'opacity 1s ease-out, filter 1s ease-out'
+        }}
+      />
       <h1 id="site-heading" className="sr-only">
         Corpus Colonia — CORPUSCOLONIA: Investigación sobre colonialismo corpóreo en el Atlántico
       </h1>
