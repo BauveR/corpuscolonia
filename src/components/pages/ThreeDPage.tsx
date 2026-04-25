@@ -18,13 +18,13 @@ export function ThreeDPage() {
   const { i18n } = useTranslation();
   const isEN = i18n.language.startsWith("en");
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
-  const [isTablet, setIsTablet] = useState(() => window.innerWidth >= 768 && window.innerWidth < 1024);
+  const [isTablet, setIsTablet] = useState(() => window.innerWidth >= 768 && window.innerWidth < 1280);
 
   useEffect(() => {
     const onResize = () => {
       const w = window.innerWidth;
       setIsMobile(w < 768);
-      setIsTablet(w >= 768 && w < 1024);
+      setIsTablet(w >= 768 && w < 1280);
     };
     window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
@@ -37,7 +37,7 @@ export function ThreeDPage() {
 
   return (
     <div
-      className="flex flex-col min-h-screen md:h-screen overflow-x-hidden md:overflow-hidden max-w-full"
+      className="flex flex-col min-h-screen lg:h-screen overflow-x-hidden lg:overflow-hidden max-w-full"
       style={{ backgroundColor: "#252d3f" }}
     >
       <PageSEO
@@ -54,43 +54,48 @@ export function ThreeDPage() {
 
 
       {/* Wrapper ocupa espacio restante — full width para MetaBalls */}
-      <div className="flex-1 relative min-h-0 pt-20 md:pt-44 lg:pt-20">
+      <div className="flex-1 relative min-h-0 pt-20 md:pt-28 lg:pt-20">
 
         {/* Grid limitado al mismo ancho que las secciones del home */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:h-full max-w-[1632px] mx-auto w-full px-3 md:px-10 lg:px-24 md:gap-x-6 lg:gap-x-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:h-full max-w-[1632px] mx-auto w-full px-3 md:px-10 lg:px-24 md:gap-x-6 lg:gap-x-0">
 
           {/* Mandíbula */}
           <motion.div
-            className="h-[40vh] md:h-[42vh] lg:h-full relative z-10"
+            className="h-[40vh] md:h-[55vh] lg:h-full relative z-10"
             initial={{ opacity: 0, x: "-100vw" }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           >
             <Model3DInteractive
               url={MANDIBULA_URL}
-              normalizedSize={1}
+              normalizedSize={isTablet ? 1 : 1}
               config={{
-                cameraZ: 2.5,
-                cameraY: 0.3,
-                cameraFov: 35,
+                cameraZ: isTablet ? 3.2 : 3.2,
+                cameraY: isTablet ? 0.3 : 0.3,
+                cameraFov: isTablet ? 35 : 35,
                 autoRotateSpeed: 1.5,
                 initialRotY: 2.3,
-                initialRotX: -8,
+                initialRotX: isTablet ? -8 : -8,
               }}
             />
           </motion.div>
 
           {/* Cráneo */}
           <motion.div
-            className="h-[40vh] md:h-[42vh] lg:h-full relative z-10"
+            className="h-[40vh] md:h-[55vh] lg:h-full relative z-10"
             initial={{ opacity: 0, x: "100vw" }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           >
             <Model3DInteractive
               url={MODEL_URL}
-              normalizedSize={1}
-              config={{ cameraZ: 2.5, cameraY: 0.5, cameraFov: 35, autoRotateSpeed: 1.5 }}
+              normalizedSize={isTablet ? 1 : 1}
+              config={{
+                cameraZ: isTablet ? 2.9 : 2.9,
+                cameraY: isTablet ? 0.5 : 0.5,
+                cameraFov: isTablet ? 35 : 35,
+                autoRotateSpeed: 1.5,
+              }}
             />
           </motion.div>
         </div>
