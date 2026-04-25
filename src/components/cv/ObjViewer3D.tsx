@@ -27,7 +27,7 @@ const CONFIG = {
   // Versión tablet (768px – 1023px) — misma lógica, valores independientes
   tablet: {
     cameraLookAtY: 0.0,   // positivo → baja | negativo → sube
-    cameraLookAtX: -0.0,   // positivo → izquierda | negativo → derecha
+    cameraLookAtX: -0.0.,   // positivo → izquierda | negativo → derecha
     scrollStartOffset: 0,
     cameraZStart: 1.25,
     cameraZEnd: 3,

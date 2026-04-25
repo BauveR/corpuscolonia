@@ -12,13 +12,13 @@ const mobileImage = "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_
 export const Welcome = () => {
   const { t } = useTranslation();
   const [backgroundImage, setBackgroundImage] = useState(desktopImage);
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+  const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   useEffect(() => {
     const updateBackground = () => {
       const mobile = window.innerWidth < 640;
-      setIsMobile(mobile);
+      setIsDesktop(window.innerWidth >= 1024);
       if (mobile) {
         setBackgroundImage(mobileImage);
       } else if (window.innerWidth < 1024) {
@@ -50,7 +50,7 @@ export const Welcome = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundAttachment: isMobile ? 'scroll' : 'fixed',
+        backgroundAttachment: isDesktop ? 'fixed' : 'scroll',
         opacity: isInitialLoad ? 0 : 1,
         filter: isInitialLoad ? 'blur(8px)' : 'blur(0px)',
         transition: 'opacity 1s ease-out, filter 1s ease-out'
