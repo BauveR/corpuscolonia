@@ -53,6 +53,15 @@
     "scrollDown": "Scroll down",
     "viewArticle": "View article",
     "copyUrl": "Copy URL",
-    "share": "Share"
+    "share": "Share",
+    "seminar": {
+      "title": "Seminar\nBodies, Work, and Ways of Life in Prehispanic and Colonial Contexts: Archaeological, Bioanthropological, and Historical Perspectives from Mexico and the Modern Atlantic",
+      "description": "This seminar proposes a space for interdisciplinary dialogue around ways of life, forms of labor, and bodily experiences in prehispanic, colonial, and transitional contexts leading into the Novohispanic world. Drawing on archaeological, bioarchaeological, ethnohistorical, and anthropological perspectives, it seeks to reflect on how prehispanic and colonial processes were inscribed on bodies, in everyday practices, and in social relations — attending to both local dynamics and the broader framework of the Atlantic world (16th–18th centuries)."
+    }
+  },
+  "viewer3d": {
+    "dragHint": "Drag to rotate",
+    "scrollHint": "Scroll to explore",
+    "loading": "Loading model…"
   }
 }

@@ -3,6 +3,9 @@ import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import * as THREE from "three";
+import { useTranslation } from "react-i18next";
+import { Model3DLoader } from "./Model3DLoader";
+import { Model3DHint } from "./Model3DHint";
 
 // ─── AJUSTES FÁCILES ────────────────────────────────────────────────────────
 const CONFIG = {
@@ -122,7 +125,7 @@ function CameraController({ scrollY, viewCfg }: { scrollY: number; viewCfg: View
   return null;
 }
 
-function Model({ scrollY }: { scrollY: number }) {
+function Model({ scrollY, onLoaded }: { scrollY: number; onLoaded?: () => void }) {
   const { scene } = useLoader(GLTFLoader, MODEL_URL, (loader) => {
     const draco = new DRACOLoader();
     draco.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
@@ -159,7 +162,8 @@ function Model({ scrollY }: { scrollY: number }) {
     });
 
     invalidate();
-  }, [scene, invalidate]);
+    onLoaded?.();
+  }, [scene, invalidate, onLoaded]);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
@@ -180,8 +184,10 @@ function Model({ scrollY }: { scrollY: number }) {
 export default function ObjViewer3D({ width, height, fill }: { width?: number; height?: number; fill?: boolean } = {}) {
   const [scrollY, setScrollY] = useState(0);
   const [viewCfg, setViewCfg] = useState<ViewportConfig>(() => getViewportConfig());
+  const [loaded, setLoaded] = useState(false);
   const invalidateRef = useRef<(() => void) | null>(null);
   const sectionOffsetRef = useRef(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Calcular el offset de la sección #cv al montar
@@ -221,11 +227,12 @@ export default function ObjViewer3D({ width, height, fill }: { width?: number; h
         <directionalLight position={[6, 5, 3]} intensity={2.2} color="#fff4e0" />
         <directionalLight position={[-4, -2, 2]} intensity={0.5} color="#d4c4a8" />
         <directionalLight position={[-2, 3, -5]} intensity={0.3} color="#e8ddd0" />
-        <Suspense fallback={null}>
+        <Suspense fallback={<Model3DLoader />}>
           <CameraController scrollY={scrollY} viewCfg={viewCfg} />
-          <Model scrollY={scrollY} />
+          <Model scrollY={scrollY} onLoaded={() => setLoaded(true)} />
         </Suspense>
       </Canvas>
+      <Model3DHint label={t("viewer3d.scrollHint")} loaded={loaded} dismissTrigger={scrollY > 0} />
     </div>
   );
 }

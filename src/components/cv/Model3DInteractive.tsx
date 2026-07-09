@@ -1,9 +1,12 @@
-import { useRef, useEffect, Suspense, Component, ReactNode } from "react";
+import { useRef, useEffect, useState, Suspense, Component, ReactNode } from "react";
 import { Canvas, useLoader, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import * as THREE from "three";
+import { useTranslation } from "react-i18next";
+import { Model3DLoader } from "./Model3DLoader";
+import { Model3DHint } from "./Model3DHint";
 
 export type ModelConfig = {
   cameraZ?: number;
@@ -58,12 +61,14 @@ function Model({
   initialRotX,
   initialRotY,
   color,
+  onLoaded,
 }: {
   url: string;
   normalizedSize: number;
   initialRotX: number;
   initialRotY: number;
   color: string;
+  onLoaded?: () => void;
 }) {
   const { scene } = useLoader(GLTFLoader, url, (loader) => {
     const draco = new DRACOLoader();
@@ -103,7 +108,8 @@ function Model({
     });
 
     invalidate();
-  }, [scene, invalidate, normalizedSize]);
+    onLoaded?.();
+  }, [scene, invalidate, normalizedSize, onLoaded]);
 
   useEffect(() => {
     if (!groupRef.current) return;
@@ -129,9 +135,16 @@ export function Model3DInteractive({
 }) {
   const cfg = { ...DEFAULTS, ...config };
   const invalidateRef = useRef<(() => void) | null>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [interacted, setInteracted] = useState(false);
+  const { t } = useTranslation();
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div
+      style={{ width: "100%", height: "100%", position: "relative" }}
+      onPointerDown={() => setInteracted(true)}
+      onTouchStart={() => setInteracted(true)}
+    >
       <Canvas
         frameloop="demand"
         camera={{ position: [0, cfg.cameraY, cfg.cameraZ], fov: cfg.cameraFov, near: 0.1, far: 100 }}
@@ -145,7 +158,7 @@ export function Model3DInteractive({
         <directionalLight position={[-4, -2, 2]} intensity={cfg.fillIntensity} color={cfg.fillColor} />
         <directionalLight position={[-2, 3, -5]} intensity={cfg.backIntensity} color={cfg.backColor} />
         <ErrorBoundary>
-          <Suspense fallback={null}>
+          <Suspense fallback={<Model3DLoader />}>
             <OrbitControls
               autoRotate={cfg.autoRotate}
               autoRotateSpeed={cfg.autoRotateSpeed}
@@ -162,10 +175,12 @@ export function Model3DInteractive({
               initialRotX={cfg.initialRotX}
               initialRotY={cfg.initialRotY}
               color={cfg.color}
+              onLoaded={() => setLoaded(true)}
             />
           </Suspense>
         </ErrorBoundary>
       </Canvas>
+      <Model3DHint label={t("viewer3d.dragHint")} loaded={loaded} dismissTrigger={interacted} />
     </div>
   );
 }

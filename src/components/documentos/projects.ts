@@ -1,9 +1,11 @@
 // src/data/projects.ts
 export type ProjectItem = {
     src: string;          // ruta relativa en src/assets
-    text: string;         // título corto
-    longDescription: string; // descripción larga para el detalle
+    text: string;         // título corto (fallback si no hay textKey)
+    longDescription: string; // descripción larga para el detalle (fallback si no hay longDescriptionKey)
     downloadUrl?: string; // URL de descarga (opcional)
+    textKey?: string;             // clave i18n para el título (sobreescribe text según idioma)
+    longDescriptionKey?: string;  // clave i18n para la descripción (sobreescribe longDescription según idioma)
   };
   
   export const projects: ProjectItem[] = [
@@ -115,6 +117,15 @@ export type ProjectItem = {
       longDescription:
         "Research project\nVisual design\nConceptual art\nCritical theory",
       downloadUrl: "https://res.cloudinary.com/dmweipuof/image/upload/v1771878194/Copy_-_Colonial_biopolitics_-_Leiden_compressed_lgbsnx.pdf"
+    },
+    {
+      src: "https://res.cloudinary.com/dmweipuof/image/upload/f_auto,q_auto/v1783601912/pdf_Cuerpos_trabajo_y_modos_de_vida_r3p3er.png",
+      text: "Seminario\nCuerpos, trabajo y modos de vida en contextos prehispánicos y coloniales: miradas arqueológicas, bioantropológicas e históricas desde México y el Atlántico Moderno",
+      longDescription:
+        "Este seminario propone un espacio de diálogo interdisciplinar en torno a los modos de vida, la forma de trabajo y las experiencias corporales en contextos prehispánicos, coloniales y de transición al mundo novohispano. A partir de perspectivas arqueológicas, bioarqueológicas, etnohistóricas y antropológicas, se busca reflexionar sobre cómo los procesos prehispánicos y coloniales se inscribieron en los cuerpos, en las prácticas cotidianas y en las relaciones sociales, atendiendo tanto a dinámicas locales como a marcos más amplios del mundo Atlántico (Siglos XVI-XVIII).",
+      downloadUrl: "https://res.cloudinary.com/dmweipuof/image/upload/v1783602206/pdf_Cuerpos_trabajo_y_modos_de_vida_tfqkuu.pdf",
+      textKey: "documents.seminar.title",
+      longDescriptionKey: "documents.seminar.description"
     }
   ];
   

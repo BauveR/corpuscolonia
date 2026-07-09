@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { projects, ProjectItem } from "../components/documentos/projects";
 import { useAssetMap } from "./useAssetMap";
 import { resolveAssetUrl } from "../utils/assetResolver";
@@ -13,6 +14,7 @@ export type ValidProject = ProjectItem & {
  */
 export function useValidProjects(): ValidProject[] {
   const urlMap = useAssetMap();
+  const { t, i18n } = useTranslation();
 
   return useMemo(() => {
     const validProjects: ValidProject[] = [];
@@ -22,6 +24,8 @@ export function useValidProjects(): ValidProject[] {
       if (resolvedImage) {
         validProjects.push({
           ...project,
+          text: project.textKey ? t(project.textKey) : project.text,
+          longDescription: project.longDescriptionKey ? t(project.longDescriptionKey) : project.longDescription,
           index,
           resolvedImage,
         });
@@ -31,5 +35,5 @@ export function useValidProjects(): ValidProject[] {
     });
 
     return validProjects;
-  }, [urlMap]);
+  }, [urlMap, i18n.language, t]);
 }
