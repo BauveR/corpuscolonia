@@ -89,7 +89,7 @@ export function ThreeDPage() {
         canonicalPath="/3d"
         lang={isEN ? "en" : "es"}
       />
-      <NavbarSections active="cv" onGo={() => {}} gradientColor="#778ed8" />
+      <NavbarSections active={null} onGo={() => {}} gradientColor="#778ed8" />
 
 
       {/* Wrapper ocupa espacio restante — full width para MetaBalls */}

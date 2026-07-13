@@ -46,7 +46,7 @@ export default function NavbarSections({ active, onGo, gradientColor }: Props) {
     setPendingSection(s);
   };
 
-  const isOnMainPage = location.pathname === "/" || location.pathname.startsWith("/cv") || location.pathname.startsWith("/documentos");
+  const isOnMainPage = location.pathname === "/" || location.pathname.startsWith("/cv") || location.pathname.startsWith("/documentos") || location.pathname.startsWith("/redes");
 
   // Libera el pending en cuanto el scroll listener confirma la sección destino
   useEffect(() => {
