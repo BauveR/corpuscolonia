@@ -19,7 +19,7 @@ const MANDIBULA_URL =
 // Los valores se interpolan automáticamente entre breakpoints adyacentes.
 const MANDIBULA_BREAKPOINTS = [
   { w: 768,  cameraZ: 3.2, cameraY: 0.3, cameraFov: 35, normalizedSize: 1,   initialRotX: -8,  initialRotY: 2.3 },
-  { w: 1280, cameraZ: 3.1, cameraY: 0.3, cameraFov: 35, normalizedSize: 1,   initialRotX: -8,  initialRotY: 2.3 },
+  { w: 1280, cameraZ: 3.2, cameraY: 0.3, cameraFov: 35, normalizedSize: 1,   initialRotX: -8,  initialRotY: 2.3 },
   { w: 1366, cameraZ: 3.2, cameraY: 0.3, cameraFov: 35, normalizedSize: 1,   initialRotX: -8,  initialRotY: 2.3 },
   { w: 1920, cameraZ: 3.2, cameraY: 0.3, cameraFov: 35, normalizedSize: 1,   initialRotX: -8,  initialRotY: 2.3 },
 ];

@@ -1,15 +1,18 @@
 import { useRef, useEffect, useState } from "react";
 import type { TouchEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { DocumentosCard } from "./DocumentosCard";
 import { useValidProjects } from "../../hooks/useValidProjects";
 
 export const DocumentosCarousel = () => {
+  const { i18n } = useTranslation();
+  const isEN = i18n.language.startsWith("en");
   const validProjects = useValidProjects();
   const items = validProjects.map((project, i) => ({
     id: String(i),
     index: i,
-    name: project.text,
-    description: project.longDescription,
+    name: isEN && project.textEn ? project.textEn : project.text,
+    description: isEN && project.longDescriptionEn ? project.longDescriptionEn : project.longDescription,
     primaryImage: project.resolvedImage!,
     downloadUrl: project.downloadUrl,
   }));

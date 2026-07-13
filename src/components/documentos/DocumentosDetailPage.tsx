@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useValidProjects } from "../../hooks/useValidProjects";
 import GlassFolder from "../common/GlassFolder";
+import { PageSEO } from "../seo/PageSEO";
 
 type DocumentosItemState = {
   index: number;
@@ -19,6 +21,8 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const validProjects = useValidProjects();
+  const { i18n } = useTranslation();
+  const isEN = i18n.language.startsWith("en");
 
   const itemFromState = state as DocumentosItemState | undefined;
 
@@ -33,6 +37,8 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
   // Usar el índice del state, o defaultear a 0 si no existe
   const currentIndex = itemFromState?.index ?? 0;
   const project = validProjects[currentIndex];
+  const localizedName = isEN && project?.textEn ? project.textEn : project?.text;
+  const localizedDescription = isEN && project?.longDescriptionEn ? project.longDescriptionEn : project?.longDescription;
 
   // Si no hay state, usar el primer proyecto
   const resolvedDownload = itemFromState?.downloadUrl
@@ -42,8 +48,8 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
 
   const data: DocumentosItemState = {
     index: currentIndex,
-    name: itemFromState?.name ?? project?.text ?? "Proyecto",
-    description: itemFromState?.description ?? project?.longDescription,
+    name: itemFromState?.name ?? localizedName ?? "Proyecto",
+    description: itemFromState?.description ?? localizedDescription,
     primaryImage: itemFromState?.primaryImage ?? project?.resolvedImage ?? "",
     downloadUrl: resolvedDownload,
   };
@@ -54,9 +60,9 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
     navigate(`/documentos/${prevIndex}`, {
       state: {
         index: prevIndex,
-        name: prevProject?.text,
+        name: isEN && prevProject?.textEn ? prevProject.textEn : prevProject?.text,
         primaryImage: prevProject?.resolvedImage,
-        description: prevProject?.longDescription,
+        description: isEN && prevProject?.longDescriptionEn ? prevProject.longDescriptionEn : prevProject?.longDescription,
       },
     });
   };
@@ -67,15 +73,24 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
     navigate(`/documentos/${nextIndex}`, {
       state: {
         index: nextIndex,
-        name: nextProject?.text,
+        name: isEN && nextProject?.textEn ? nextProject.textEn : nextProject?.text,
         primaryImage: nextProject?.resolvedImage,
-        description: nextProject?.longDescription,
+        description: isEN && nextProject?.longDescriptionEn ? nextProject.longDescriptionEn : nextProject?.longDescription,
       },
     });
   };
 
   return (
     <main className="relative mx-auto max-w-[1550px] px-4 sm:px-8 md:px-12 lg:px-16 pt-8 pb-12">
+      {data.name && (
+        <PageSEO
+          title={`${data.name} — CORPUSCOLONIA`}
+          description={(data.description ?? "").slice(0, 300)}
+          canonicalPath={`/documentos/${currentIndex}`}
+          ogImage={data.primaryImage}
+          lang={isEN ? "en" : "es"}
+        />
+      )}
       <button
         type="button"
         onClick={handleClose}
