@@ -94,7 +94,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
       <button
         type="button"
         onClick={handleClose}
-        className="absolute top-4 right-4 sm:top-6 sm:right-6 p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-50 text-stone-200 hover:text-white"
+        className="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-50 text-stone-200 hover:text-white"
         aria-label="Cerrar"
       >
         <svg width="14" height="14" className="sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="1.5">
@@ -105,7 +105,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
       <button
         type="button"
         onClick={goPrev}
-        className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-4 md:left-6 p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-20 text-stone-200 hover:text-white"
+        className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-4 md:left-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-20 text-stone-200 hover:text-white"
         aria-label="Anterior"
       >
         <svg width="14" height="14" className="sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="1.5">
@@ -116,7 +116,7 @@ export const DocumentosDetailPage = ({ onClose }: Props) => {
       <button
         type="button"
         onClick={goNext}
-        className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-4 md:right-6 p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-20 text-stone-200 hover:text-white"
+        className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-4 md:right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-200 z-20 text-stone-200 hover:text-white"
         aria-label="Siguiente"
       >
         <svg width="14" height="14" className="sm:w-4 sm:h-4" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="1.5">

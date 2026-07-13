@@ -30,7 +30,7 @@ export function PortfolioSection({ sectionRef, showPortfolio, onViewportEnter }:
     >
       <div className="w-full max-w-[1632px] mx-auto flex flex-col lg:flex-row gap-8 px-4 sm:px-8 pt-2 pb-8">
         {/* Columna izquierda: Galería del portafolio */}
-        <div className="w-full lg:w-[57%]">
+        <div className="w-full lg:w-[57%] lg:pt-20">
           {showPortfolio ? <DocumentosCarousel /> : <PortfolioSkeleton />}
         </div>
 
